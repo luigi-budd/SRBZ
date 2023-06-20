@@ -8,11 +8,23 @@ customhud.SetupFont("STCFC", -1, 4);
 
 local testhud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
-	customhud.CustomFontString(v, 160, 100, player.name, "STCFC", nil, "center", nil, player.skincolor) --(V_SNAPTOBOTTOM)
+	customhud.CustomFontString(v, 0, 190, player.name, "STCFC", (V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor) --
 end
 
 addHook("MapLoad", function()
-	
+	if gametype == GT_SRBZ
+		customhud.disable("score")
+		customhud.disable("time")
+		customhud.disable("lives")
+		customhud.disable("teamscores")
+		customhud.disable("rings")
+	else 
+		customhud.enable("score")
+		customhud.enable("time")
+		customhud.enable("lives")
+		customhud.enable("teamscores")
+		customhud.enable("rings")
+	end
 end)
 
 
