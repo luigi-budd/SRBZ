@@ -1,13 +1,10 @@
-Level ZZ
+Level C0
 Levelname = Test Map
 Subtitle = SRBZ
 Act = 0
 Music = GFZ2
-TypeOfLevel = ZESCAPE
+TypeOfLevel = SRBZ
 NextLevel = ZZ
 SkyNum = 1
 NoZone = True
 SelectHeading = SRBZ Maps
-LevelSelect = 0
-Lua.PlayerCountName = EGYPTIANS
-Lua.SurvWinMus = EGWIN

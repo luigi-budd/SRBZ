@@ -1,6 +1,6 @@
 rawset(_G, "SRBZ", {})
 rawset(_G, "XSLINGER", {})
-freeslot("TOL_ZESCAPE")
+freeslot("TOL_SRBZ")
 SRBZ.survivaltime = (60*10)*TICRATE
 SRBZ.swarmtime = (60*5)*TICRATE
 SRBZ.onwinscreen = false
@@ -10,7 +10,7 @@ G_AddGametype({
 	name = "ZombieMode",
 	identifier = "srbz",
 	typeoflevel = TOL_SRBZ,
-	rules = GTR_RINGSLINGER|GTR_TEAMS|GTR_HURTMESSAGES|GTR_TIMELIMIT|GTR_ALLOWEXIT|GTR_RESPAWNDELAY|GTR_SPAWNENEMIES|GTR_CUTSCENES|GTR_TEAMFLAGS,
+	rules = GTR_HURTMESSAGES|GTR_TIMELIMIT|GTR_ALLOWEXIT|GTR_RESPAWNDELAY|GTR_SPAWNENEMIES|GTR_CUTSCENES,
 	intermissiontype = int_teammatch,
 	headerleftcolor = 152,
 	headerrightcolor = 40,
