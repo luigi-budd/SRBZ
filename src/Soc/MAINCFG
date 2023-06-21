@@ -8,3 +8,15 @@ NextLevel = ZZ
 SkyNum = 1
 NoZone = True
 SelectHeading = SRBZ Maps
+
+Level J0
+Levelname = Stonewood Legacy
+Subtitle = SRBZ
+Act = 0
+Music = SWZEM
+TypeOfLevel = SRBZ
+NextLevel = ZZ
+SkyNum = 11
+Weather = 1
+NoZone = True
+SelectHeading = SRBZ Maps
