@@ -20,3 +20,14 @@ SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
+
+Level J1
+Levelname = Egypt Legacy
+Subtitle = SRBZ
+Act = 0
+Music = EGZEM
+TypeOfLevel = SRBZ
+NextLevel = ZZ
+SkyNum = 15
+NoZone = True
+SelectHeading = SRBZ Maps
