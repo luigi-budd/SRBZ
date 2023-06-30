@@ -1,1 +1,1 @@
-addHook("PreThinkFrame", SRBZ.charselectmenu)
+addHook("PreThinkFrame", SRBZ.charselectlogic)

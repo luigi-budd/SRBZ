@@ -1,6 +1,9 @@
-dofile "libraries/customhudlib.lua"
-
 dofile "init/declare.lua"
+
+dofile "libraries/customhudlib.lua"
+dofile "libraries/getcharacterlist.lua"
+
+dofile "main/characterselect_logic.lua"
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
