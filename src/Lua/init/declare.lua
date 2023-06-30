@@ -1,5 +1,7 @@
 rawset(_G, "SRBZ", {})
 rawset(_G, "XSLINGER", {})
+rawset(_G, "srbz_modname", "srbz");
+
 freeslot("TOL_SRBZ")
 SRBZ.survivaltime = (60*10)*TICRATE
 SRBZ.swarmtime = (60*5)*TICRATE
