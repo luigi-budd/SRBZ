@@ -26,6 +26,7 @@ SRBZ.characterselecthud = function(v, player, c)
     if not pmo then 
         return
     end
+
     local cursorpatch = v.cachePatch("CURWEAP")
 	local barpatch = v.cachePatch("DABARR")
     local skincount = #SRBZ.getSkinNums(player,true)
@@ -40,7 +41,14 @@ SRBZ.characterselecthud = function(v, player, c)
 	--Icons
     for i,skinname in ipairs(SRBZ.getSkinNames(player,true)) do
         local sel = player.selection
-        local x = (( (157) + (i*25) - (sel*25)  ) * FRACUNIT) -- +13 is the offset
+		local x
+		if player.selection_anim ~= nil and player.prevselection then
+			local ese = ease.outexpo(FixedDiv(player.selection_anim*FRACUNIT, ((TICRATE/2)*FRACUNIT)), 
+			 (player.prevselection*25)*FRACUNIT, (player.selection*25)*FRACUNIT)
+			x = (( (157) + (i*25) ) * FRACUNIT) - (ese) --(sel*25)*FRACUNIT
+		else
+			x = (( (157) + (i*25) ) * FRACUNIT) - ((sel*25)*FRACUNIT) 
+		end
 		--- (skincount*25)
         local y = 20*FRACUNIT
 		+ 16*FRACUNIT -- the extra 16 fracunit is the offset
@@ -50,6 +58,8 @@ SRBZ.characterselecthud = function(v, player, c)
         local flags = V_SNAPTOTOP
 		local colormap = v.getColormap(skinname, skins[SRBZ.getSkinNums(player,true)[i]].prefcolor)
         v.drawScaled(x, y, scale, skinpatch, flags, colormap)
+		
+		--
     end
 
 	--Selection Square
@@ -69,5 +79,7 @@ SRBZ.characterselecthud = function(v, player, c)
 	local the_color = skins[SRBZ.getSkinNames(player, true)[player.selection]].prefcolor
 	local the_name = skins[SRBZ.getSkinNames(player, true)[player.selection]].realname
 	customhud.CustomFontString(v, 160*FRACUNIT, 0, the_name, "STCFC", (V_SNAPTOTOP), "center" , 2*FRACUNIT, the_color )
-
+	if leveltime > SRBZ.charselect_waittime then
+		customhud.CustomFontString(v, 160*FRACUNIT, 160*FRACUNIT, "Press FORWARD to continue.", "STCFC", (V_SNAPTOTOP), "center" , FRACUNIT, SKINCOLOR_GREY)
+	end
 end
