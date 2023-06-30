@@ -12,6 +12,7 @@ SRBZ.charselectlogic = function()
 				buttons = 0
 				player.choosing = false
 				player.chosecharacter = true
+				
 				if R_SkinUsable(player, selection_name) then
 					R_SetPlayerSkin(player, selection_name)
 				else
@@ -19,6 +20,7 @@ SRBZ.charselectlogic = function()
 					
 				end
 				
+				player.mo.health = 4
 				S_StartSound(nil, sfx_strpst, player)
 			end
 			
