@@ -1,2 +1,2 @@
 addHook("PreThinkFrame", SRBZ.charselectlogic)
-addHook("MobjSpawn", SRBZ.initvalues, MT_PLAYER)
+addHook("MobjThinker", SRBZ.nerfchars, MT_PLAYER)
