@@ -42,7 +42,7 @@ SRBZ.characterselecthud = function(v, player, c)
 	
 	--Icons
     for i,skinname in ipairs(SRBZ.getSkinNames(player,true)) do
-        local sel = player.selection
+        local sel = player.selection or 1
 		local x
 		if player.selection_anim ~= nil and player.prevselection then
 			local ese = ease.outexpo(FixedDiv(player.selection_anim*FRACUNIT, ((TICRATE/2)*FRACUNIT)), 
