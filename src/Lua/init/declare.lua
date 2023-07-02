@@ -9,7 +9,7 @@ SRBZ.onwinscreen = false
 SRBZ.wintics = 0 -- How many tics after a win screen. Resets on mapload.
 
 G_AddGametype({
-	name = "SRBZ",
+	name = "SRBZ Survival",
 	identifier = "srbz",
 	typeoflevel = TOL_SRBZ,
 	rules = GTR_HURTMESSAGES|GTR_TIMELIMIT|GTR_ALLOWEXIT|GTR_RESPAWNDELAY|GTR_SPAWNENEMIES|GTR_CUTSCENES,

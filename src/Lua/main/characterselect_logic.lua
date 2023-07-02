@@ -1,6 +1,7 @@
 SRBZ.charselect_waittime = TICRATE*3
 
 SRBZ.charselectlogic = function()
+	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
 		if player.mo and player.mo.valid then
 			
@@ -20,8 +21,7 @@ SRBZ.charselectlogic = function()
 				if R_SkinUsable(player, selection_name) then
 					R_SetPlayerSkin(player, selection_name)
 				else
-					R_SetPlayerSkin(player, "sonic")
-					
+					R_SetPlayerSkin(player, "sonic")	
 				end
 				
 				player.mo.health = 4

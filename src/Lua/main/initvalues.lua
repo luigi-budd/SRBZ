@@ -1,4 +1,5 @@
 SRBZ.nerfchars = function(mobj)
+	if gametype ~= GT_SRBZ and leveltime then return end
 	local player = mobj.player
 	
 	player.pflags = $ & ~PF_DIRECTIONCHAR

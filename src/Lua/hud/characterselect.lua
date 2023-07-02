@@ -22,6 +22,8 @@ addHook("MapLoad", function()
 end)
 
 SRBZ.characterselecthud = function(v, player, c)
+
+	if gametype ~= GT_SRBZ then return end
     local pmo = player.mo 
     if not pmo then 
         return
