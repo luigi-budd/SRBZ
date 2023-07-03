@@ -1,6 +1,6 @@
 addHook("PreThinkFrame", SRBZ.charselectlogic)
 
-addHook("MobjThinker", SRBZ.nerfchars, MT_PLAYER)
+addHook("PlayerSpawn", SRBZ.playerfunc)
 
 addHook("MobjDeath", SRBZ.HitMegaHP, MT_MEGAHP)
 

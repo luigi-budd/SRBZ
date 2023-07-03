@@ -1,20 +1,36 @@
-SRBZ.nerfchars = function(mobj)
+SRBZ.playerfunc = function(player)
 	if gametype ~= GT_SRBZ and leveltime then return end
-	local player = mobj.player
-	
-	player.pflags = $ & ~PF_DIRECTIONCHAR
-	if player.charability2 then
-		player.charability2 = 0
-	end
-	if player.mo.skin == "sonic" then
-		if player.charability ~= CA_JUMPTHOK then
-			player.charability = CA_JUMPTHOK
+	local pmo = player.mo
+	local cc = SRBZ.CharacterConfg
+	if player and player.mo.valid then
+		player.pflags = $ & ~PF_DIRECTIONCHAR
+
+		
+		player.normalspeed = cc[pmo.skin].normalspeed or cc["default"].normalspeed
+		pmo.health = cc[pmo.skin].health or cc["default"].health
+		pmo.maxhealth = cc[pmo.skin].maxhealth or cc["default"].maxhealth
+		player.charability = cc[pmo.skin].charability or cc["default"].charability
+		player.jumpfactor = cc[pmo.skin].jumpfactor or cc["default"].jumpfactor
+		
+		if cc[pmo.skin] and cc[pmo.skin].actionspd then
+			player.actionspd = cc[pmo.skin].actionspd
 		end
-		
-		
-		player.actionspd = 9 * FRACUNIT
 	end
-	player.jumpfactor = 17 * FRACUNIT / 19
 end
 
 --58637.4736842/65536
+
+
+/*
+SRBZ.CharacterConfg
+SRBZ.AddConfig("sonic", {
+	normalspeed = 22 * FRACUNIT,
+	sprintspeed = 29 * FRACUNIT,
+	health = 80,
+	maxhealth = 80,
+	charability = CA_JUMPTHOK,
+	charability2 = CA2_NONE,
+	jumpfactor = 17 * FRACUNIT / 19,
+	actionspd = 9*FRACUNIT,
+})
+*/
