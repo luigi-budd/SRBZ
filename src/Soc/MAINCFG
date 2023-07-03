@@ -15,30 +15,30 @@ Subtitle = SRBZ
 Act = 0
 Music = GFZ2
 TypeOfLevel = SRBZ
-NextLevel = ZZ
+NextLevel = C0
 SkyNum = 1
 NoZone = True
 SelectHeading = SRBZ Maps
 
 Level J0
-Levelname = Stonewood Legacy
-Subtitle = SRBZ
+Levelname = Stonewood
+Subtitle = A very dark town.
 Act = 0
 Music = SWZEM
 TypeOfLevel = SRBZ
-NextLevel = ZZ
+NextLevel = J0
 SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
 
 Level J1
-Levelname = Egypt Legacy
-Subtitle = SRBZ
+Levelname = Egypt
+Subtitle = No mummies in sight.
 Act = 0
 Music = EGZEM
 TypeOfLevel = SRBZ
-NextLevel = ZZ
+NextLevel = J1
 SkyNum = 15
 NoZone = True
 SelectHeading = SRBZ Maps
