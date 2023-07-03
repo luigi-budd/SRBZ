@@ -54,6 +54,7 @@ SRBZ.characterselecthud = function(v, player, c)
 	--Selection Square
     do
         local skincount = #SRBZ.getSkinNums(player,true)
+		
         local x = ( (145) ) * FRACUNIT --- skincount*25
         local y = 20*FRACUNIT
 
@@ -68,7 +69,10 @@ SRBZ.characterselecthud = function(v, player, c)
 	local the_color = skins[SRBZ.getSkinNames(player, true)[player.selection]].prefcolor
 	local the_name = skins[SRBZ.getSkinNames(player, true)[player.selection]].realname
 	customhud.CustomFontString(v, 160*FRACUNIT, 0, the_name, "STCFC", (V_SNAPTOTOP), "center" , 2*FRACUNIT, the_color )
-	if leveltime > SRBZ.charselect_waittime then
-		customhud.CustomFontString(v, 160*FRACUNIT, 50*FRACUNIT, "Press FORWARD to continue.", "STCFC", (V_SNAPTOTOP), "center" , FRACUNIT, SKINCOLOR_GREY)
+	if leveltime > SRBZ.charselect_waittime	then
+		local x = 160
+		local y = 50
+		local text = "Press FORWARD to continue."
+		customhud.CustomFontString(v,x,y,text, "STCFC", (V_SNAPTOTOP|V_TRANSLUCENT), "center" , nil, SKINCOLOR_GREY)
 	end
 end

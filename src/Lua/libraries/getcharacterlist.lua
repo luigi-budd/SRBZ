@@ -1,4 +1,4 @@
-SRBZ.blacklisted_characters = {} -- blacklisted characters from showing
+SRBZ.blacklisted_characters = {"zzombie"} -- blacklisted characters from showing
 
 
 SRBZ.getSkinNames = function(player, getunlockables, timesrepeated)
