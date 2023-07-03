@@ -8,6 +8,7 @@ dofile "main/initvalues.lua"
 dofile "main/characterselect_logic.lua"
 dofile "main/megahp.lua"
 dofile "main/giveplayerflags.lua"
+dofile "main/healthncombat.lua"
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"

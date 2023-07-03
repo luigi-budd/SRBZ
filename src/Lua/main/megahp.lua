@@ -23,6 +23,9 @@ states[S_MEGAHP] = {
 
 
 
-SRBZ.HitMegaHP = function(target, inflictor)
-	print("yes")
+SRBZ.HitMegaHP = function(special, toucher)
+	if toucher and toucher.valid then
+		toucher.maxhealth = $ + 60
+		toucher.health = toucher.maxhealth
+	end
 end

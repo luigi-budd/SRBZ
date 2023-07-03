@@ -14,11 +14,13 @@ SRBZ.SetCCtoplayer = function(player)
 		else
 			pmo.health = cc["default"].health
 		end
+		
 		if cc[pmo.skin].maxhealth
 			pmo.maxhealth = cc[pmo.skin].maxhealth 
 		else
 			pmo.maxhealth = cc["default"].maxhealth 
 		end
+		
 		if cc[pmo.skin].charability
 			player.charability = cc[pmo.skin].charability
 		else
@@ -78,7 +80,7 @@ SRBZ.AddConfig("tails", {
 	charability = CA_FLY,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
-	actionspd = 10*FRACUNIT,
+	actionspd = 35*FRACUNIT,
 })
 
 SRBZ.AddConfig("knuckles", {
