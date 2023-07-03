@@ -1,3 +1,14 @@
+MainCfg
+GameData = SRBZ.dat
+
+# Unlock the funny unlockables
+
+Unlockable 2
+
+Unlockable 3
+
+Unlockable 23
+
 Level C0
 Levelname = Test Map
 Subtitle = SRBZ
