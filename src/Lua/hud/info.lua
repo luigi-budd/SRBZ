@@ -5,10 +5,8 @@ SRBZ.infohud = function(v, player)
 	
 	local colormap = v.getColormap(skinname, player.mo.color)
 	
-	v.drawScaled(0, 176*FRACUNIT, FixedDiv(3*FRACUNIT, 4*FRACUNIT),
-	skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
-	
 	local health = player.mo.health
+	local maxhealth = player.mo.maxhealth
 
 	/* Unused health bar for health point type system.
 	for i=1,health do
@@ -19,17 +17,23 @@ SRBZ.infohud = function(v, player)
 		end
 	end
 	*/
+	if player.chosecharacter or not player.choosing then
+		-- [Player Icon] --
 	
-	-- [Player Icon] --
-	customhud.CustomFontString(v, 24, 192, 
-	skins[player.mo.skin].realname, "STCFC", 
-	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
-	
-	-- [Rings] --
-	customhud.CustomFontString(v, 24, 184, "Rings: "..player.rings, "STCFC", 
-	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_YELLOW)
-	
-	-- [Health] --
-	customhud.CustomFontString(v, 24, 176, "120/120 (100%)", "STCFC", 
-	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
+		v.drawScaled(0, 176*FRACUNIT, FixedDiv(3*FRACUNIT, 4*FRACUNIT),
+		skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
+		-- [Player Name] --
+		customhud.CustomFontString(v, 24, 192, 
+		skins[player.mo.skin].realname, "STCFC", 
+		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
+		
+		-- [Rings] --
+		customhud.CustomFontString(v, 24, 184, "Rings: "..player.rings, "STCFC", 
+		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_YELLOW)
+		
+		-- [Health] --
+		local healthstring = "+ "..health.."/"..maxhealth
+		customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 
+		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
+	end
 end

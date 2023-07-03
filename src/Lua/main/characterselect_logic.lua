@@ -24,7 +24,7 @@ SRBZ.charselectlogic = function()
 					R_SetPlayerSkin(player, "sonic")	
 				end
 				
-				player.mo.health = 4
+				SRBZ.SetCCtoplayer(player)
 				S_StartSound(nil, sfx_strpst, player)
 			end
 			
