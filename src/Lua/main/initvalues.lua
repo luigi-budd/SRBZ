@@ -17,4 +17,5 @@ SRBZ.nerfchars = function(mobj)
 	player.jumpfactor = 17 * FRACUNIT / 19
 end
 
+
 --58637.4736842/65536

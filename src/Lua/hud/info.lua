@@ -10,6 +10,7 @@ SRBZ.infohud = function(v, player)
 	
 	local health = player.mo.health
 
+	/* Unused health bar for health point type system.
 	for i=1,health do
 		if i > 1 then
 			v.drawStretched( (12*FRACUNIT)+ (12*FRACUNIT)*i, 176*FRACUNIT, FRACUNIT*1, FRACUNIT*3, hppatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT))
@@ -17,11 +18,18 @@ SRBZ.infohud = function(v, player)
 			v.drawStretched( (24*FRACUNIT), 176*FRACUNIT, FRACUNIT*1, FRACUNIT*3, hppatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT))
 		end
 	end
+	*/
 	
+	-- [Player Icon] --
 	customhud.CustomFontString(v, 24, 192, 
 	skins[player.mo.skin].realname, "STCFC", 
 	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
 	
-	customhud.CustomFontString(v, 24, 184, "Rubies: 10", "STCFC", 
-	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_CRIMSON)
+	-- [Rings] --
+	customhud.CustomFontString(v, 24, 184, "Rings: "..player.rings, "STCFC", 
+	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_YELLOW)
+	
+	-- [Health] --
+	customhud.CustomFontString(v, 24, 176, "120/120 (100%)", "STCFC", 
+	(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
 end

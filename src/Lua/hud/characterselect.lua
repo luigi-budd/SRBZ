@@ -1,18 +1,5 @@
-local iconscale = CV_RegisterVar({
-	name = "iconscale" ,
-	defaultvalue = "1.25",
-	flags = CV_FLOAT|CV_HIDDEN, 
-	PossibleValue = CV_Natural,
-})
-
-local sel_iconscale = CV_RegisterVar({
-	name = "sel_iconscale" ,
-	defaultvalue = "1.25",
-	flags = CV_FLOAT|CV_HIDDEN,
-	PossibleValue = CV_Natural,
-})
-
 local round_active = false
+local hud_icon_scale = FU+(FU/4)
 
 addHook("MapLoad", function()
 	for player in players.iterate do
@@ -54,7 +41,7 @@ SRBZ.characterselecthud = function(v, player, c)
 		--- (skincount*25)
         local y = 20*FRACUNIT
 		+ 16*FRACUNIT -- the extra 16 fracunit is the offset
-        local scale = iconscale.value
+        local scale = hud_icon_scale
         local skinpatch = v.getSprite2Patch(skinname, SPR2_LIFE)
         
         local flags = V_SNAPTOTOP
@@ -70,7 +57,7 @@ SRBZ.characterselecthud = function(v, player, c)
         local x = ( (145) ) * FRACUNIT --- skincount*25
         local y = 20*FRACUNIT
 
-        local scale = sel_iconscale.value
+        local scale = hud_icon_scale
         
         local flags = V_SNAPTOTOP
 
@@ -82,6 +69,6 @@ SRBZ.characterselecthud = function(v, player, c)
 	local the_name = skins[SRBZ.getSkinNames(player, true)[player.selection]].realname
 	customhud.CustomFontString(v, 160*FRACUNIT, 0, the_name, "STCFC", (V_SNAPTOTOP), "center" , 2*FRACUNIT, the_color )
 	if leveltime > SRBZ.charselect_waittime then
-		customhud.CustomFontString(v, 160*FRACUNIT, 160*FRACUNIT, "Press FORWARD to continue.", "STCFC", (V_SNAPTOTOP), "center" , FRACUNIT, SKINCOLOR_GREY)
+		customhud.CustomFontString(v, 160*FRACUNIT, 50*FRACUNIT, "Press FORWARD to continue.", "STCFC", (V_SNAPTOTOP), "center" , FRACUNIT, SKINCOLOR_GREY)
 	end
 end
