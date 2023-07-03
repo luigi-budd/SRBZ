@@ -1,7 +1,7 @@
 SRBZ.playerfunc = function(player)
 	if gametype ~= GT_SRBZ and leveltime then return end
 	local pmo = player.mo
-	local cc = SRBZ.CharacterConfg
+	local cc = SRBZ.CharacterConfig
 	if player and player.mo.valid then
 		player.pflags = $ & ~PF_DIRECTIONCHAR
 
