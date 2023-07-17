@@ -2,7 +2,7 @@
 
 ::--------------------------------------------------------------------------
 set "name=ZCL_SRBZ"
-set "version=1-beta"
+set "version=alpha1"
 
 set /A "delump=0"
 
@@ -12,7 +12,7 @@ set /A "verbose=1"
 set /A "e=0"
 SET "root=%~dp0"
 
-set "pk3=%name%-v%version%.pk3"
+set "pk3=%name%-%version%.pk3"
 
 :: call :sub >pk3_output.log
 :: exit /b
