@@ -9,18 +9,6 @@ SRBZ.SetCCtoplayer = function(player)
 			player.normalspeed = cc["default"].normalspeed
 		end
 		
-		if cc[pmo.skin].health
-			pmo.health = cc[pmo.skin].health
-		else
-			pmo.health = cc["default"].health
-		end
-		
-		if cc[pmo.skin].maxhealth
-			pmo.maxhealth = cc[pmo.skin].maxhealth 
-		else
-			pmo.maxhealth = cc["default"].maxhealth 
-		end
-		
 		if cc[pmo.skin].charability
 			player.charability = cc[pmo.skin].charability
 		else
@@ -42,6 +30,23 @@ SRBZ.SetCCtoplayer = function(player)
 		if cc[pmo.skin].actionspd then
 			player.actionspd = cc[pmo.skin].actionspd
 		end
+	end
+end
+
+SRBZ.SetCChealth = function(player)
+	local pmo = player.mo
+	local cc = SRBZ.CharacterConfig
+	
+	if cc[pmo.skin].health
+		pmo.health = cc[pmo.skin].health
+	else
+		pmo.health = cc["default"].health
+	end
+	
+	if cc[pmo.skin].maxhealth
+		pmo.maxhealth = cc[pmo.skin].maxhealth 
+	else
+		pmo.maxhealth = cc["default"].maxhealth 
 	end
 end
 

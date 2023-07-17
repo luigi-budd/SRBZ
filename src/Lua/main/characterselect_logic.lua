@@ -25,6 +25,7 @@ SRBZ.charselectlogic = function()
 				end
 				
 				SRBZ.SetCCtoplayer(player)
+				SRBZ.SetCChealth(player)
 				S_StartSound(nil, sfx_strpst, player)
 			end
 			

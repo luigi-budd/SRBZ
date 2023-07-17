@@ -4,5 +4,6 @@ SRBZ.playerfunc = function(player)
 	
 	if player and player.mo.valid then
 		SRBZ.SetCCtoplayer(player)
+		SRBZ.SetCChealth(player)
 	end
 end
