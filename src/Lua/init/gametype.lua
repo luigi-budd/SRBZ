@@ -20,6 +20,7 @@ end)
 SRBZ.survival_time = (60*10)*TICRATE;
 SRBZ.swarm_time = (60*5)*TICRATE;
 SRBZ.wait_time = 12*TICRATE;
+
 SRBZ.init_gamevars = function() -- Variables vary per game.
 	SRBZ.round_active = false;
 	SRBZ.onwinscreen = false;
@@ -61,7 +62,8 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 		local speed1 = FixedHypot(FixedHypot(tmthing.momx, tmthing.momy), tmthing.momz)
 		local speed2 = FixedHypot(FixedHypot(thing.momx, thing.momy), thing.momz)
 		
-		if speed1 > speed2 and not tmthing.player.powers[pw_flashing] then
+		if speed1 > speed2 and tmthing.player and tmthing.player.valid
+		and not tmthing.player.powers[pw_flashing] then
 			P_DamageMobj(thing, tmthing, nil, 10)
 		end
 	end

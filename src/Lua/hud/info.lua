@@ -8,16 +8,7 @@ SRBZ.infohud = function(v, player)
 	
 	local health = player.mo.health
 	local maxhealth = player.mo.maxhealth
-
-	/* Unused health bar for health point type system.
-	for i=1,health do
-		if i > 1 then
-			v.drawStretched( (12*FRACUNIT)+ (12*FRACUNIT)*i, 176*FRACUNIT, FRACUNIT*1, FRACUNIT*3, hppatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT))
-		else
-			v.drawStretched( (24*FRACUNIT), 176*FRACUNIT, FRACUNIT*1, FRACUNIT*3, hppatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT))
-		end
-	end
-	*/
+	
 	if player.chosecharacter or not player.choosing then
 		-- [Player Icon] --
 	
