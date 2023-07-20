@@ -15,6 +15,7 @@ SRBZ.LimitMobjHealth = function(mobj)
 end
 
 addHook("MobjDamage", function(mo, inf, src, dmg)
+	if (gametype ~= GT_SRBZ) return end
 	if dmg >= mo.health then
 		P_KillMobj(mo)
 		return true
@@ -32,6 +33,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 end, MT_PLAYER)
 
 addHook("MobjMoveCollide", function(thing,tmthing)
+	if (gametype ~= GT_SRBZ) return end
 	if L_ZCollide(thing,tmthing) then
 		local speed1 = FixedHypot(FixedHypot(tmthing.momx, tmthing.momy), tmthing.momz)
 		local speed2 = FixedHypot(FixedHypot(thing.momx, thing.momy), thing.momz)
