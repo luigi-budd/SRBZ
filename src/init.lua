@@ -13,6 +13,7 @@ dofile "main/characterselect_logic.lua"
 dofile "main/megahp.lua"
 dofile "main/giveplayerflags.lua"
 dofile "main/healthncombat.lua"
+dofile "main/lockplayerattributes.lua" -- keep player as zombie if team 2 and vice versa
 dofile "main/timers.lua"
 dofile "main/name_tags.lua"
 
