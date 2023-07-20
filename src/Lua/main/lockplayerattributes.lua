@@ -9,5 +9,11 @@ addHook("PlayerThink", function(player)
 			R_SetPlayerSkin(player, "sonic")
 			player.mo.color = player.skincolor
 		end
+		
+		if player.zteam == 2 and player.mo.color ~= SKINCOLOR_MOSS then
+			player.mo.color = SKINCOLOR_MOSS
+		end
+		
+		
 	end
 end)
