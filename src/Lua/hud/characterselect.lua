@@ -13,7 +13,8 @@ SRBZ.getCharacterSelection = function(player)
 end
 
 SRBZ.characterselecthud = function(v, player, c)
-
+	if SRBZ.round_active then return end 
+	
 	if gametype ~= GT_SRBZ then return end
     local pmo = player.mo 
     if not pmo then 

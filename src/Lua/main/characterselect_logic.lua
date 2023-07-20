@@ -19,7 +19,8 @@ SRBZ.charselectlogic = function()
 	for player in players.iterate do
 		if player.mo and player.mo.valid then
 			
-		
+			if SRBZ.round_active then return end 
+			
 			local cmd = player.cmd
 			local buttons = cmd.buttons
 			local left = cmd.sidemove < -40

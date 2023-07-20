@@ -36,16 +36,20 @@ end
 SRBZ.SetCChealth = function(player)
 	local pmo = player.mo
 	local cc = SRBZ.CharacterConfig
-	
-	if cc[pmo.skin].health
-		pmo.health = cc[pmo.skin].health
+	if cc[pmo.skin] then
+		if cc[pmo.skin].health
+			pmo.health = cc[pmo.skin].health
+		else
+			pmo.health = cc["default"].health
+		end
+		
+		if cc[pmo.skin].maxhealth
+			pmo.maxhealth = cc[pmo.skin].maxhealth 
+		else
+			pmo.maxhealth = cc["default"].maxhealth 
+		end
 	else
 		pmo.health = cc["default"].health
-	end
-	
-	if cc[pmo.skin].maxhealth
-		pmo.maxhealth = cc[pmo.skin].maxhealth 
-	else
 		pmo.maxhealth = cc["default"].maxhealth 
 	end
 end

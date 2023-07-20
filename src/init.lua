@@ -1,12 +1,14 @@
 dofile "init/gametype.lua"
 
 dofile "libraries/customhudlib.lua"
+dofile "libraries/countingplayers.lua"
 dofile "libraries/getcharacterlist.lua"
 dofile "libraries/mtimeconv.lua"
 
 dofile "main/netvars.lua"
 dofile "main/characterconfigs.lua"
 dofile "main/initvalues.lua"
+dofile "main/init_team.lua"
 dofile "main/characterselect_logic.lua"
 dofile "main/megahp.lua"
 dofile "main/giveplayerflags.lua"
