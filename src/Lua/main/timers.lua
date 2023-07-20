@@ -13,6 +13,8 @@ SRBZ.GameLogic_Timers = function()
 				local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
 				
 				SRBZ.pickcharinselect(player,selection_name) -- get tf out of character select
+				
+				
 			end
 		end
 		

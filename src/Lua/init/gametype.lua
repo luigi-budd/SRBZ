@@ -27,6 +27,10 @@ SRBZ.init_gamevars = function() -- Variables vary per game.
 	SRBZ.onwinscreen = false;
 	SRBZ.wintics = 0; -- How many tics after a win screen. Resets on mapload.
 	SRBZ.game_time = 0;
+	
+	for player in players.iterate do
+		player.zteam = 1;
+	end
 end; SRBZ.init_gamevars();
 
 
