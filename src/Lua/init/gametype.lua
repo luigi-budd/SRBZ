@@ -6,6 +6,7 @@ rawset(_G, "XSLINGER", {});
 */
 
 freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_pa2")
+freeslot("sfx_rstart", "sfx_secret", "sfx_cleva1")
 rawset(_G, "srbz_modname", "srbz"); -- For customhud.
 
 
@@ -25,7 +26,12 @@ SRBZ.init_gamevars = function() -- Variables vary per game.
 	SRBZ.round_active = false;
 	SRBZ.onwinscreen = false;
 	SRBZ.wintics = 0; -- How many tics after a win screen. Resets on mapload.
-end;SRBZ.init_gamevars()
+	SRBZ.game_time = 0;
+end; SRBZ.init_gamevars();
+
+
+
+
 
 SRBZ.teams = {"Survivors", "Zombies"}
 
@@ -68,3 +74,4 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 		end
 	end
 end)
+

@@ -6,6 +6,8 @@ addHook("TouchSpecial", SRBZ.HitMegaHP, MT_MEGAHP)
 
 addHook("PlayerThink", SRBZ.giveplayerflags)
 
+addHook("ThinkFrame", SRBZ.GameLogic_Timers)
+
 addHook("MobjThinker", SRBZ.LimitMobjHealth)
 
 addHook("MapLoad", do

@@ -1,4 +1,18 @@
 SRBZ.charselect_waittime = TICRATE*3
+SRBZ.pickcharinselect = function(player, skinname)
+	player.choosing = false
+	player.chosecharacter = true
+	
+	if R_SkinUsable(player, skinname) then
+		R_SetPlayerSkin(player, skinname)
+	else
+		R_SetPlayerSkin(player, "sonic")	
+	end
+	
+	SRBZ.SetCCtoplayer(player)
+	SRBZ.SetCChealth(player)
+	S_StartSound(nil, sfx_strpst, player)
+end
 
 SRBZ.charselectlogic = function()
 	if gametype ~= GT_SRBZ then return end
@@ -15,32 +29,21 @@ SRBZ.charselectlogic = function()
 			
 			if (cmd.forwardmove > 40) and player.choosing and not player.chosecharacter 
 			and leveltime > SRBZ.charselect_waittime then
-				player.choosing = false
-				player.chosecharacter = true
-				
-				if R_SkinUsable(player, selection_name) then
-					R_SetPlayerSkin(player, selection_name)
-				else
-					R_SetPlayerSkin(player, "sonic")	
-				end
-				
-				SRBZ.SetCCtoplayer(player)
-				SRBZ.SetCChealth(player)
-				S_StartSound(nil, sfx_strpst, player)
+				SRBZ.pickcharinselect(player,selection_name)
 			end
 			
-			if round_active then
+			if SRBZ.round_active then
 				player.choosing = false
 				player.chosecharacter = true
 			end
 			
-			if not round_active and not player.choosing and not player.chosecharacter then -- Where's your stats?
+			if not SRBZ.round_active and not player.choosing and not player.chosecharacter then -- Where's your stats?
 				player.choosing = true
 				player.chosecharacter = false
 				player.selection = 1		
 				player.prevselection = 1
 				player.selection_anim = (TICRATE/2) + 1 
-			elseif not round_active and player.choosing and not player.chosecharacter then -- Stay Still while you're choosing and have not chosen
+			elseif not SRBZ.round_active and player.choosing and not player.chosecharacter then -- Stay Still while you're choosing and have not chosen
 				player.pflags = $|PF_FULLSTASIS
 			
 				buttons = 0
