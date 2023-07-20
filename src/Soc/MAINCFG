@@ -42,3 +42,15 @@ NextLevel = J1
 SkyNum = 15
 NoZone = True
 SelectHeading = SRBZ Maps
+
+Level N0
+Levelname = Ancient Catacombs
+Subtitle = Lost in the creepy catacombs
+Act = 0
+Music = ACZEM
+TypeOfLevel = SRBZ
+NextLevel = N0
+SkyNum = 11
+Weather = 1
+NoZone = True
+SelectHeading = SRBZ Maps
