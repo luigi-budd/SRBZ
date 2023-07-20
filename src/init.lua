@@ -12,6 +12,7 @@ dofile "main/megahp.lua"
 dofile "main/giveplayerflags.lua"
 dofile "main/healthncombat.lua"
 dofile "main/timers.lua"
+dofile "main/name_tags.lua"
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
