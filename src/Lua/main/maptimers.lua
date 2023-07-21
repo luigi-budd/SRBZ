@@ -2,7 +2,7 @@
 --Code by LeonardoTheMutant
 --
 --Functions:
---	SRBZ.AddMapTimer(name, mapID, time, active) - Create timer with the name [name] for map [mapID] (not extended map num!) that will work [time] ticks and is [active] on level startup
+--  SRBZ.AddMapTimer(name, mapID, time, active) - Create timer with the name [name] for map [mapID] (not extended map num!) that will work [time] ticks and is [active] on level startup
 --  SRBZ.ToggleMapTimer(name) - toggle the state of the timer
 --  SRBZ.ResetMapTimer(name) - Reset the timer to the original time value
 --
