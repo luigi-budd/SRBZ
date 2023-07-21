@@ -16,6 +16,7 @@ dofile "main/healthncombat.lua"
 dofile "main/lockplayerattributes.lua" -- keep player as zombie if team 2 and vice versa
 dofile "main/timers.lua"
 dofile "main/name_tags.lua"
+dofile "main/maptimers.lua"
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
