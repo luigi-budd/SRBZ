@@ -3,7 +3,7 @@ freeslot("S_POSS_PAIN","S_POSS_PAIN2","S_SPOS_PAIN","S_SPOS_PAIN2")
 states[S_POSS_PAIN] = {
 	sprite = SPR_POSS,
 	frame = A,
-	tics = 15,
+	tics = 6,
 	action = A_PlaySound,
 	var1 = sfx_dmpain,
 	var2 = 1,
@@ -22,7 +22,7 @@ states[S_POSS_PAIN2] = {
 states[S_SPOS_PAIN] = {
 	sprite = SPR_SPOS,
 	frame = A,
-	tics = 10,
+	tics = 4,
 	action = A_PlaySound,
 	var1 = sfx_dmpain,
 	var2 = 1,
