@@ -21,26 +21,32 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			return true
 		end
 	end
-	if dmg >= mo.health then
-		P_KillMobj(mo)
-		return true
-	end
+
 
 	if mo.player then
 		mo.player.powers[pw_flashing] = 35
 		P_FlashPal(mo.player, PAL_NUKE, 2)
 		S_StartSound(mo, sfx_s3kb9)
+		mo.health = $ - dmg
 	elseif mobjinfo[mo.type].npc_name
+		--print(mobjinfo[mo.type].npc_name)
+		P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), 20*FRACUNIT)
+		return
 		--S_StartSound(mo, sfx_dmpain)
 	end
 	
+	
+	if dmg >= mo.health then
+		P_KillMobj(mo)
+		return true
+	end
 	--sfx_dmpain
 	--local speed1 = FixedHypot(FixedHypot(inf.momx, inf.momy), inf.momz)
 	--P_SetObjectMomZ(mo, 5*FRACUNIT)
 	--P_Thrust(mo, inf.angle, speed1*5)
-	mo.health = $ - dmg
+	
 	return true
-end, MT_PLAYER)
+end)
 
 addHook("MobjMoveCollide", function(thing,tmthing)
 	if (gametype ~= GT_SRBZ) return end
@@ -78,7 +84,9 @@ addHook("PreThinkFrame", function()
 		
 		if (cmd.buttons & BT_ATTACK) then
 			local ring = P_SpawnPlayerMissile(player.mo, MT_REDRING, nil)
-			ring.color = SKINCOLOR_RED
+			if ring then
+				ring.color = SKINCOLOR_RED
+			end
 		end
 	end
 end)
