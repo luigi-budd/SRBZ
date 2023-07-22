@@ -3,7 +3,10 @@ freeslot("S_POSS_PAIN","S_POSS_PAIN2","S_SPOS_PAIN","S_SPOS_PAIN2")
 states[S_POSS_PAIN] = {
 	sprite = SPR_POSS,
 	frame = A,
-	tics = 24,
+	tics = 15,
+	action = A_PlaySound,
+	var1 = sfx_dmpain,
+	var2 = 1,
 	nextstate = S_POSS_PAIN2
 }
 
@@ -19,7 +22,10 @@ states[S_POSS_PAIN2] = {
 states[S_SPOS_PAIN] = {
 	sprite = SPR_SPOS,
 	frame = A,
-	tics = 15,
+	tics = 10,
+	action = A_PlaySound,
+	var1 = sfx_dmpain,
+	var2 = 1,
 	nextstate = S_SPOS_PAIN2
 }
 
@@ -47,6 +53,7 @@ mobjinfo[MT_BLUECRAWLA].npc_name = "Blue Crawla"
 mobjinfo[MT_BLUECRAWLA].min_spawnhealth = 2
 mobjinfo[MT_BLUECRAWLA].max_spawnhealth = 7
 mobjinfo[MT_BLUECRAWLA].painstate = S_POSS_PAIN
+--
 --S_POSS_PAIN2
 
 

@@ -25,12 +25,17 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		P_KillMobj(mo)
 		return true
 	end
-	mo.player.powers[pw_flashing] = 35
-	P_FlashPal(mo.player, PAL_NUKE, 2)
+
 	if mo.player then
+		mo.player.powers[pw_flashing] = 35
+		P_FlashPal(mo.player, PAL_NUKE, 2)
 		S_StartSound(mo, sfx_s3kb9)
+	elseif mobjinfo[mo.type].npc_name
+		--S_StartSound(mo, sfx_dmpain)
 	end
-	local speed1 = FixedHypot(FixedHypot(inf.momx, inf.momy), inf.momz)
+	
+	--sfx_dmpain
+	--local speed1 = FixedHypot(FixedHypot(inf.momx, inf.momy), inf.momz)
 	--P_SetObjectMomZ(mo, 5*FRACUNIT)
 	--P_Thrust(mo, inf.angle, speed1*5)
 	mo.health = $ - dmg
@@ -61,6 +66,19 @@ addHook("MobjSpawn", function(mobj)
 			mobj.maxhealth = mobj.health
 		else
 			mobj.maxhealth = mobj.health
+		end
+	end
+end)
+
+
+addHook("PreThinkFrame", function()
+	if gametype ~= GT_SRBZ then return end
+	for player in players.iterate do
+		local cmd = player.cmd
+		
+		if (cmd.buttons & BT_ATTACK) then
+			local ring = P_SpawnPlayerMissile(player.mo, MT_REDRING, nil)
+			ring.color = SKINCOLOR_RED
 		end
 	end
 end)
