@@ -51,6 +51,7 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 end)
 
 addHook("MobjSpawn", function(mobj)
+	if gametype ~= GT_SRBZ then return end
 	if mobjinfo[mobj.type].npc_name then
 		if mobjinfo[mobj.type].min_spawnhealth and mobjinfo[mobj.type].max_spawnhealth 
 		and type(mobjinfo[mobj.type].min_spawnhealth) == "number" 
