@@ -208,24 +208,36 @@ end, "game")
 
 addHook("PostThinkFrame", function()
 	sorted_players = {}
+	local range = 1024*FRACUNIT
+	local dplay
+	if (displayplayer and displayplayer.valid and 
+	displayplayer.mo and displayplayer.mo.valid) then
+		dplay = displayplayer
+	end
+	
 	local function drawThink()
-		for player in players.iterate() do
-			if player and player.valid and player.mo and player.mo.valid then
-				if displayplayer and displayplayer.realmo and displayplayer.realmo.valid
-					local cam = displayplayer.realmo
-					if consoleplayer_camera and consoleplayer_camera.chase
-						cam = consoleplayer_camera
-					end
-					local thok = P_SpawnMobj(cam.x, cam.y, cam.z, MT_NULL)
-					local sight = P_CheckSight(thok, player.mo)
-					P_RemoveMobj(thok)
-					if not sight -- if not sight
-						continue
-					end
+		searchBlockmap("objects", function(refmobj,foundmobj)
+			if foundmobj and foundmobj.valid and dplay then
+				if not foundmobj.player then
+					return
 				end
-				table.insert(sorted_players, player)
+				
+				print(foundmobj.player.name)
+				
+				local cam = dplay.realmo
+				if consoleplayer_camera and consoleplayer_camera.chase
+					cam = consoleplayer_camera
+				end
+				local thok = P_SpawnMobj(cam.x, cam.y, cam.z, MT_NULL)
+				local sight = P_CheckSight(thok, foundmobj)
+				P_RemoveMobj(thok)
+				if not sight -- if not sight
+					return
+				end
+				
+				table.insert(sorted_players, foundmobj.player)
 			end
-		end
+		end,dplay.mo,dplay.mo.x-range,dplay.mo.x+range,dplay.mo.y-range,dplay.mo.y+range)
 		
 		table.sort(sorted_players, function(a, b)
 			return R_PointToDist(a.mo.x, a.mo.y) > R_PointToDist(b.mo.x, b.mo.y)
