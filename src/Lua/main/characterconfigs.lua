@@ -112,3 +112,18 @@ SRBZ.AddConfig("metalsonic", {
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
 })
+
+SRBZ.RevertChars = function(p)
+	if not p.realmo then return end
+	local s = p.realmo.skin
+	p.charability=skins[s].ability
+	p.charability2=skins[s].ability2
+	p.actionspd=skins[s].actionspd
+	p.charflags=skins[s].flags
+	p.actionspd=skins[s].actionspd
+	p.normalspeed=skins[s].normalspeed
+	p.runspeed=skins[s].runspeed
+	p.jumpfactor=skins[s].jumpfactor
+	p.mindash=skins[s].mindash
+	p.maxdash=skins[s].maxdash
+end
