@@ -49,3 +49,17 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 		end
 	end
 end)
+
+addHook("MobjSpawn", function(mobj)
+	if mobjinfo[mobj.type].npc_name then
+		if mobjinfo[mobj.type].min_spawnhealth and mobjinfo[mobj.type].max_spawnhealth 
+		and type(mobjinfo[mobj.type].min_spawnhealth) == "number" 
+		and type(mobjinfo[mobj.type].max_spawnhealth) == "number" then
+			local rng_health = P_RandomRange(mobjinfo[mobj.type].min_spawnhealth,mobjinfo[mobj.type].max_spawnhealth)
+			mobj.health = rng_health
+			mobj.maxhealth = mobj.health
+		else
+			mobj.maxhealth = mobj.health
+		end
+	end
+end)

@@ -3,19 +3,19 @@ SRBZ.SetCCtoplayer = function(player)
 	local cc = SRBZ.CharacterConfig
 	
 	if cc[pmo.skin] then
-		if cc[pmo.skin].normalspeed player.normalspeed = cc[pmo.skin].normalspeed
+		if cc[pmo.skin].normalspeed then player.normalspeed = cc[pmo.skin].normalspeed
 		else player.normalspeed = cc["default"].normalspeed end
 		
-		if (cc[pmo.skin].charability) player.charability = cc[pmo.skin].charability
+		if (cc[pmo.skin].charability) then player.charability = cc[pmo.skin].charability
 		else player.charability = cc["default"].charability end
 		
-		if (cc[pmo.skin].charability2) player.charability2 = cc[pmo.skin].charability2
+		if (cc[pmo.skin].charability2) then player.charability2 = cc[pmo.skin].charability2
 		else player.charability2 = cc["default"].charability2 end
 		
-		if (cc[pmo.skin].jumpfactor) player.jumpfactor = cc[pmo.skin].jumpfactor
+		if (cc[pmo.skin].jumpfactor) then player.jumpfactor = cc[pmo.skin].jumpfactor
 		else player.jumpfactor = cc["default"].jumpfactor end
 		
-		if (cc[pmo.skin].actionspd) player.actionspd = cc[pmo.skin].actionspd end
+		if (cc[pmo.skin].actionspd) then player.actionspd = cc[pmo.skin].actionspd end
 	end
 end
 
@@ -23,10 +23,10 @@ SRBZ.SetCChealth = function(player)
 	local pmo = player.mo
 	local cc = SRBZ.CharacterConfig
 	if cc[pmo.skin] then
-		if (cc[pmo.skin].health) pmo.health = cc[pmo.skin].health
+		if (cc[pmo.skin].health) then pmo.health = cc[pmo.skin].health
 		else pmo.health = cc["default"].health end
 		
-		if (cc[pmo.skin].maxhealth) pmo.maxhealth = cc[pmo.skin].maxhealth 
+		if (cc[pmo.skin].maxhealth) then pmo.maxhealth = cc[pmo.skin].maxhealth 
 		else pmo.maxhealth = cc["default"].maxhealth end
 	else
 		pmo.health = cc["default"].health

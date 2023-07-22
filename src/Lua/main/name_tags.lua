@@ -1,6 +1,16 @@
 --Original script by wired-aunt
+--Heavily edited version by Jisk.
 
-local sorted_players = {}
+mobjinfo[MT_BLUECRAWLA].npc_name = "Blue Crawla"
+mobjinfo[MT_BLUECRAWLA].min_spawnhealth = 2
+mobjinfo[MT_BLUECRAWLA].max_spawnhealth = 7
+
+mobjinfo[MT_REDCRAWLA].npc_name = "Red Crawla"
+mobjinfo[MT_REDCRAWLA].min_spawnhealth = 5
+mobjinfo[MT_REDCRAWLA].max_spawnhealth = 12
+
+
+local sorted_mobjs = {}
 
 
 local string_linebreak = function(view, message, flags)
@@ -77,17 +87,15 @@ hud.add( function(v, player, camera)
 	--the "distance" the HUD plane is projected from the player
 	local hud_distance = FixedDiv(hudwidth / 2, tan(fov/2))
 
-	for _, target_player in pairs(sorted_players) do
-		if not target_player.valid or not target_player.mo then continue end
-		local tmo = target_player.mo
+	for _, tmo in pairs(sorted_mobjs) do
+		if not tmo or not tmo.valid then continue end
+		
+		if tmo.player and player == tmo.player then continue end
 
-		if not tmo.valid then continue end
-		if not player.showownname and player == target_player then continue end
-		if not player.showbotnames and target_player.bot == 1 then continue end
-		if tmo.espio_battleopacity != nil then continue end
+		if not tmo.player and not mobjinfo[tmo.type].npc_name then continue end
 
-		--how far away is the other player?
-		local distance = R_PointToDist(tmo.x, tmo.y)
+		--how far away is the other mobj?
+		local distance = R_PointToDist(tmo.x, tmo.y) 
 
 		local distlimit = 1000
 		if distance > distlimit*FRACUNIT then continue end
@@ -139,9 +147,16 @@ hud.add( function(v, player, camera)
 		local vpos = hudheight/2 + FixedMul(hud_distance, tan(vangle) * realheight/height)
 
 		hpos = $ - 25*FU
+		local name
+		if tmo.player then
+			name = tmo.player.name
+		end
+		
+		if not tmo.player and mobjinfo[tmo.type].npc_name then
+			name = mobjinfo[tmo.type].npc_name
+		end
 
-		local name = target_player.name
-		local health = ("["+tostring(target_player.mo.health)+"/"+tostring(target_player.mo.maxhealth)+"]")
+		local health = ("["+tostring(tmo.health)+"/"+tostring(tmo.maxhealth)+"]")
 
 		local namefont = "fixed-center"
 		local ringfont = "fixed-center"
@@ -156,29 +171,33 @@ hud.add( function(v, player, camera)
 		
 		local textcolor = SKINCOLOR_GREEN
 		local flash = (leveltime/(TICRATE/6))%2 == 0
-		if flash and target_player.mo.health == 0 then
+		if flash and tmo.health == 0 then
 			textcolor = SKINCOLOR_RED
 		end
 	
-		--local nameflags = skincolors[target_player.skincolor].chatcolor
+		--local nameflags = skincolors[tmo.skincolor].chatcolor
 		local distedit = max(0, distance - (distlimit*FRACUNIT/2)) * 2
 		local trans = min(9, (((distedit * 10) / FRACUNIT) / distlimit)) * V_10TRANS
-		customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, SKINCOLOR_FOREST)
-		customhud.CustomFontString(v,hpos,vpos+(lineheight*FRACUNIT),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
+		if name then
+			customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, SKINCOLOR_FOREST)
+			customhud.CustomFontString(v,hpos,vpos+(lineheight*FRACUNIT),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
+		end
 		--v.drawString(hpos, vpos, name, nameflags|trans|V_ALLOWLOWERCASE, namefont)
 		--v.drawString(hpos, vpos+(lineheight*FRACUNIT), health, rflags|trans|V_ALLOWLOWERCASE, ringfont)
 
-		if not target_player.lastmessagetimer then continue end
+		if tmo.player and not tmo.player.lastmessagetimer then continue end
 
-		local chat_lifespan = 2*TICRATE
-		chat_lifespan = $1 + #target_player.lastmessage * TICRATE / 18
+		if tmo.player and tmo.player.valid then
+			local chat_lifespan = 2*TICRATE
+			chat_lifespan = $1 + #tmo.player.lastmessage * TICRATE / 18 or 0
 
-		if target_player.lastmessage
-		and leveltime < target_player.lastmessagetimer+chat_lifespan then
-			local flags = V_GRAYMAP
-			local thelines = string_linebreak(v, target_player.lastmessage, flags)
-			for i = 1, #thelines
-				v.drawString(hpos, vpos+(lineheight*(i+1)*FRACUNIT), thelines[i], flags|trans|V_ALLOWLOWERCASE, namefont)
+			if tmo.player and tmo.player.lastmessage 
+			and leveltime < tmo.player.lastmessagetimer+chat_lifespan then
+				local flags = V_GRAYMAP
+				local thelines = string_linebreak(v, tmo.player.lastmessage, flags)
+				for i = 1, #thelines
+					v.drawString(hpos, vpos+(lineheight*(i+1)*FRACUNIT), thelines[i], flags|trans|V_ALLOWLOWERCASE, namefont)
+				end
 			end
 		end
 	end
@@ -207,27 +226,38 @@ hud.add(function(v, player, camera)
 end, "game")
 
 addHook("PostThinkFrame", function()
-	sorted_players = {}
+	sorted_mobjs = {}
+	local range = 1024*FRACUNIT
+	local dplay
+	if (displayplayer and displayplayer.valid and 
+	displayplayer.mo and displayplayer.mo.valid) then
+		dplay = displayplayer
+	end
+	
 	local function drawThink()
-		for player in players.iterate() do
-			if player and player.valid and player.mo and player.mo.valid then
-				if displayplayer and displayplayer.realmo and displayplayer.realmo.valid
-					local cam = displayplayer.realmo
-					if consoleplayer_camera and consoleplayer_camera.chase
-						cam = consoleplayer_camera
-					end
-					local thok = P_SpawnMobj(cam.x, cam.y, cam.z, MT_NULL)
-					local sight = P_CheckSight(thok, player.mo)
-					P_RemoveMobj(thok)
-					if not sight -- if not sight
-						continue
-					end
+		searchBlockmap("objects", function(refmobj,foundmobj)
+			if dplay and foundmobj.health then
+				
+				if foundmobj.player then
+					print(foundmobj.player.name)
 				end
-				table.insert(sorted_players, player)
+				
+				local cam = dplay.realmo
+				if consoleplayer_camera and consoleplayer_camera.chase
+					cam = consoleplayer_camera
+				end
+				local thok = P_SpawnMobj(cam.x, cam.y, cam.z, MT_NULL)
+				local sight = P_CheckSight(thok, foundmobj)
+				P_RemoveMobj(thok)
+				if not sight -- if not sight
+					return
+				end
+				
+				table.insert(sorted_mobjs, foundmobj)
 			end
-		end
+		end,dplay.mo,dplay.mo.x-range,dplay.mo.x+range,dplay.mo.y-range,dplay.mo.y+range)
 		
-		table.sort(sorted_players, function(a, b)
+		table.sort(sorted_mobjs, function(a, b)
 			return R_PointToDist(a.mo.x, a.mo.y) > R_PointToDist(b.mo.x, b.mo.y)
 		end)
 	end

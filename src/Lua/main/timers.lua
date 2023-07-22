@@ -14,5 +14,5 @@ SRBZ.GameLogic_Timers = function()
 		end
 	end
 	
-	if (SRBZ.round_active) SRBZ.game_time = $ + 1 end
+	if (SRBZ.round_active) then SRBZ.game_time = $ + 1 end
 end
