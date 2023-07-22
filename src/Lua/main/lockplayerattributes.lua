@@ -9,7 +9,9 @@ addHook("PlayerThink", function(player)
 		player.mo.color = player.skincolor
 	end
 		
-	if (player.zteam == 2 and player.mo.color ~= SKINCOLOR_MOSS) player.mo.color = SKINCOLOR_MOSS end
+	if (player.zteam == 2 and player.mo.color ~= SKINCOLOR_MOSS) then 
+		player.mo.color = SKINCOLOR_MOSS 
+	end
 		
 	-- [ Keep Players From Exiting ] -- 
 		
