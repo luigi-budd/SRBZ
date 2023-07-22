@@ -230,7 +230,7 @@ addHook("PostThinkFrame", function()
 			if dplay and foundmobj.health then
 				
 				if foundmobj.player then
-					print(foundmobj.player.name)
+					--print(foundmobj.player.name)
 				end
 				
 				local cam = dplay.realmo
