@@ -11,7 +11,7 @@
 --  SRBZ.MapTimers["Your_Timer_Name"].active - is timer active or not, true = is it counting down, false = it is paused
 --
 --How to actually use it on your map (ThinkFrame hook LUA example):
---	addHook("ThinkFrame", function(
+--  addHook("ThinkFrame", function(
 --      local mytimer=SRBZ.MapTimers["MyTimer"]
 --      if mytimer.time==105 then
 --          print("3 SECONDS LEFT!")
