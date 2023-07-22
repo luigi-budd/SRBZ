@@ -99,3 +99,14 @@ SRBZ.charselectlogic = function()
 		end
 	end
 end
+
+
+addHook("PlayerSpawn", function(player)
+	if gametype ~= GT_SRBZ or SRBZ.round_active then return end
+	
+	player.choosing = true
+	player.chosecharacter = false
+	player.selection = 1		
+	player.prevselection = 1
+	player.selection_anim = (TICRATE/2) + 1 
+end)	
