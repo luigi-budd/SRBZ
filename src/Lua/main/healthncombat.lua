@@ -37,7 +37,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 	
 	if dmg >= mo.health then
-		P_KillMobj(mo)
+		P_KillMobj(mo,inf)
 		return true
 	end
 	--sfx_dmpain
