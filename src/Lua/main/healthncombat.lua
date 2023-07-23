@@ -80,13 +80,22 @@ end)
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
-		local cmd = player.cmd
+		player["srbz_weps"] = $ or {
+			inventory = {},
+			weapondelay = 0,
+		}
 		
-		if (cmd.buttons & BT_ATTACK) then
+		local cmd = player.cmd
+		if player["srbz_weps"].weapondelay then
+			player["srbz_weps"].weapondelay = $ - 1
+		end
+		
+		if (cmd.buttons & BT_ATTACK) and not player["srbz_weps"].weapondelay then
 			local ring = P_SpawnPlayerMissile(player.mo, MT_REDRING, nil)
-			if ring then
+			if ring then		
 				ring.color = SKINCOLOR_RED
 			end
+			player["srbz_weps"].weapondelay = 8
 		end
 	end
 end)
