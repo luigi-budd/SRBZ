@@ -50,7 +50,7 @@ end)
 
 addHook("MobjMoveCollide", function(thing,tmthing)
 	if (gametype ~= GT_SRBZ) return end
-	if L_ZCollide(thing,tmthing) then
+	if L_ZCollide(thing,tmthing) and tmthing.player and tmthing.player.zteam == 2 then
 		local speed1 = FixedHypot(FixedHypot(tmthing.momx, tmthing.momy), tmthing.momz)
 		local speed2 = FixedHypot(FixedHypot(thing.momx, thing.momy), thing.momz)
 		
@@ -80,6 +80,7 @@ end)
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
+		if player.zteam == 2 then continue end
 		player["srbz_weps"] = $ or {
 			inventory = {},
 			weapondelay = 0,
