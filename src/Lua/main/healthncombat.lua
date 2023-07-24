@@ -16,8 +16,14 @@ end
 
 addHook("MobjDamage", function(mo, inf, src, dmg)
 	if (gametype ~= GT_SRBZ) return end
-	if inf.player and mo.player then
+	if inf and inf.player and mo and mo.player then
 		if mo.player.zteam == inf.player.zteam then
+			return true
+		end
+	end
+	
+	if src and src.player and mo and mo.player then
+		if mo.player.zteam == src.player.zteam then
 			return true
 		end
 	end
