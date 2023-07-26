@@ -29,11 +29,30 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	end
 
 
+	
 	if mo.player then
-		mo.player.powers[pw_flashing] = 35
-		P_FlashPal(mo.player, PAL_NUKE, 2)
-		S_StartSound(mo, sfx_s3kb9)
-		mo.health = $ - dmg
+		if mo.player.zteam == 1 then
+			mo.player.powers[pw_flashing] = 35
+			P_FlashPal(mo.player, PAL_NUKE, 2)
+			S_StartSound(mo, sfx_s3kb9)
+		elseif mo.player.zteam == 2 then
+			local zombie_hurtsounds = {
+				sfx_zpa1,
+				sfx_zpa2,
+			}
+			local chosen_hurtsound = zombie_hurtsounds[P_RandomRange(1,2)]
+			if inf and inf.valid then
+				P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), 20*FRACUNIT)
+			end
+			
+			
+			S_StartSound(mo, chosen_hurtsound)
+		end
+		mo.health = $ - dmg -- fake damage i guess
+		if dmg >= mo.health then
+			P_KillMobj(mo,inf)
+			return true
+		end
 	elseif mobjinfo[mo.type].npc_name
 		--print(mobjinfo[mo.type].npc_name)
 		P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), 20*FRACUNIT)
@@ -41,11 +60,11 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		--S_StartSound(mo, sfx_dmpain)
 	end
 	
+
 	
-	if dmg >= mo.health then
-		P_KillMobj(mo,inf)
-		return true
-	end
+
+
+	
 	--sfx_dmpain
 	--local speed1 = FixedHypot(FixedHypot(inf.momx, inf.momy), inf.momz)
 	--P_SetObjectMomZ(mo, 5*FRACUNIT)
