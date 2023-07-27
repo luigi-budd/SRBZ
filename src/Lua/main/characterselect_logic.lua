@@ -18,7 +18,7 @@ SRBZ.charselectlogic = function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
 		if player.mo and player.mo.valid then
-			
+			player.selection_anim = $ or 0
 			if SRBZ.round_active then return end 
 			
 			local cmd = player.cmd
@@ -26,7 +26,7 @@ SRBZ.charselectlogic = function()
 			local left = cmd.sidemove < -40
 			local right = cmd.sidemove > 40
 			local skincount = #SRBZ.getSkinNames(player, true) + 1
-			local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
+			local selection_name = SRBZ.getSkinNames(player, true)[player.selection] or "sonic"
 			
 			if (cmd.forwardmove > 40) and player.choosing and not player.chosecharacter 
 			and leveltime > SRBZ.charselect_waittime then
@@ -55,7 +55,7 @@ SRBZ.charselectlogic = function()
 			end
 
 
-			if player.selection <= 0 then
+			if player.selection == nil or player.selection <= 0 then
 				player.selection = 1
 			elseif player.selection > skincount then
 				player.selection = skincount
