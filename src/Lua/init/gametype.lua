@@ -18,6 +18,13 @@ rawset(_G, 'L_ZCollide', function(mo1,mo2)
 	return true
 end)
 
+rawset(_G, "P_GivePlayerRubies", function(player, amount)
+	if player.rubies == nil then
+		player.rubies = 0
+	end
+	player.rubies = $ + amount
+end)
+
 SRBZ.survival_time = (60*10)*TICRATE;
 SRBZ.swarm_time = (60*5)*TICRATE;
 SRBZ.wait_time = 12*TICRATE;
