@@ -39,7 +39,7 @@ addHook("MobjDeath", function(mobj)
 			P_SetObjectMomZ(the_ruby, P_RandomRange(5,10)<<16)
 		
 			if ruby_count > 1 then
-				local angle = P_RandomByte() * 256 * FU
+				local angle = P_RandomByte() * 256 * 2^16
 				P_InstaThrust(the_ruby, angle, 3*FU)
 			end
 		end
