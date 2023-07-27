@@ -25,9 +25,9 @@ SRBZ.infohud = function(v, player)
 		skins[player.mo.skin].realname, "STCFC", 
 		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
 		
-		-- [Rings] --
-		customhud.CustomFontString(v, 24, 184, "Rings: "..player.rings, "STCFC", 
-		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_YELLOW)
+		-- [Rubies] --
+		customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "STCFC", 
+		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RUBY)
 		
 		-- [Health] --
 		local healthstring = "+ "..health.."/"..maxhealth
