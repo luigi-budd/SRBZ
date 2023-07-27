@@ -37,6 +37,9 @@ addHook("PlayerThink", function(player)
 end)
 
 addHook("MobjDeath", function(mobj)
+
+	if gametype ~= GT_SRBZ then return end
+	
 	if mobj.flags & MF_ENEMY then
 	
 		local ruby_count = P_RandomRange(1,5)
