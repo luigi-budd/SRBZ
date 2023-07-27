@@ -17,20 +17,6 @@ states[S_CRRUBY] = {
 	tics = -1,
 	nextstate = S_CRRUBY,
 }
-/*
-SRBZ.mcomp = function(initalvalue, ...)
-	local args = {..}
-	local issame = false
-	
-	for i,v in ipairs(args) do
-		if v == initialvalue then
-			issame = true
-		end
-	end
-	
-	return issame
-end
-*/
 
 addHook("PlayerThink", function(player)
 	player.rubies = $ or 0
