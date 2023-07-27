@@ -29,9 +29,10 @@ addHook("MobjDeath", function(mobj)
 
 	if gametype ~= GT_SRBZ then return end
 	
-	if mobj.flags & MF_ENEMY then
+	if mobjinfo[mobj.type].rubydrop and type(mobjinfo[mobj.type].rubydrop) == "table" 
+	and #mobjinfo[mobj.type].rubydrop == 2 then
 	
-		local ruby_count = P_RandomRange(1,5)
+		local ruby_count = P_RandomRange(mobjinfo[mobj.type].rubydrop[1],mobjinfo[mobj.type].rubydrop[2])
 		
 		for i=1,ruby_count do
 			local the_ruby = P_SpawnMobjFromMobj(mobj,0,0,10*FU,MT_CRRUBY)
