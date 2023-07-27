@@ -20,6 +20,9 @@ states[S_CRRUBY] = {
 
 addHook("PlayerThink", function(player)
 	player.rubies = $ or 0
+	if player.rubies > 500 then
+		player.rubies = 500
+	end
 end)
 
 addHook("MobjDeath", function(mobj)
