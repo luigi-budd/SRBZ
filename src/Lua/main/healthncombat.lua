@@ -115,11 +115,24 @@ addHook("PreThinkFrame", function()
 		end
 		
 		if (cmd.buttons & BT_ATTACK) and not player["srbz_weps"].weapondelay then
+			
+			-- Red Ring.
+			
 			local ring = P_SpawnPlayerMissile(player.mo, MT_REDRING, nil)
 			if ring then		
 				ring.color = SKINCOLOR_RED
 			end
 			player["srbz_weps"].weapondelay = 8
+			
+			/* Automatic Ring.
+			
+			local ring = P_SpawnPlayerMissile(player.mo, MT_THROWNAUTOMATIC, MF2_AUTOMATIC)
+			if ring then		
+				ring.color = SKINCOLOR_GREEN
+			end
+			player["srbz_weps"].weapondelay = 2
+			
+			*/
 		end
 	end
 end)
