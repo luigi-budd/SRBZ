@@ -102,21 +102,32 @@ addHook("MobjSpawn", function(mobj)
 end)
 
 
+/*
+	redring = {
+		object = MT_REDRING,
+		firerate = 8,
+		color = SKINCOLOR_RED,
+		damage = 1,
+	}
+*/
+
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
-		if player.zteam == 2 then continue end
-		player["srbz_weps"] = $ or {
+		
+		player["srbz_info"] = $ or {
 			inventory = {},
 			weapondelay = 0,
 		}
 		
 		local cmd = player.cmd
-		if player["srbz_weps"].weapondelay then
-			player["srbz_weps"].weapondelay = $ - 1
+		if player["srbz_info"].weapondelay then
+			player["srbz_info"].weapondelay = $ - 1
 		end
 		
-		if (cmd.buttons & BT_ATTACK) and not player["srbz_weps"].weapondelay then
+		if player.zteam == 2 then continue end
+		
+		if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay then
 			
 			-- Red Ring.
 			
@@ -124,7 +135,7 @@ addHook("PreThinkFrame", function()
 			if ring then		
 				ring.color = SKINCOLOR_RED
 			end
-			player["srbz_weps"].weapondelay = 8
+			player["srbz_info"].weapondelay = 8
 			
 			/* Automatic Ring.
 			
@@ -132,7 +143,7 @@ addHook("PreThinkFrame", function()
 			if ring then		
 				ring.color = SKINCOLOR_GREEN
 			end
-			player["srbz_weps"].weapondelay = 2
+			player["srbz_info"].weapondelay = 2
 			
 			*/
 		end
