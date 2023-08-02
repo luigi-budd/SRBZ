@@ -54,3 +54,16 @@ SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
+
+Level N1
+Levelname = Nomad Frosts
+Subtitle = Snow cave and chemical base
+Act = 0
+Music = NFCAV
+TypeOfLevel = SRBZ
+NextLevel = N1
+SkyNum = 11
+NoZone = True
+SelectHeading = SRBZ Maps
+Weather = 2
+
