@@ -29,7 +29,6 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	end
 
 	if inf.forcedamage ~= nil then
-		print(inf.forcedamage)
 		dmg = inf.forcedamage
 	end
 	
