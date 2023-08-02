@@ -30,11 +30,14 @@ SRBZ.inventoryhud = function(v, player)
 			patch = v.cachePatch("BLANKIND")
 		end
 		
+		-- weapon icons
 		if player["srbz_info"].inventory[i] then
 			v.drawStretched(x, y, FU, FU, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
 		else
 			v.drawStretched(x, y, FU, FU, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT)
 		end
 	end
+	
+	-- weapon selection 
 	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
 end
