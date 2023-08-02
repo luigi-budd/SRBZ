@@ -1,3 +1,23 @@
+SRBZ.WeaponPresets = {
+	red_ring = {
+		displayname = "Red Ring",
+		object = MT_REDRING,
+		icon = "RINGIND",
+		firerate = 17,
+		color = SKINCOLOR_RED,
+		damage = 14,
+	},
+	auto_ring = {
+		displayname = "Automatic Ring",
+		object = MT_THROWNAUTOMATIC,
+		icon = "AUTOIND",
+		firerate = 5,
+		color = SKINCOLOR_GREEN,
+		damage = 3,
+		flags2 = MF2_AUTOMATIC,
+	},
+}
+
 SRBZ.ChangeHealth = function(mobj, amount)
 	if amount > mobj.maxhealth then
 		mobj.health = mobj.maxhealth
@@ -13,6 +33,7 @@ SRBZ.LimitMobjHealth = function(mobj)
 		end
 	end
 end
+
 
 addHook("MobjDamage", function(mo, inf, src, dmg)
 	if (gametype ~= GT_SRBZ) return end
@@ -103,28 +124,6 @@ addHook("MobjSpawn", function(mobj)
 	end
 end)
 
-
-
-local redring_weapon = {
-	displayname = "Red Ring",
-	object = MT_REDRING,
-	icon = "RINGIND",
-	firerate = 17,
-	color = SKINCOLOR_RED,
-	damage = 14,
-}
-
-local automaticring_weapon = {
-	displayname = "Automatic Ring",
-	object = MT_THROWNAUTOMATIC,
-	icon = "AUTOIND",
-	firerate = 5,
-	color = SKINCOLOR_GREEN,
-	damage = 3,
-	flags2 = MF2_AUTOMATIC,
-}
-
-
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
@@ -133,8 +132,8 @@ addHook("PreThinkFrame", function()
 			inventory_limit = 5,
 			inventory_selection = 1,
 			inventory = {
-				[1] = redring_weapon,
-				[2] = automaticring_weapon,
+				[1] = SRBZ.WeaponPresets.red_ring,
+				[2] = SRBZ.WeaponPresets.auto_ring,
 			},
 			weapondelay = 0,
 		}

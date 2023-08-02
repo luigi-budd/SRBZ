@@ -6,4 +6,7 @@ addHook("NetVars", function(net)
 	SRBZ.onwinscreen = net($);
 	SRBZ.wintics = net($);
 	SRBZ.game_time = net($);
+	
+	
+	SRBZ.WeaponPresets = net($); -- im just paranoid
 end)
