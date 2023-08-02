@@ -21,6 +21,7 @@ dofile "main/maptimers.lua"
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
+dofile "hud/inventory.lua"
 dofile "hud/toggle.lua"
 
 dofile "hooks/gamelogic.lua"

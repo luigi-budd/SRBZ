@@ -102,23 +102,38 @@ addHook("MobjSpawn", function(mobj)
 end)
 
 
-/*
-	redring = {
-		object = MT_REDRING,
-		firerate = 8,
-		color = SKINCOLOR_RED,
-		damage = 1,
-	}
-*/
+
+local redring_weapon = {
+	displayname = "Red Ring",
+	object = MT_REDRING,
+	icon = "RINGIND",
+	firerate = 8,
+	color = SKINCOLOR_RED,
+	damage = 1,
+}
+
 
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
 		
 		player["srbz_info"] = $ or {
-			inventory = {},
+			inventory_limit = 5,
+			inventory = {
+				[1] = redring_weapon,
+			},
 			weapondelay = 0,
 		}
+		
+		for i,v in ipairs(player["srbz_info"].inventory) do
+			local toprint = "Slot: %s | Weapon Name: %s | Icon: %s"
+			if v.displayname ~= nil and v.icon ~= nil then
+				--print(string.format(toprint,i,v.displayname,v.icon))
+			end
+		end
+		if #player["srbz_info"].inventory > player["srbz_info"].inventory_limit then
+			table.remove(player["srbz_info"].inventory,#player["srbz_info"].inventory)
+		end
 		
 		local cmd = player.cmd
 		if player["srbz_info"].weapondelay then
