@@ -28,7 +28,10 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 	end
 
-
+	if inf.forcedamage ~= nil then
+		print(inf.forcedamage)
+		dmg = inf.forcedamage
+	end
 	
 	if mo.player then
 		if mo.player.zteam == 1 then
@@ -48,21 +51,21 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			
 			S_StartSound(mo, chosen_hurtsound)
 		end
-		mo.health = $ - dmg -- fake damage i guess
-		if dmg >= mo.health then
-			P_KillMobj(mo,inf)
-			return true
-		end
 	elseif mobjinfo[mo.type].npc_name
 		--print(mobjinfo[mo.type].npc_name)
+		mo.state = mobjinfo[mo.type].painstate
 		P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), 20*FRACUNIT)
-		return
 		--S_StartSound(mo, sfx_dmpain)
 	end
 	
 
 	
-
+	
+	if dmg >= mo.health then
+		P_KillMobj(mo,inf)
+		return true
+	end
+	mo.health = $ - dmg -- fake damage i guess
 
 	
 	--sfx_dmpain
@@ -107,60 +110,101 @@ local redring_weapon = {
 	displayname = "Red Ring",
 	object = MT_REDRING,
 	icon = "RINGIND",
-	firerate = 8,
+	firerate = 17,
 	color = SKINCOLOR_RED,
-	damage = 1,
+	damage = 14,
+}
+
+local automaticring_weapon = {
+	displayname = "Automatic Ring",
+	object = MT_THROWNAUTOMATIC,
+	icon = "AUTOIND",
+	firerate = 5,
+	color = SKINCOLOR_GREEN,
+	damage = 3,
+	flags2 = MF2_AUTOMATIC,
 }
 
 
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
-		
+		local cmd = player.cmd
 		player["srbz_info"] = $ or {
 			inventory_limit = 5,
+			inventory_selection = 1,
 			inventory = {
 				[1] = redring_weapon,
+				[2] = automaticring_weapon,
 			},
 			weapondelay = 0,
 		}
 		
-		for i,v in ipairs(player["srbz_info"].inventory) do
-			local toprint = "Slot: %s | Weapon Name: %s | Icon: %s"
-			if v.displayname ~= nil and v.icon ~= nil then
-				--print(string.format(toprint,i,v.displayname,v.icon))
-			end
-		end
 		if #player["srbz_info"].inventory > player["srbz_info"].inventory_limit then
 			table.remove(player["srbz_info"].inventory,#player["srbz_info"].inventory)
 		end
 		
-		local cmd = player.cmd
+		-- decrement
 		if player["srbz_info"].weapondelay then
 			player["srbz_info"].weapondelay = $ - 1
 		end
 		
-		if player.zteam == 2 then continue end
+		if player.zteam == 1 then 
+			if (cmd.buttons & BT_WEAPONPREV) then
+				if not player["srbz_info"].pressedprev then
+					if player["srbz_info"].inventory_selection - 1 <= 0 then
+						player["srbz_info"].inventory_selection = player["srbz_info"].inventory_limit
+					else
+						player["srbz_info"].inventory_selection = $ - 1
+					end
+					
+					S_StartSound(nil,sfx_wepchg,player)
+				end
+			
+				player["srbz_info"].pressedprev = true
+			else
+				player["srbz_info"].pressedprev = false
+			end
 		
-		if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay then
-			
-			-- Red Ring.
-			
-			local ring = P_SpawnPlayerMissile(player.mo, MT_REDRING, nil)
-			if ring then		
-				ring.color = SKINCOLOR_RED
+			if (cmd.buttons & BT_WEAPONNEXT) then
+				if not player["srbz_info"].pressednext then
+				
+					if player["srbz_info"].inventory_selection + 1 > player["srbz_info"].inventory_limit then
+						player["srbz_info"].inventory_selection = 1
+					else
+						player["srbz_info"].inventory_selection = $ + 1
+					end
+
+					S_StartSound(nil,sfx_wepchg,player)
+				end
+				
+				player["srbz_info"].pressednext = true
+			else
+				player["srbz_info"].pressednext = false	
 			end
-			player["srbz_info"].weapondelay = 8
 			
-			/* Automatic Ring.
-			
-			local ring = P_SpawnPlayerMissile(player.mo, MT_THROWNAUTOMATIC, MF2_AUTOMATIC)
-			if ring then		
-				ring.color = SKINCOLOR_GREEN
-			end
-			player["srbz_info"].weapondelay = 2
-			
-			*/
+			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
+			and player["srbz_info"].inventory[player["srbz_info"].inventory_selection] then
+				
+				-- Red Ring.
+				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
+				
+				
+				local ring = P_SpawnPlayerMissile(player.mo, weaponinfo.object, weaponinfo.flags2)
+
+				if ring then
+					if weaponinfo.color ~= nil then
+						ring.color = weaponinfo.color
+					end 
+					
+					if weaponinfo.damage ~= nil then
+						ring.forcedamage = weaponinfo.damage
+					end
+				end
+				
+
+				player["srbz_info"].weapondelay = weaponinfo.firerate
+			end	
 		end
 	end
 end)
