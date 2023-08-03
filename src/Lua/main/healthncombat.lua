@@ -181,6 +181,7 @@ addHook("PreThinkFrame", function()
 				player["srbz_info"].pressednext = false	
 			end
 			
+			-- TryShoot
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
 			and player["srbz_info"].inventory[player["srbz_info"].inventory_selection] then
 				
@@ -188,7 +189,7 @@ addHook("PreThinkFrame", function()
 				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
 				
 				
-				local ring = P_SpawnPlayerMissile(player.mo, weaponinfo.object, weaponinfo.flags2)
+				local ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 
 				if ring then
 					if weaponinfo.color ~= nil then
@@ -198,11 +199,27 @@ addHook("PreThinkFrame", function()
 					if weaponinfo.damage ~= nil then
 						ring.forcedamage = weaponinfo.damage
 					end
+					
+					if weaponinfo.thinker then
+						ring.ringthinker = weaponinfo.thinker
+					end
+					
+					if weaponinfo.onspawn then
+						weaponinfo.onspawn(ring.target,ring,weaponinfo)
+					end
+					
+					ring.weaponinfo = weaponinfo
 				end
 				
 
 				player["srbz_info"].weapondelay = weaponinfo.firerate
 			end	
 		end
+	end
+end)
+
+addHook("MobjThinker", function(mobj)
+	if mobj and mobj.valid and mobj.ringthinker and mobj.target then
+		mobj.ringthinker(mobj.target,mobj)
 	end
 end)
