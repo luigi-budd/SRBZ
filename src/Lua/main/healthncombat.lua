@@ -224,6 +224,10 @@ addHook("PreThinkFrame", function()
 				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
 				local ring
 				
+				if SRBZ.game_ended then 
+					return
+				end
+				
 				if weaponinfo.object
 					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 				end
