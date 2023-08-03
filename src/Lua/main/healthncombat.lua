@@ -25,6 +25,8 @@ SRBZ.WeaponPresets = {
 		icon = "APPLEIND",
 		firerate = 35,
 		sound = sfx_eatapl,
+		limited = true,
+		count = 10,
 		onfire = function(player)
 			if player.mo.health == player.mo.maxhealth then
 				return true
@@ -215,6 +217,7 @@ addHook("PreThinkFrame", function()
 			end
 			
 			-- TryShoot
+			
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
 			and player["srbz_info"].inventory[player["srbz_info"].inventory_selection] then
 				
@@ -228,6 +231,12 @@ addHook("PreThinkFrame", function()
 				player["srbz_info"].weapondelay = weaponinfo.firerate
 				
 				if weaponinfo.onfire and weaponinfo.onfire(player,weaponinfo) == true then
+					return
+				end
+				
+				if weaponinfo.count ~= nil and weaponinfo.count > 0 and weaponinfo.limited == true then
+					weaponinfo.count = $ - 1
+				elseif weaponinfo.count ~= nil and weaponinfo.count <= 0 and weaponinfo.limited == true then
 					return
 				end
 				
@@ -262,6 +271,16 @@ addHook("PreThinkFrame", function()
 
 				
 			end	
+			
+			-- clear items below 0 count
+			for i=1,player["srbz_info"].inventory_limit do
+				if player["srbz_info"].inventory[i] then
+					if player["srbz_info"].inventory[i].limited and player["srbz_info"].inventory[i].count <= 0 then
+						player["srbz_info"].inventory[i] = nil
+					end
+				end
+			end
+			
 		end
 	end
 end)
