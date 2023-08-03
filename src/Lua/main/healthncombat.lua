@@ -214,6 +214,10 @@ addHook("PreThinkFrame", function()
 						weaponinfo.onspawn(ring.target,ring,weaponinfo)
 					end
 					
+					if weaponinfo.sound then
+						S_StartSound(player.mo, weaponinfo.sound)
+					end
+					
 					ring.weaponinfo = weaponinfo
 				end
 
