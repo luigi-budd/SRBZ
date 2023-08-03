@@ -5,9 +5,10 @@ SRBZ.WeaponPresets = {
 		displayname = "Red Ring",
 		object = MT_REDRING,
 		icon = "RINGIND",
-		firerate = 17,
+		firerate = 19,
 		color = SKINCOLOR_RED,
-		damage = 14,
+		knockback = 45*FRACUNIT,
+		damage = 17,
 	},
 	auto_ring = {
 		displayname = "Automatic Ring",
@@ -15,7 +16,8 @@ SRBZ.WeaponPresets = {
 		icon = "AUTOIND",
 		firerate = 5,
 		color = SKINCOLOR_GREEN,
-		damage = 3,
+		damage = 5,
+		knockback = 30*FRACUNIT,
 		flags2 = MF2_AUTOMATIC,
 	},
 	apple = {
@@ -52,11 +54,15 @@ end
 
 addHook("MobjDamage", function(mo, inf, src, dmg)
 	if (gametype ~= GT_SRBZ) return end
+	
+	local knockback = 0
+	
 	if inf and inf.player and mo and mo.player then
 		if mo.player.zteam == inf.player.zteam then
 			return true
 		end
 	end
+	
 	
 	if src and src.player and mo and mo.player then
 		if mo.player.zteam == src.player.zteam then
@@ -66,6 +72,10 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 
 	if inf.forcedamage ~= nil then
 		dmg = inf.forcedamage
+	end
+	
+	if inf.forceknockback ~= nil then
+		knockback = inf.forceknockback
 	end
 	
 	if mo.player then
@@ -89,7 +99,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	elseif mobjinfo[mo.type].npc_name
 		--print(mobjinfo[mo.type].npc_name)
 		mo.state = mobjinfo[mo.type].painstate
-		P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), 20*FRACUNIT)
+		P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), knockback)
 		--S_StartSound(mo, sfx_dmpain)
 	end
 	
@@ -225,6 +235,10 @@ addHook("PreThinkFrame", function()
 					
 					if weaponinfo.damage ~= nil then
 						ring.forcedamage = weaponinfo.damage
+					end
+					
+					if weaponinfo.knockback ~= nil then
+						ring.forceknockback = weaponinfo.knockback
 					end
 					
 					if weaponinfo.thinker then
