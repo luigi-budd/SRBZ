@@ -276,7 +276,7 @@ addHook("PreThinkFrame", function()
 			for i=1,player["srbz_info"].inventory_limit do
 				if player["srbz_info"].inventory[i] then
 					if player["srbz_info"].inventory[i].limited and player["srbz_info"].inventory[i].count <= 0 then
-						player["srbz_info"].inventory[i] = nil
+						table.remove(player["srbz_info"].inventory,i)
 					end
 				end
 			end
