@@ -1,3 +1,5 @@
+freeslot("sfx_eatapl")
+
 SRBZ.WeaponPresets = {
 	red_ring = {
 		displayname = "Red Ring",
@@ -16,13 +18,23 @@ SRBZ.WeaponPresets = {
 		damage = 3,
 		flags2 = MF2_AUTOMATIC,
 	},
+	apple = {
+		displayname = "Apple",
+		icon = "APPLEIND",
+		firerate = 35,
+		color = SKINCOLOR_RED,
+		sound = sfx_eatapl,
+		onfire = function(player)
+			SRBZ.ChangeHealth(player.mo, 5)
+		end
+	},
 }
 
 SRBZ.ChangeHealth = function(mobj, amount)
 	if amount > mobj.maxhealth then
 		mobj.health = mobj.maxhealth
 	else
-		mobj.health = $ + ammount
+		mobj.health = $ + amount
 	end
 end
 
@@ -134,6 +146,7 @@ addHook("PreThinkFrame", function()
 			inventory = {
 				[1] = SRBZ.WeaponPresets.red_ring,
 				[2] = SRBZ.WeaponPresets.auto_ring,
+				[3] = SRBZ.WeaponPresets.apple,
 			},
 			weapondelay = 0,
 		}
@@ -197,6 +210,10 @@ addHook("PreThinkFrame", function()
 					weaponinfo.onfire(player,weaponinfo)
 				end
 				
+				if weaponinfo.sound then
+					S_StartSound(player.mo, weaponinfo.sound)
+				end
+				
 				if ring then
 					if weaponinfo.color ~= nil then
 						ring.color = weaponinfo.color
@@ -212,10 +229,6 @@ addHook("PreThinkFrame", function()
 					
 					if weaponinfo.onspawn then
 						weaponinfo.onspawn(ring.target,ring,weaponinfo)
-					end
-					
-					if weaponinfo.sound then
-						S_StartSound(player.mo, weaponinfo.sound)
 					end
 					
 					ring.weaponinfo = weaponinfo
