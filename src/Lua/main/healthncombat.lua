@@ -225,7 +225,7 @@ addHook("PreThinkFrame", function()
 				local ring
 				
 				if SRBZ.game_ended then 
-					return
+					continue
 				end
 				
 				if weaponinfo.object
@@ -235,13 +235,13 @@ addHook("PreThinkFrame", function()
 				player["srbz_info"].weapondelay = weaponinfo.firerate
 				
 				if weaponinfo.onfire and weaponinfo.onfire(player,weaponinfo) == true then
-					return
+					continue
 				end
 				
 				if weaponinfo.count ~= nil and weaponinfo.count > 0 and weaponinfo.limited == true then
 					weaponinfo.count = $ - 1
 				elseif weaponinfo.count ~= nil and weaponinfo.count <= 0 and weaponinfo.limited == true then
-					return
+					continue
 				end
 				
 				if weaponinfo.sound then
