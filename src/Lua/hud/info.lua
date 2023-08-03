@@ -10,7 +10,11 @@ SRBZ.infohud = function(v, player)
 	local maxhealth = player.mo.maxhealth
 	
 	if SRBZ.round_active then
-		the_time = G_TicsToMTIME(SRBZ.game_time)
+		if SRBZ.time_limit then
+			the_time = G_TicsToMTIME(SRBZ.time_limit - SRBZ.game_time)
+		else
+			the_time = G_TicsToMTIME(SRBZ.game_time)
+		end
 	else
 		the_time = G_TicsToMTIME(SRBZ.wait_time - leveltime)
 	end

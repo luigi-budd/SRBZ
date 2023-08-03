@@ -23,6 +23,7 @@ dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
 dofile "hud/inventory.lua"
 dofile "hud/toggle.lua"
+dofile "hud/intermission.lua"
 
 dofile "hooks/gamelogic.lua"
 dofile "hooks/hud.lua"

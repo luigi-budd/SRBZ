@@ -6,12 +6,10 @@ addHook("TouchSpecial", SRBZ.HitMegaHP, MT_MEGAHP)
 
 addHook("PlayerThink", SRBZ.giveplayerflags)
 
-addHook("ThinkFrame", SRBZ.GameLogic_Timers)
-
 addHook("MobjThinker", SRBZ.LimitMobjHealth)
 
-addHook("MapLoad", do
+addHook("MapLoad", function(map)
 	if gametype == GT_SRBZ then
-		SRBZ.init_gamevars()
+		SRBZ.init_gamevars(map)
 	end
 end)

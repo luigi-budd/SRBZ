@@ -1,11 +1,11 @@
 addHook("NetVars", function(net)
-	SRBZ.survival_time = net($);
-	SRBZ.swarm_time = net($);
+	SRBZ.time_limit = net($);
 	SRBZ.wait_time = net($);
-	SRBZ.round_active = net($);
-	SRBZ.onwinscreen = net($);
-	SRBZ.wintics = net($);
+	SRBZ.round_active = net($); -- stays on even if the end screen is on
+	SRBZ.game_ended = net($);
+	SRBZ.win_tics = net($); -- Increases if SRBZ.game_ended is true
 	SRBZ.game_time = net($);
+	SRBZ.team_won = net($);
 	
 	
 	SRBZ.WeaponPresets = net($); -- im just paranoid

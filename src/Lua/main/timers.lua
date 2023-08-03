@@ -1,5 +1,13 @@
+
+SRBZ.StartWin = function(team)
+	SRBZ.game_ended = true
+	S_ChangeMusic("SWIN", true)
+end
+
+
+
 -- ThinkFrame pls
-SRBZ.GameLogic_Timers = function()
+addHook("ThinkFrame", function()
 	if gametype ~= GT_SRBZ or gamestate ~= GS_LEVEL then return end --stop the trolling
 	
 	if leveltime >= SRBZ.wait_time and not SRBZ.round_active then
@@ -32,6 +40,16 @@ SRBZ.GameLogic_Timers = function()
 		
 		choosingnums = nil -- release memory idk wtf
 	end
-	
-	if (SRBZ.round_active) then SRBZ.game_time = $ + 1 end
-end
+	if SRBZ.time_limit and SRBZ.game_time >= SRBZ.time_limit and not (SRBZ.game_ended) then
+		SRBZ.StartWin(1)
+	end
+	if SRBZ.game_ended then SRBZ.win_tics = $ + 1 end
+	if (SRBZ.round_active) and not (SRBZ.game_ended) then SRBZ.game_time = $ + 1 end
+end)
+
+addHook("MobjThinker", function(mobj)
+	if SRBZ.game_ended and leveltime then
+		mobj.flags = $ | MF_NOTHINK
+		return true
+	end
+end)

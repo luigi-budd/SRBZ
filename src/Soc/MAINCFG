@@ -31,6 +31,7 @@ SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 1
 
 Level J1
 Levelname = Egypt

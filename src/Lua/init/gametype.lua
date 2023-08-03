@@ -25,15 +25,22 @@ rawset(_G, "P_GivePlayerRubies", function(player, amount)
 	player.rubies = $ + amount
 end)
 
-SRBZ.survival_time = (60*10)*TICRATE;
-SRBZ.swarm_time = (60*5)*TICRATE;
 SRBZ.wait_time = 12*TICRATE;
 
-SRBZ.init_gamevars = function() -- Variables vary per game.
+SRBZ.init_gamevars = function(map) -- Variables vary per game.
 	SRBZ.round_active = false;
-	SRBZ.onwinscreen = false;
-	SRBZ.wintics = 0; -- How many tics after a win screen. Resets on mapload.
+	SRBZ.game_ended = false;
+	SRBZ.win_tics = 0; -- How many tics after a win screen. Resets on mapload.
 	SRBZ.game_time = 0;
+	SRBZ.time_limit = 0;
+	SRBZ.team_won = 0;
+	
+	if map then
+		if mapheaderinfo[map].srbz_timelimit then
+			local input = tonumber(mapheaderinfo[map].srbz_timelimit)
+			SRBZ.time_limit = input*60*TICRATE
+		end
+	end
 	
 	for player in players.iterate do
 		player.zteam = 1;
