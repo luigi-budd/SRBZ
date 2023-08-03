@@ -1,4 +1,4 @@
-freeslot("sfx_eatapl")
+freeslot("sfx_eatapl", "sfx_oyahx")
 
 SRBZ.WeaponPresets = {
 	red_ring = {
@@ -24,7 +24,6 @@ SRBZ.WeaponPresets = {
 		displayname = "Apple",
 		icon = "APPLEIND",
 		firerate = 35,
-		color = SKINCOLOR_RED,
 		sound = sfx_eatapl,
 		onfire = function(player)
 			if player.mo.health == player.mo.maxhealth then
@@ -33,6 +32,13 @@ SRBZ.WeaponPresets = {
 			SRBZ.ChangeHealth(player.mo, 5)
 		end
 	},
+	iwantsummathat = {		
+		displayname = "I Want Summa That",
+		icon = "SUMMAIND",
+		iconscale = FU/2,
+		firerate = 70,
+		sound = sfx_oyahx,
+	}
 }
 
 SRBZ.ChangeHealth = function(mobj, amount)
@@ -160,6 +166,7 @@ addHook("PreThinkFrame", function()
 				[1] = SRBZ.WeaponPresets.red_ring,
 				[2] = SRBZ.WeaponPresets.auto_ring,
 				[3] = SRBZ.WeaponPresets.apple,
+				[4] = SRBZ.WeaponPresets.iwantsummathat,
 			},
 			weapondelay = 0,
 		}

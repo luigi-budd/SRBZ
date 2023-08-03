@@ -14,6 +14,8 @@ SRBZ.inventoryhud = function(v, player)
 		local x = 116*FU
 		local y = 176*FU
 		local overone_xpos = ((i-1)*20)*FU
+		local iconscale = FU
+		
 		local patch
 		
 		if i > 1 then
@@ -26,15 +28,18 @@ SRBZ.inventoryhud = function(v, player)
 			else
 				patch = v.cachePatch("BLANKIND")
 			end
+			if player["srbz_info"].inventory[i].iconscale then
+				iconscale = player["srbz_info"].inventory[i].iconscale
+			end
 		else
 			patch = v.cachePatch("BLANKIND")
 		end
 		
 		-- weapon icons
 		if player["srbz_info"].inventory[i] then
-			v.drawStretched(x, y, FU, FU, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
+			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
 		else
-			v.drawStretched(x, y, FU, FU, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT)
+			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT)
 		end
 	end
 	
