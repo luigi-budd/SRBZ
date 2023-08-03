@@ -2,6 +2,7 @@
 SRBZ.StartWin = function(team)
 	SRBZ.game_ended = true
 	S_ChangeMusic("SWIN", true)
+	mapmusname = "SWIN"
 end
 
 
