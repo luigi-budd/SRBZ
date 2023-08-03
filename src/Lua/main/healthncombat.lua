@@ -224,7 +224,7 @@ addHook("PreThinkFrame", function()
 				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
 				local ring
 				
-				if SRBZ.game_ended then 
+				if SRBZ.game_ended or player.choosing then 
 					continue
 				end
 				

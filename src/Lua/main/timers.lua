@@ -49,6 +49,9 @@ end)
 
 addHook("MobjThinker", function(mobj)
 	if SRBZ.game_ended and leveltime then
+		if mobj.player and mobj.player.valid then
+			mobj.player.powers[pw_underwater] = 0
+		end
 		mobj.flags = $ | MF_NOTHINK
 		return true
 	end
