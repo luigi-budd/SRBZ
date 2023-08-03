@@ -187,10 +187,16 @@ addHook("PreThinkFrame", function()
 				
 				-- Red Ring.
 				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
+				local ring
 				
+				if weaponinfo.object
+					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
+				end
 				
-				local ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
-
+				if weaponinfo.onfire then
+					weaponinfo.onfire(player,weaponinfo)
+				end
+				
 				if ring then
 					if weaponinfo.color ~= nil then
 						ring.color = weaponinfo.color
@@ -210,7 +216,6 @@ addHook("PreThinkFrame", function()
 					
 					ring.weaponinfo = weaponinfo
 				end
-				
 
 				player["srbz_info"].weapondelay = weaponinfo.firerate
 			end	
