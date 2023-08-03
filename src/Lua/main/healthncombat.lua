@@ -25,6 +25,9 @@ SRBZ.WeaponPresets = {
 		color = SKINCOLOR_RED,
 		sound = sfx_eatapl,
 		onfire = function(player)
+			if player.mo.health == player.mo.maxhealth then
+				return false
+			end
 			SRBZ.ChangeHealth(player.mo, 5)
 		end
 	},
@@ -205,10 +208,12 @@ addHook("PreThinkFrame", function()
 				if weaponinfo.object
 					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 				end
-				
-				if weaponinfo.onfire then
-					weaponinfo.onfire(player,weaponinfo)
+			
+				if weaponinfo.onfire and weaponinfo.onfire(player,weaponinfo) == false then
+					return
 				end
+					
+				player["srbz_info"].weapondelay = weaponinfo.firerate
 				
 				if weaponinfo.sound then
 					S_StartSound(player.mo, weaponinfo.sound)
@@ -234,7 +239,7 @@ addHook("PreThinkFrame", function()
 					ring.weaponinfo = weaponinfo
 				end
 
-				player["srbz_info"].weapondelay = weaponinfo.firerate
+				
 			end	
 		end
 	end
