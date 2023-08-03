@@ -201,7 +201,6 @@ addHook("PreThinkFrame", function()
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
 			and player["srbz_info"].inventory[player["srbz_info"].inventory_selection] then
 				
-				-- Red Ring.
 				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
 				local ring
 				
