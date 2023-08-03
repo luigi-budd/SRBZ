@@ -5,9 +5,6 @@ SRBZ.StartWin = function(team)
 	mapmusname = "SWIN"
 end
 
-
-
--- ThinkFrame pls
 addHook("ThinkFrame", function()
 	if gametype ~= GT_SRBZ or gamestate ~= GS_LEVEL then return end --stop the trolling
 	
@@ -18,7 +15,6 @@ addHook("ThinkFrame", function()
 		local amountchoosing = FixedCeil(FixedDiv(SRBZ.PlayerCount()*FU,4*FU))/FU -- lmao
 		
 		-- simpler than ze's rng for sure.
-		
 		for player in players.iterate do
 			if player.choosing == true and player.chosecharacter == false then
 				local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
@@ -41,18 +37,24 @@ addHook("ThinkFrame", function()
 		
 		choosingnums = nil -- release memory idk wtf
 	end
+	
 	if SRBZ.time_limit and SRBZ.game_time >= SRBZ.time_limit and not (SRBZ.game_ended) then
 		SRBZ.StartWin(1)
 	end
+	
+	for player in players.iterate do 
+		if player.mo and player.mo.valid and (SRBZ.game_ended or player.mo.zteam == 2) then
+			player.powers[pw_underwater] = 0
+		end
+	end
+	
 	if SRBZ.game_ended then SRBZ.win_tics = $ + 1 end
 	if (SRBZ.round_active) and not (SRBZ.game_ended) then SRBZ.game_time = $ + 1 end
 end)
 
 addHook("MobjThinker", function(mobj)
 	if SRBZ.game_ended and leveltime then
-		if mobj.player and mobj.player.valid then
-			mobj.player.powers[pw_underwater] = 0
-		end
+
 		mobj.flags = $ | MF_NOTHINK
 		return true
 	end
