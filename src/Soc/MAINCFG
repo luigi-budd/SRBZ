@@ -44,7 +44,7 @@ NextLevel = J1
 SkyNum = 15
 NoZone = True
 SelectHeading = SRBZ Maps
-Lua.srbz_timelimit = 5
+Lua.srbz_timelimit = 7
 
 Level N0
 Levelname = Ancient Catacombs
@@ -57,7 +57,7 @@ SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
-Lua.srbz_timelimit = 5
+Lua.srbz_timelimit = 6
 
 Level N1
 Levelname = Nomad Frosts
@@ -70,7 +70,7 @@ SkyNum = 11
 NoZone = True
 SelectHeading = SRBZ Maps
 Weather = 2
-Lua.srbz_timelimit = 5
+Lua.srbz_timelimit = 7
 
 Level N2
 Levelname = The Database Z
