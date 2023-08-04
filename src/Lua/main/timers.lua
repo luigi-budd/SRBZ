@@ -59,3 +59,7 @@ addHook("MobjThinker", function(mobj)
 		return true
 	end
 end)
+
+COM_AddCommand("z_forcewin", function(player)
+	SRBZ.StartWin(0)
+end,1)

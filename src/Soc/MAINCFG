@@ -19,6 +19,7 @@ NextLevel = C0
 SkyNum = 1
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 1
 
 Level J0
 Levelname = Stonewood
@@ -31,7 +32,7 @@ SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
-Lua.srbz_timelimit = 1
+Lua.srbz_timelimit = 5
 
 Level J1
 Levelname = Egypt
@@ -43,6 +44,7 @@ NextLevel = J1
 SkyNum = 15
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 5
 
 Level N0
 Levelname = Ancient Catacombs
@@ -55,6 +57,7 @@ SkyNum = 11
 Weather = 1
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 5
 
 Level N1
 Levelname = Nomad Frosts
@@ -67,4 +70,5 @@ SkyNum = 11
 NoZone = True
 SelectHeading = SRBZ Maps
 Weather = 2
+Lua.srbz_timelimit = 5
 

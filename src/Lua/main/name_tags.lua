@@ -61,7 +61,7 @@ hud.add( function(v, player, camera)
 		return
 	end
 	if (gametype ~= GT_SRBZ) return end
-	
+	if SRBZ.game_ended then return end
 	local width = 320
 	local height = 200
 	local realwidth = v.width()/v.dupx()

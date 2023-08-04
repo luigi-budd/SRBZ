@@ -1,5 +1,7 @@
 SRBZ.infohud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
+	if SRBZ.game_ended then return end
+	
 	local skinpatch = v.getSprite2Patch(player.mo.skin, SPR2_XTRA)
 	local hppatch = v.cachePatch("SRBZHPBAR1")
 	local timeemb = v.cachePatch("NGRTIMER")

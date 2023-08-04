@@ -182,7 +182,7 @@ addHook("PreThinkFrame", function()
 			player["srbz_info"].weapondelay = $ - 1
 		end
 		
-		if player.zteam == 1 then 
+		if player.zteam == 1 and not SRBZ.game_ended then 
 			if (cmd.buttons & BT_WEAPONPREV) then
 				if not player["srbz_info"].pressedprev then
 					if player["srbz_info"].inventory_selection - 1 <= 0 then
