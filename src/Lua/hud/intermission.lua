@@ -36,9 +36,16 @@ SRBZ.intermissionhud = function(v, player)
 	
 	local z_team = v.cachePatch("Z_SURVIVORS")
 	local z_w = v.cachePatch("Z_WIN")
-	local z_bu = v.cachePatch("Z_BANG_UPPER")
-	local z_bl = v.cachePatch("Z_BANG_LOWER")
-	local z_bg = v.cachePatch("Z_BG")
+	local z_bu = v.cachePatch("Z_BANG_UPPER_BLUE")
+	local z_bl = v.cachePatch("Z_BANG_LOWER_BLUE")
+	local z_bg = v.cachePatch("Z_BG_BLUE")
+	
+	if SRBZ.team_won == 2 then
+		z_bu = v.cachePatch("Z_BANG_UPPER_RED")
+		z_bl = v.cachePatch("Z_BANG_LOWER_RED")
+		z_bg = v.cachePatch("Z_BG_RED")
+		z_team = v.cachePatch("Z_ZOMBIES")
+	end
 	
 	local scroll = (SRBZ.win_tics%128)
 	

@@ -1,8 +1,15 @@
 
 SRBZ.StartWin = function(team)
 	SRBZ.game_ended = true
-	S_ChangeMusic("SWIN", true)
-	mapmusname = "SWIN"
+	SRBZ.team_won = team
+	
+	if team == 1 then
+		S_ChangeMusic("SWIN", false)
+		mapmusname = "SWIN"
+	else
+		S_ChangeMusic("ZWIN", false)
+		mapmusname = "ZWIN"
+	end
 end
 
 addHook("ThinkFrame", function()
@@ -60,6 +67,11 @@ addHook("MobjThinker", function(mobj)
 	end
 end)
 
-COM_AddCommand("z_forcewin", function(player)
-	SRBZ.StartWin(0)
+COM_AddCommand("z_forcewin", function(player, arg1)
+	local teamtowin = 1
+	
+	if arg1 and tonumber(arg1) and tonumber(arg1) > 0 and tonumber(arg1) < 3 then
+		SRBZ.StartWin(tonumber(arg1))
+	end
+	
 end,1)
