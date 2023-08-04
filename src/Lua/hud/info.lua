@@ -49,8 +49,14 @@ SRBZ.infohud = function(v, player)
 			
 			v.drawScaled(138*FRACUNIT, 0, FRACUNIT,
 			timeemb, (V_SNAPTOTOP))
-			--SKINCOLOR_BEIGE
 		end
-		
+	else
+		if the_time ~= nil then
+			customhud.CustomFontString(v, 300, 6, the_time, "STCFC", 
+			(V_SNAPTOTOP|V_SNAPTORIGHT), "right" , nil, SKINCOLOR_BEIGE)
+			
+			v.drawScaled(300*FRACUNIT, 5*FRACUNIT, FRACUNIT,
+			timeemb, (V_SNAPTOTOP|V_SNAPTORIGHT))
+		end
 	end
 end

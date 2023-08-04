@@ -25,7 +25,7 @@ rawset(_G, "P_GivePlayerRubies", function(player, amount)
 	player.rubies = $ + amount
 end)
 
-SRBZ.wait_time = 12*TICRATE;
+SRBZ.wait_time = 25*TICRATE;
 
 SRBZ.init_gamevars = function(map) -- Variables vary per game.
 	SRBZ.round_active = false;
