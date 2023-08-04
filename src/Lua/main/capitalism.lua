@@ -6,8 +6,8 @@ mobjinfo[MT_CRRUBY]= {
 	spawnhealth = 1,
 	deathstate = S_SPRK1,
 	deathsound = sfx_rbyhit,
-	radius = 15*FU,
-	height = 24*FU,
+	radius = 25*FU,
+	height = 45*FU,
 	flags = MF_SLIDEME|MF_SPECIAL,
 }
 
