@@ -8,5 +8,5 @@ addHook("NetVars", function(net)
 	SRBZ.team_won = net($);
 	
 	
-	SRBZ.WeaponPresets = net($); -- im just paranoid
+	--SRBZ.WeaponPresets = net($);
 end)

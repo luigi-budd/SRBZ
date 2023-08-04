@@ -165,12 +165,10 @@ addHook("PreThinkFrame", function()
 			inventory_limit = 5,
 			inventory_selection = 1,
 			inventory = {
-				[1] = SRBZ.WeaponPresets.red_ring,
-				[2] = SRBZ.WeaponPresets.auto_ring,
-				[3] = SRBZ.WeaponPresets.apple,
-				[4] = SRBZ.WeaponPresets.iwantsummathat,
+				[1] = SRBZ.copy(SRBZ.WeaponPresets.red_ring),
 			},
 			weapondelay = 0,
+			ghostmode = false,
 		}
 		
 		if #player["srbz_info"].inventory > player["srbz_info"].inventory_limit then
@@ -182,7 +180,7 @@ addHook("PreThinkFrame", function()
 			player["srbz_info"].weapondelay = $ - 1
 		end
 		
-		if player.zteam == 1 and not SRBZ.game_ended then 
+		if player.zteam == 1 and not SRBZ.game_ended and not player["srbz_info"].ghostmode then 
 			if (cmd.buttons & BT_WEAPONPREV) then
 				if not player["srbz_info"].pressedprev then
 					if player["srbz_info"].inventory_selection - 1 <= 0 then

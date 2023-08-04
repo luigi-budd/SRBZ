@@ -1,7 +1,7 @@
 SRBZ.infohud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
 	if SRBZ.game_ended then return end
-	
+
 	local skinpatch = v.getSprite2Patch(player.mo.skin, SPR2_XTRA)
 	local hppatch = v.cachePatch("SRBZHPBAR1")
 	local timeemb = v.cachePatch("NGRTIMER")
@@ -22,25 +22,27 @@ SRBZ.infohud = function(v, player)
 	end
 	
 	if player.chosecharacter or not player.choosing then
-		-- [Player Icon] --
-	
-		v.drawScaled(0, 176*FRACUNIT, FixedDiv(3*FRACUNIT, 4*FRACUNIT),
-		skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
-		-- [Player Name] --
-		customhud.CustomFontString(v, 24, 192, 
-		skins[player.mo.skin].realname, "STCFC", 
-		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
+		if not player["srbz_info"].ghostmode then
+			-- [Player Icon] --
 		
-		-- [Rubies] --
-		if player.rubies ~= nil then
-			customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "STCFC", 
-			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RUBY)
+			v.drawScaled(0, 176*FRACUNIT, FixedDiv(3*FRACUNIT, 4*FRACUNIT),
+			skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
+			-- [Player Name] --
+			customhud.CustomFontString(v, 24, 192, 
+			skins[player.mo.skin].realname, "STCFC", 
+			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
+			
+			-- [Rubies] --
+			if player.rubies ~= nil then
+				customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "STCFC", 
+				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RUBY)
+			end
+			
+			-- [Health] --
+			local healthstring = "+ "..health.."/"..maxhealth
+			customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 
+			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
 		end
-		
-		-- [Health] --
-		local healthstring = "+ "..health.."/"..maxhealth
-		customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 
-		(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
 		
 		-- [Timer] --
 		if the_time ~= nil then

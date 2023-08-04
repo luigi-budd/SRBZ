@@ -10,6 +10,12 @@ SRBZ.StartWin = function(team)
 		S_ChangeMusic("ZWIN", false)
 		mapmusname = "ZWIN"
 	end
+	
+	for mobj in mobjs.iterate() do
+		if (mobj.flags & MF_ENEMY) then
+			P_KillMobj(mobj)
+		end
+	end
 end
 
 addHook("ThinkFrame", function()
@@ -59,6 +65,7 @@ addHook("ThinkFrame", function()
 	if (SRBZ.round_active) and not (SRBZ.game_ended) then SRBZ.game_time = $ + 1 end
 end)
 
+/*
 addHook("MobjThinker", function(mobj)
 	if SRBZ.game_ended and leveltime then
 
@@ -66,6 +73,7 @@ addHook("MobjThinker", function(mobj)
 		return true
 	end
 end)
+*/
 
 COM_AddCommand("z_forcewin", function(player, arg1)
 	local teamtowin = 1

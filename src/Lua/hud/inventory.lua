@@ -2,6 +2,7 @@ SRBZ.inventoryhud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
 	if not player.chosecharacter or player.choosing then return end
 	if SRBZ.game_ended then return end
+	if player["srbz_info"].ghostmode then return end
 	
 	local s_patch = v.cachePatch("CURWEAP")
 	local sel = player["srbz_info"].inventory_selection

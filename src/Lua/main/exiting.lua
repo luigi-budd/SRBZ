@@ -1,7 +1,7 @@
 freeslot("MT_CRRING","S_CRRING") 
 
 mobjinfo[MT_CRRING]= {
-	doomednum = -1,
+	doomednum = 860,
 	spawnstate = S_CRRING,
 	spawnhealth = 1,
 	deathstate = S_SPRK1,
@@ -13,7 +13,7 @@ mobjinfo[MT_CRRING]= {
 
 states[S_CRRING] = {
 	sprite = SPR_RING,
-	frame = FF_FULLBRIGHT|FF_ANIMATE|A,
+	frame = FF_FULLBRIGHT|FF_ANIMATE|FF_ADD|A,
 	tics = -1,
 	var1 = 23,
 	var2 = 1,
@@ -22,11 +22,23 @@ states[S_CRRING] = {
 
 addHook("MobjSpawn", function(mobj)
 	mobj.scale = $ * 4
+	mobj.colorized = true
+	mobj.color = SKINCOLOR_BLUE
 end, MT_CRRING)
 
 addHook("TouchSpecial", function(special,toucher)
 	if toucher and toucher.valid and toucher.player and toucher.player.valid then
-		print("Hit end ring")
+		local player = toucher.player
+		
+		if not player["srbz_info"].ghostmode and not SRBZ.game_ended and SRBZ.round_active then
+			player["srbz_info"].ghostmode = true
+			for d=0,16 do
+				P_SpawnParaloop(toucher.x, toucher.y, toucher.z+toucher.height, FixedMul(192*FRACUNIT, toucher.scale), 16, MT_NIGHTSPARKLE, i*ANGLE_22h, S_NULL, true)
+			end
+			S_StartSound(nil,sfx_s3kb3)
+			SRBZ.StartWin(player.zteam)
+		end
+		
 		return true
 	end
 end, MT_CRRING)
