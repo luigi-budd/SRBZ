@@ -29,3 +29,5 @@ dofile "hud/intermission.lua"
 
 dofile "hooks/gamelogic.lua"
 dofile "hooks/hud.lua"
+
+dofile "levelscripts/concealed_woodland.lua"

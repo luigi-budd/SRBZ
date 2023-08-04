@@ -84,3 +84,14 @@ NoZone = True
 SelectHeading = SRBZ Maps
 Lua.srbz_timelimit = 7
 
+Level W1
+LevelName = Concealed Woodland
+Act = 0
+Subtitle = By Joiver
+TypeOfLevel = SRBZ
+SelectHeading = SRBZ Maps
+Music = MP_DOM
+NoZone = True
+Weather = PRECIP_STORM
+SkyNum = 20
+
