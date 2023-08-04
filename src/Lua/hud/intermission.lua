@@ -62,27 +62,13 @@ SRBZ.intermissionhud = function(v, player)
 		v.drawScaled(-500*FU,-500*FU, FU*1000, z_bg, 5<<V_ALPHASHIFT)
 	end
 	
-	
-	if SRBZ.win_tics < animlength then
-		
-		v.drawScaled(x1.ese,100*FU, FU, z_team)
-		v.drawScaled(x2.ese,100*FU, FU, z_w)
-		for i=-5,5
-			v.drawScaled((i*128*FU)+(scroll*FU),bl.ese,FU,z_bl,V_SNAPTOBOTTOM)
-		end
-		for i=-5,5
-			v.drawScaled((i*128*FU)-(scroll*FU),bu.ese,FU,z_bu,V_SNAPTOTOP)
-		end
-	else
-		v.drawScaled(x1.stop*FU,100*FU, FU, z_team)
-		v.drawScaled(x2.stop*FU,100*FU, FU, z_w)
-		for i=-5,5
-			v.drawScaled((i*128*FU)+(scroll*FU),bl.stop*FU,FU,z_bl,V_SNAPTOBOTTOM)
-		end
-		for i=-5,5
-			v.drawScaled((i*128*FU)-(scroll*FU),bu.stop*FU,FU,z_bu,V_SNAPTOTOP)
-		end
-		
+	v.drawScaled(min(x1.ese, x1.stop*FU),100*FU, FU, z_team)
+	v.drawScaled(max(x2.ese, x2.stop*FU),100*FU, FU, z_w)
+	for i=-5,5
+		v.drawScaled((i*128*FU)+(scroll*FU),max(bl.ese,bl.stop*FU),FU,z_bl,V_SNAPTOBOTTOM)
+	end
+	for i=-5,5
+		v.drawScaled((i*128*FU)-(scroll*FU),min(bu.ese,bu.stop*FU),FU,z_bu,V_SNAPTOTOP)
 	end
 
 end
