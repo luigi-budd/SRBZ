@@ -72,3 +72,15 @@ SelectHeading = SRBZ Maps
 Weather = 2
 Lua.srbz_timelimit = 5
 
+Level N2
+Levelname = The Database Z
+Subtitle = The Digital dimension
+Act = 0
+Music = DBZ
+TypeOfLevel = SRBZ
+NextLevel = N2
+SkyNum = 1
+NoZone = True
+SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 7
+
