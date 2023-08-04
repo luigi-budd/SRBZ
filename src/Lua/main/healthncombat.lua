@@ -98,7 +98,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			}
 			local chosen_hurtsound = zombie_hurtsounds[P_RandomRange(1,2)]
 			if inf and inf.valid then
-				P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), 20*FRACUNIT)
+				P_Thrust(mo, inf.angle, 20*FRACUNIT)
 			end
 			
 			
@@ -107,7 +107,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	elseif mobjinfo[mo.type].npc_name
 		--print(mobjinfo[mo.type].npc_name)
 		mo.state = mobjinfo[mo.type].painstate
-		P_Thrust(mo, R_PointToAngle2(inf.x, inf.y, mo.x, mo.y), knockback)
+		P_Thrust(mo, inf.angle, knockback)
 		--S_StartSound(mo, sfx_dmpain)
 	end
 	
