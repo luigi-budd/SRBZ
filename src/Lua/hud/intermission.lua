@@ -70,10 +70,10 @@ SRBZ.intermissionhud = function(v, player)
 			local cursor_patch = v.cachePatch("SLCT1LVL")
 			local map_y = 75*FU
 			
-			for i=-1,1 do
+			for i=1,-1,-1 do
 				local numonlist = i+2
-				local map_patch = v.cachePatch(G_BuildMapName(SRBZ.MapsOnVote[numonlist][2]).."P")
-				local levelname = (mapheaderinfo[SRBZ.MapsOnVote[numonlist][2]].lvlttl)
+				local map_patch = v.cachePatch(G_BuildMapName(SRBZ.MapsOnVote[4-numonlist][2]).."P")
+				local levelname = (mapheaderinfo[SRBZ.MapsOnVote[4-numonlist][2]].lvlttl)
 				local map_votes = SRBZ.MapsOnVote[4-numonlist][1]
 				
 				if levelname:len() > 16 then
@@ -86,7 +86,7 @@ SRBZ.intermissionhud = function(v, player)
 				v.drawString(map_x,map_y+(13*FU),levelname, (V_SNAPTOTOP), "thin-fixed")
 				v.drawString(map_x+(38*FU),map_y+(80*FU),map_votes, (V_SNAPTOTOP), "thin-fixed")
 			end
-			v.drawScaled(-80*FU+(selection*100*FU),map_y,FU/2,cursor_patch)
+			v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU/2,cursor_patch)
 		end
 	else
 		local map_patch = v.cachePatch(G_BuildMapName(SRBZ.NextMapVoted).."P")

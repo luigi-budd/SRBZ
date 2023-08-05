@@ -91,7 +91,7 @@ addHook("PreThinkFrame", function()
 						player["srbz_info"].voted = true
 						player["srbz_info"].vote_selectpressed = true
 						local sel = player["srbz_info"].vote_selection
-						local seltomapnum = SRBZ.MapsOnVote[4-sel]
+						local seltomapnum = SRBZ.MapsOnVote[sel]
 
 						SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ + 1
 					end
@@ -107,7 +107,7 @@ addHook("PreThinkFrame", function()
 						player["srbz_info"].vote_deselectpressed = true
 						
 						local sel = player["srbz_info"].vote_selection
-						local seltomapnum = SRBZ.MapsOnVote[4-sel]
+						local seltomapnum = SRBZ.MapsOnVote[sel]
 
 						SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ - 1
 					end
