@@ -27,6 +27,7 @@ end)
 
 SRBZ.wait_time = 25*TICRATE;
 SRBZ.MapVoteStartFrame = 10*TICRATE
+SRBZ.VoteTimeLimit = 12*TICRATE
 
 SRBZ.init_gamevars = function(map) -- Variables vary per game.
 	SRBZ.round_active = false;

@@ -56,7 +56,7 @@ addHook("PreThinkFrame", function()
 		local cmd = player.cmd
 		if player.mo and player.mo.valid then
 			if SRBZ.win_tics > SRBZ.MapVoteStartFrame then
-				if SRBZ.win_tics < SRBZ.MapVoteStartFrame + 12*TICRATE then
+				if SRBZ.win_tics < SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit then
 					if cmd.sidemove < -40 then
 						if not player["srbz_info"].vote_leftpressed and not player["srbz_info"].voted then
 							S_StartSound(nil, sfx_s3kb7, player)
@@ -124,7 +124,7 @@ addHook("PreThinkFrame", function()
 		end
 	end
 	
-	if SRBZ.win_tics == SRBZ.MapVoteStartFrame + 15*TICRATE then
+	if SRBZ.win_tics == SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit then
 		local sorted_votes = SRBZ.copy(SRBZ.MapsOnVote)
 
 		table.sort(sorted_votes,function(a,b) return a[1] > b[1] end)

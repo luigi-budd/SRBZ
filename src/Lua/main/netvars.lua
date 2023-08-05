@@ -7,6 +7,7 @@ addHook("NetVars", function(net)
 	SRBZ.game_time = net($);
 	SRBZ.team_won = net($);
 	
+	SRBZ.VoteTimeLimit = net($);
 	SRBZ.MapsOnVote = net($);
 	SRBZ.NextMapVoted = net($);
 	
