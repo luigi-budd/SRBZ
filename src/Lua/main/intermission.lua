@@ -55,66 +55,68 @@ addHook("PreThinkFrame", function()
 	for player in players.iterate do
 		local cmd = player.cmd
 		if player.mo and player.mo.valid then
-			if SRBZ.win_tics >= SRBZ.MapVoteStartFrame then
-				if cmd.sidemove < -40 then
-					if not player["srbz_info"].vote_leftpressed and not player["srbz_info"].voted then
-						S_StartSound(nil, sfx_s3kb7, player)
-						if player["srbz_info"].vote_selection - 1 <= 0 then
-							player["srbz_info"].vote_selection = 3
-						else
-							player["srbz_info"].vote_selection = $ - 1
+			if SRBZ.win_tics > SRBZ.MapVoteStartFrame then
+				if SRBZ.win_tics < SRBZ.MapVoteStartFrame + 12*TICRATE then
+					if cmd.sidemove < -40 then
+						if not player["srbz_info"].vote_leftpressed and not player["srbz_info"].voted then
+							S_StartSound(nil, sfx_s3kb7, player)
+							if player["srbz_info"].vote_selection - 1 <= 0 then
+								player["srbz_info"].vote_selection = 3
+							else
+								player["srbz_info"].vote_selection = $ - 1
+							end
+							player["srbz_info"].vote_leftpressed  = true
 						end
-						player["srbz_info"].vote_leftpressed  = true
+					else
+						player["srbz_info"].vote_leftpressed = false
 					end
-				else
-					player["srbz_info"].vote_leftpressed = false
-				end
-				
-				if cmd.sidemove > 40 then
-					if not player["srbz_info"].vote_rightpressed and not player["srbz_info"].voted then
-						S_StartSound(nil, sfx_s3kb7, player)
-						if player["srbz_info"].vote_selection + 1 > 3 then
-							player["srbz_info"].vote_selection = 1
-						else
-							player["srbz_info"].vote_selection = $ + 1
+					
+					if cmd.sidemove > 40 then
+						if not player["srbz_info"].vote_rightpressed and not player["srbz_info"].voted then
+							S_StartSound(nil, sfx_s3kb7, player)
+							if player["srbz_info"].vote_selection + 1 > 3 then
+								player["srbz_info"].vote_selection = 1
+							else
+								player["srbz_info"].vote_selection = $ + 1
+							end
+							player["srbz_info"].vote_rightpressed  = true
 						end
-						player["srbz_info"].vote_rightpressed  = true
+					else
+						player["srbz_info"].vote_rightpressed = false
 					end
-				else
-					player["srbz_info"].vote_rightpressed = false
-				end
-			
-				if (cmd.buttons & BT_JUMP) then
-					if not player["srbz_info"].vote_selectpressed and not player["srbz_info"].voted then
-					
-						S_StartSound(nil, sfx_s3kad, player)
-						player["srbz_info"].voted = true
-						player["srbz_info"].vote_selectpressed = true
-						local sel = player["srbz_info"].vote_selection
-						local seltomapnum = SRBZ.MapsOnVote[sel]
-
-						SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ + 1
-					end
-				else
-					player["srbz_info"].vote_selectpressed = false
-				end
 				
-				if (cmd.buttons & BT_SPIN) then
-					if not player["srbz_info"].vote_deselectpressed and player["srbz_info"].voted then
-					
-						S_StartSound(nil, sfx_s3kc3s, player)
-						player["srbz_info"].voted = false
-						player["srbz_info"].vote_deselectpressed = true
+					if (cmd.buttons & BT_JUMP) then
+						if not player["srbz_info"].vote_selectpressed and not player["srbz_info"].voted then
 						
-						local sel = player["srbz_info"].vote_selection
-						local seltomapnum = SRBZ.MapsOnVote[sel]
+							S_StartSound(nil, sfx_s3kad, player)
+							player["srbz_info"].voted = true
+							player["srbz_info"].vote_selectpressed = true
+							local sel = player["srbz_info"].vote_selection
+							local seltomapnum = SRBZ.MapsOnVote[sel]
 
-						SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ - 1
+							SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ + 1
+						end
+					else
+						player["srbz_info"].vote_selectpressed = false
 					end
-				else
-					player["srbz_info"].vote_deselectpressed = false
-				end	
+					
+					if (cmd.buttons & BT_SPIN) then
+						if not player["srbz_info"].vote_deselectpressed and player["srbz_info"].voted then
+						
+							S_StartSound(nil, sfx_s3kc3s, player)
+							player["srbz_info"].voted = false
+							player["srbz_info"].vote_deselectpressed = true
+							
+							local sel = player["srbz_info"].vote_selection
+							local seltomapnum = SRBZ.MapsOnVote[sel]
 
+							SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ - 1
+						end
+					else
+						player["srbz_info"].vote_deselectpressed = false
+					end	
+				end
+				
 				cmd.buttons = 0
 				cmd.forwardmove = 0
 				cmd.sidemove = 0				
