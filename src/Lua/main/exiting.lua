@@ -42,3 +42,10 @@ addHook("TouchSpecial", function(special,toucher)
 		return true
 	end
 end, MT_CRRING)
+
+addHook("ThinkFrame", function()
+	if gametype ~= GT_SRBZ or gamestate ~= GS_LEVEL then return end --stop the trolling
+	if SRBZ.PlayerCount > 1 and SRBZ.SurvivorCount == 0 and not SRBZ.game_ended then
+		SRBZ.StartWin(2)
+	end
+end)
