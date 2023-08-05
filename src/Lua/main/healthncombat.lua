@@ -141,7 +141,7 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 		
 		if speed1 > speed2 and tmthing.player and tmthing.player.valid
 		and not tmthing.player.powers[pw_flashing] then
-			P_DamageMobj(thing, tmthing, nil, 10)
+			P_DamageMobj(thing, tmthing, nil, 15)
 		end
 	end
 end)
