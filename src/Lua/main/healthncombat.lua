@@ -62,6 +62,7 @@ end
 
 addHook("MobjDamage", function(mo, inf, src, dmg)
 	if (gametype ~= GT_SRBZ) return end
+	if SRBZ.game_ended then return true end
 	
 	local knockback = 0
 	
@@ -132,6 +133,7 @@ end)
 --ram into players as zombie
 addHook("MobjMoveCollide", function(thing,tmthing)
 	if (gametype ~= GT_SRBZ) return end
+	if (SRBZ.game_ended) then return end
 	if L_ZCollide(thing,tmthing) and tmthing.player and tmthing.player.zteam == 2 and thing.player
 	and thing.player.zteam ~= 2 then
 		local speed1 = FixedHypot(FixedHypot(tmthing.momx, tmthing.momy), tmthing.momz)

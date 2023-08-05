@@ -92,10 +92,8 @@ addHook("PreThinkFrame", function()
 						player["srbz_info"].vote_selectpressed = true
 						local sel = player["srbz_info"].vote_selection
 						local seltomapnum = SRBZ.MapsOnVote[4-sel]
-						print(mapheaderinfo[seltomapnum[2]].lvlttl)
-						
+
 						SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ + 1
-						print(SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1])
 					end
 				else
 					player["srbz_info"].vote_selectpressed = false
@@ -110,10 +108,8 @@ addHook("PreThinkFrame", function()
 						
 						local sel = player["srbz_info"].vote_selection
 						local seltomapnum = SRBZ.MapsOnVote[4-sel]
-						print(mapheaderinfo[seltomapnum[2]].lvlttl)
 
 						SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1] = $ - 1
-						print(SRBZ.MapsOnVote[player["srbz_info"].vote_selection][1])
 					end
 				else
 					player["srbz_info"].vote_deselectpressed = false
@@ -134,15 +130,15 @@ addHook("PreThinkFrame", function()
 		if allequals(sorted_votes[1][1],sorted_votes[2][1],sorted_votes[3][1])
 			local chosenmap = P_RandomRange(1,3)
 			
-			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map! 1")
+			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map with a three way tie!")
 			SRBZ.NextMapVoted = sorted_votes[chosenmap][2]
 		elseif sorted_votes[1] == sorted_votes[2] then
 			local chosenmap = P_RandomRange(1,2)
 			
-			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map! 2")
+			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map with a two way tie!")
 			SRBZ.NextMapVoted = sorted_votes[chosenmap][2]
 		else
-			print("\x82"..mapheaderinfo[sorted_votes[1][2]].lvlttl.. " Was picked as the next map! 3")
+			print("\x82"..mapheaderinfo[sorted_votes[1][2]].lvlttl.. " Was picked as the next map!")
 			SRBZ.NextMapVoted = sorted_votes[1][2]
 		end
 		
