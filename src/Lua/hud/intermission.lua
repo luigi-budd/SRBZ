@@ -61,9 +61,39 @@ SRBZ.intermissionhud = function(v, player)
 	else
 		v.drawScaled(-500*FU,-500*FU, FU*1000, z_bg, 5<<V_ALPHASHIFT)
 	end
-	
-	v.drawScaled(min(x1.ese, x1.stop*FU),100*FU, FU, z_team)
-	v.drawScaled(max(x2.ese, x2.stop*FU),100*FU, FU, z_w)
+	if not SRBZ.NextMapVoted then
+		if SRBZ.win_tics < SRBZ.MapVoteStartFrame then
+			v.drawScaled(min(x1.ese, x1.stop*FU),100*FU, FU, z_team)
+			v.drawScaled(max(x2.ese, x2.stop*FU),100*FU, FU, z_w)
+		elseif SRBZ.MapsOnVote and #SRBZ.MapsOnVote >= 3 then
+			local selection = player["srbz_info"].vote_selection
+			local cursor_patch = v.cachePatch("SLCT1LVL")
+			local map_y = 75*FU
+			
+			for i=-1,1 do
+				local numonlist = i+2
+				local map_patch = v.cachePatch(G_BuildMapName(SRBZ.MapsOnVote[numonlist][2]).."P")
+				local levelname = (mapheaderinfo[SRBZ.MapsOnVote[numonlist][2]].lvlttl)
+				local map_votes = SRBZ.MapsOnVote[4-numonlist][1]
+				
+				if levelname:len() > 16 then
+					levelname = $:sub(1,16)..".."
+				end
+				local map_x = 120*FU-(i*100*FU)
+				--SRBZ.MapVotes
+				
+				v.drawScaled(map_x,map_y,FU/2,map_patch)
+				v.drawString(map_x,map_y+(13*FU),levelname, (V_SNAPTOTOP), "thin-fixed")
+				v.drawString(map_x+(38*FU),map_y+(80*FU),map_votes, (V_SNAPTOTOP), "thin-fixed")
+			end
+			v.drawScaled(-80*FU+(selection*100*FU),map_y,FU/2,cursor_patch)
+		end
+	else
+		local map_patch = v.cachePatch(G_BuildMapName(SRBZ.NextMapVoted).."P")
+		local levelname = (mapheaderinfo[SRBZ.NextMapVoted].lvlttl)
+		v.drawScaled(120*FU,75*FU,FU/2,map_patch)
+		v.drawString(160*FU,50*FU,"\x82"..levelname.." Was picked as the next map!", (V_SNAPTOTOP), "fixed-center")
+	end
 	for i=-5,5
 		v.drawScaled((i*128*FU)+(scroll*FU),max(bl.ese,bl.stop*FU),FU,z_bl,V_SNAPTOBOTTOM)
 	end

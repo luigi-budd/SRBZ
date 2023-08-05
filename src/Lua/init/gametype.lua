@@ -26,6 +26,7 @@ rawset(_G, "P_GivePlayerRubies", function(player, amount)
 end)
 
 SRBZ.wait_time = 25*TICRATE;
+SRBZ.MapVoteStartFrame = 10*TICRATE
 
 SRBZ.init_gamevars = function(map) -- Variables vary per game.
 	SRBZ.round_active = false;
@@ -34,6 +35,16 @@ SRBZ.init_gamevars = function(map) -- Variables vary per game.
 	SRBZ.game_time = 0;
 	SRBZ.time_limit = 0;
 	SRBZ.team_won = 0;
+	
+	SRBZ.MapVoteList = {}
+	SRBZ.MapVotes = {0,0,0}
+	SRBZ.MapsOnVote = {
+	{0,1},
+	{0,1},
+	{0,1}
+	} -- votes, mapnumber
+	
+	SRBZ.NextMapVoted = 0
 	
 	if map then
 		if mapheaderinfo[map].srbz_timelimit then
@@ -46,6 +57,8 @@ SRBZ.init_gamevars = function(map) -- Variables vary per game.
 		player.zteam = 1;
 		if player["srbz_info"] then
 			player["srbz_info"].ghostmode = false
+			player["srbz_info"].vote_selection = 1
+			player["srbz_info"].voted = false
 		end
 	end
 end; SRBZ.init_gamevars();

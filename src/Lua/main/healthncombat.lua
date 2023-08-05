@@ -169,6 +169,13 @@ addHook("PreThinkFrame", function()
 			},
 			weapondelay = 0,
 			ghostmode = false,
+			
+			vote_selection = 1,
+			voted = false,
+			vote_leftpressed = false,
+			vote_rightpressed = false,
+			vote_selectpressed = false,
+			vote_deselectpressed = false,
 		}
 		
 		if #player["srbz_info"].inventory > player["srbz_info"].inventory_limit then

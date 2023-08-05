@@ -1,4 +1,3 @@
-addHook("PreThinkFrame", SRBZ.charselectlogic)
 
 addHook("PlayerSpawn", SRBZ.playerfunc)
 

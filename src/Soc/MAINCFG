@@ -20,6 +20,7 @@ SkyNum = 1
 NoZone = True
 SelectHeading = SRBZ Maps
 Lua.srbz_timelimit = 1
+Lua.hidefromvote = true
 
 Level J0
 Levelname = Stonewood

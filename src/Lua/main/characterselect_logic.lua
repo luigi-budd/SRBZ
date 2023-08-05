@@ -14,7 +14,7 @@ SRBZ.pickcharinselect = function(player, skinname)
 	S_StartSound(nil, sfx_strpst, player)
 end
 
-SRBZ.charselectlogic = function()
+addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
 		if player.mo and player.mo.valid then
@@ -98,7 +98,7 @@ SRBZ.charselectlogic = function()
 			
 		end
 	end
-end
+end)
 
 
 addHook("PlayerSpawn", function(player)
