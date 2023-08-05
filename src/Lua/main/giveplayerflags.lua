@@ -9,3 +9,14 @@ SRBZ.giveplayerflags = function(player)
 		end
 	end
 end
+
+addHook("LinedefExecute", function(line, mobj, sector)
+	if mobj and mobj.valid and mobj.player and mobj.player.valid then
+		local player = mobj.player
+		
+		player.pflags = $ & ~PF_GLIDING
+		player.pflags = $ & ~PF_BOUNCING
+		player.powers[pw_tailsfly] = 0
+		print(player.name)
+	end
+end, "NOABILITY")
