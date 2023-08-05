@@ -152,7 +152,7 @@ addHook("PreThinkFrame", function()
 		
 	end
 	
-	if SRBZ.win_tics == SRBZ.MapVoteStartFrame + 20*TICRATE then
+	if SRBZ.win_tics == SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit + 5*TICRATE then
 		COM_BufInsertText(server, "map "..SRBZ.NextMapVoted)
 	end
 end)
