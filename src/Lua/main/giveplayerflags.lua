@@ -17,6 +17,5 @@ addHook("LinedefExecute", function(line, mobj, sector)
 		player.pflags = $ & ~PF_GLIDING
 		player.pflags = $ & ~PF_BOUNCING
 		player.powers[pw_tailsfly] = 0
-		print(player.name)
 	end
 end, "NOABILITY")
