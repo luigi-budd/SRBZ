@@ -216,7 +216,7 @@ addHook("PreThinkFrame", function()
 				[1] = SRBZ:Copy(SRBZ.WeaponPresets.red_ring)
 			},
 			zombie_inventory = {
-
+				[1] = SRBZ:Copy(SRBZ.WeaponPresets.apple)
 			},
 			
 			weapondelay = 0,
@@ -280,7 +280,7 @@ addHook("PreThinkFrame", function()
 			-- TryShoot
 			
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
-			and SRBZ:FetchInventorySlot(player) then
+			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD then
 				
 				local weaponinfo = SRBZ:FetchInventorySlot(player)
 				local ring

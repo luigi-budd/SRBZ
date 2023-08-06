@@ -1,6 +1,6 @@
 SRBZ.inventoryhud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
-	if not player.chosecharacter or player.choosing then return end
+	if player.choosing then return end
 	if SRBZ.game_ended then return end
 	if player["srbz_info"].ghostmode then return end
 	
@@ -42,6 +42,10 @@ SRBZ.inventoryhud = function(v, player)
 			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
 		else
 			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT)
+		end
+
+		if SRBZ:FetchInventory(player)[i] and SRBZ:FetchInventory(player)[i].count and SRBZ:FetchInventory(player)[i].limited then
+			v.drawString(x, y, tostring(SRBZ:FetchInventory(player)[i].count), V_SNAPTOLEFT|V_SNAPTOBOTTOM, "thin-fixed")
 		end
 	end
 	
