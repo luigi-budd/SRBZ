@@ -2,7 +2,6 @@ SRBZ.inventoryhud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
 	if not player.chosecharacter or player.choosing then return end
 	if SRBZ.game_ended then return end
-	if player.zteam == 2 then return end
 	if player["srbz_info"].ghostmode then return end
 	
 	local s_patch = v.cachePatch("CURWEAP")
@@ -13,7 +12,7 @@ SRBZ.inventoryhud = function(v, player)
 	end
 	local sel_y = 176*FU
 	
-	for i=1,player["srbz_info"].inventory_limit do
+	for i=1,SRBZ:FetchInventoryLimit(player) do
 		local x = 116*FU
 		local y = 176*FU
 		local overone_xpos = ((i-1)*20)*FU
@@ -25,21 +24,21 @@ SRBZ.inventoryhud = function(v, player)
 			x = $ + overone_xpos
 		end
 		
-		if player["srbz_info"].inventory[i]
-			if player["srbz_info"].inventory[i].icon then
-				patch = v.cachePatch(player["srbz_info"].inventory[i].icon)
+		if SRBZ:FetchInventory(player)[i]
+			if SRBZ:FetchInventory(player)[i].icon then
+				patch = v.cachePatch(SRBZ:FetchInventory(player)[i].icon)
 			else
 				patch = v.cachePatch("BLANKIND")
 			end
-			if player["srbz_info"].inventory[i].iconscale then
-				iconscale = player["srbz_info"].inventory[i].iconscale
+			if SRBZ:FetchInventory(player)[i].iconscale then
+				iconscale = SRBZ:FetchInventory(player)[i].iconscale
 			end
 		else
 			patch = v.cachePatch("BLANKIND")
 		end
 		
 		-- weapon icons
-		if player["srbz_info"].inventory[i] then
+		if SRBZ:FetchInventory(player)[i] then
 			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
 		else
 			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT)

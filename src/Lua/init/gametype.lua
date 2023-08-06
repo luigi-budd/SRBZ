@@ -65,7 +65,7 @@ SRBZ.init_gamevars = function(map) -- Variables vary per game.
 end; SRBZ.init_gamevars();
 
 -- http://lua-users.org/wiki/CopyTable
-SRBZ.copy = function(orig)
+function SRBZ:Copy(orig)
     local orig_type = type(orig)
     local copy
     if orig_type == 'table' then

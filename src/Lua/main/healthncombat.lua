@@ -43,6 +43,42 @@ SRBZ.WeaponPresets = {
 	}
 }
 
+function SRBZ:FetchInventory(player)
+	if player and player.valid then
+		if player["srbz_info"] then
+			if player["srbz_info"].survivor_inventory and player.zteam == 1 then
+				return player["srbz_info"].survivor_inventory
+			elseif player["srbz_info"].zombie_inventory and player.zteam == 2 then
+				return player["srbz_info"].zombie_inventory
+			else
+				error("Could not fetch inventory.",2)
+			end
+		end
+	end
+end
+
+function SRBZ:FetchInventoryLimit(player)
+	if player and player.valid then
+		if player["srbz_info"] then
+			if player.zteam == 1 then
+				return player["srbz_info"].survivor_inventory_limit
+			elseif player.zteam == 2 then
+				return player["srbz_info"].zombie_inventory_limit
+			else
+				error("Could not fetch inventory limit.",2)
+			end
+		end
+	end
+end
+
+function SRBZ:FetchInventorySlot(player)
+	if player and player.valid then
+		if player["srbz_info"] then
+			return SRBZ:FetchInventory(player)[player["srbz_info"].inventory_selection] 
+		end
+	end
+end
+
 function SRBZ:ChangeHealth(mobj, amount)
 	if amount > mobj.maxhealth then
 		mobj.health = mobj.maxhealth
@@ -58,7 +94,6 @@ SRBZ.LimitMobjHealth = function(mobj)
 		end
 	end
 end
-
 
 addHook("MobjDamage", function(mo, inf, src, dmg)
 	if (gametype ~= GT_SRBZ) return end
@@ -172,11 +207,18 @@ addHook("PreThinkFrame", function()
 	for player in players.iterate do
 		local cmd = player.cmd
 		player["srbz_info"] = $ or {
-			inventory_limit = 5,
 			inventory_selection = 1,
-			inventory = {
-				[1] = SRBZ.copy(SRBZ.WeaponPresets.red_ring),
+
+			survivor_inventory_limit = 5,
+			zombie_inventory_limit = 3,
+			
+			survivor_inventory = {
+				[1] = SRBZ:Copy(SRBZ.WeaponPresets.red_ring)
 			},
+			zombie_inventory = {
+
+			},
+			
 			weapondelay = 0,
 			ghostmode = false,
 			
@@ -188,8 +230,12 @@ addHook("PreThinkFrame", function()
 			vote_deselectpressed = false,
 		}
 		
-		if #player["srbz_info"].inventory > player["srbz_info"].inventory_limit then
-			table.remove(player["srbz_info"].inventory,#player["srbz_info"].inventory)
+		if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then
+			table.remove(SRBZ:FetchInventory(player),#SRBZ:FetchInventory(player))
+		end
+
+		if player["srbz_info"].inventory_selection > SRBZ:FetchInventoryLimit(player) then
+			player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
 		end
 		
 		-- decrement
@@ -197,11 +243,11 @@ addHook("PreThinkFrame", function()
 			player["srbz_info"].weapondelay = $ - 1
 		end
 		
-		if player.zteam == 1 and not SRBZ.game_ended and not player["srbz_info"].ghostmode then 
+		if not SRBZ.game_ended and not player["srbz_info"].ghostmode then 
 			if (cmd.buttons & BT_WEAPONPREV) then
 				if not player["srbz_info"].pressedprev then
 					if player["srbz_info"].inventory_selection - 1 <= 0 then
-						player["srbz_info"].inventory_selection = player["srbz_info"].inventory_limit
+						player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
 					else
 						player["srbz_info"].inventory_selection = $ - 1
 					end
@@ -217,7 +263,7 @@ addHook("PreThinkFrame", function()
 			if (cmd.buttons & BT_WEAPONNEXT) then
 				if not player["srbz_info"].pressednext then
 				
-					if player["srbz_info"].inventory_selection + 1 > player["srbz_info"].inventory_limit then
+					if player["srbz_info"].inventory_selection + 1 > SRBZ:FetchInventoryLimit(player) then
 						player["srbz_info"].inventory_selection = 1
 					else
 						player["srbz_info"].inventory_selection = $ + 1
@@ -234,9 +280,9 @@ addHook("PreThinkFrame", function()
 			-- TryShoot
 			
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
-			and player["srbz_info"].inventory[player["srbz_info"].inventory_selection] then
+			and SRBZ:FetchInventorySlot(player) then
 				
-				local weaponinfo = player["srbz_info"].inventory[player["srbz_info"].inventory_selection]
+				local weaponinfo = SRBZ:FetchInventorySlot(player)
 				local ring
 				
 				if SRBZ.game_ended or player.choosing then 
@@ -292,10 +338,10 @@ addHook("PreThinkFrame", function()
 			end	
 			
 			-- clear items below 0 count
-			for i=1,player["srbz_info"].inventory_limit do
-				if player["srbz_info"].inventory[i] then
-					if player["srbz_info"].inventory[i].limited and player["srbz_info"].inventory[i].count <= 0 then
-						table.remove(player["srbz_info"].inventory,i)
+			for i=1,SRBZ:FetchInventoryLimit(player) do
+				if SRBZ:FetchInventory(player)[i] then
+					if SRBZ:FetchInventory(player)[i].limited and SRBZ:FetchInventory(player)[i].count <= 0 then
+						table.remove(SRBZ:FetchInventory(player),i)
 					end
 				end
 			end
