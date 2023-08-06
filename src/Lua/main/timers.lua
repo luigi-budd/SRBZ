@@ -1,7 +1,7 @@
 
-SRBZ.StartWin = function(team)
-	SRBZ.game_ended = true
-	SRBZ.team_won = team
+function SRBZ:StartWin(team)
+	self.game_ended = true
+	self.team_won = team
 	
 	if team == 1 then
 		S_ChangeMusic("SWIN", false)
@@ -52,7 +52,7 @@ addHook("ThinkFrame", function()
 	end
 	
 	if SRBZ.time_limit and SRBZ.game_time >= SRBZ.time_limit and not (SRBZ.game_ended) then
-		SRBZ.StartWin(1)
+		SRBZ:StartWin(1)
 	end
 	
 	for player in players.iterate do 
@@ -79,7 +79,7 @@ COM_AddCommand("z_forcewin", function(player, arg1)
 	local teamtowin = 1
 	
 	if arg1 and tonumber(arg1) and tonumber(arg1) > 0 and tonumber(arg1) < 3 then
-		SRBZ.StartWin(tonumber(arg1))
+		SRBZ:StartWin(tonumber(arg1))
 	end
 	
 end,1)

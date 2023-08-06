@@ -31,7 +31,7 @@ SRBZ.WeaponPresets = {
 			if player.mo.health == player.mo.maxhealth then
 				return true
 			end
-			SRBZ.ChangeHealth(player.mo, 5)
+			SRBZ:ChangeHealth(player.mo, 5)
 		end
 	},
 	iwantsummathat = {		
@@ -43,7 +43,7 @@ SRBZ.WeaponPresets = {
 	}
 }
 
-SRBZ.ChangeHealth = function(mobj, amount)
+function SRBZ:ChangeHealth(mobj, amount)
 	if amount > mobj.maxhealth then
 		mobj.health = mobj.maxhealth
 	else

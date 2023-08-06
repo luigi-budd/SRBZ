@@ -36,7 +36,7 @@ addHook("TouchSpecial", function(special,toucher)
 				P_SpawnParaloop(toucher.x, toucher.y, toucher.z+toucher.height, FixedMul(192*FRACUNIT, toucher.scale), 16, MT_NIGHTSPARKLE, i*ANGLE_22h, S_NULL, true)
 			end
 			S_StartSound(nil,sfx_s3kb3)
-			SRBZ.StartWin(player.zteam)
+			SRBZ:StartWin(player.zteam)
 		end
 		
 		return true
@@ -46,6 +46,6 @@ end, MT_CRRING)
 addHook("ThinkFrame", function()
 	if gametype ~= GT_SRBZ or gamestate ~= GS_LEVEL then return end --stop the trolling
 	if SRBZ.PlayerCount() > 1 and SRBZ.SurvivorCount() == 0 and not SRBZ.game_ended then
-		SRBZ.StartWin(2)
+		SRBZ:StartWin(2)
 	end
 end)
