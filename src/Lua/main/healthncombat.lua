@@ -1,7 +1,3 @@
-freeslot("sfx_eatapl", "sfx_oyahx")
-
-
-
 SRBZ.WeaponPresets = {
 
 }
@@ -282,7 +278,7 @@ addHook("PreThinkFrame", function()
 						player["srbz_info"].inventory_selection = $ - 1
 					end
 					
-					S_StartSound(nil,sfx_wepchg,player)
+					S_StartSound(nil,sfx_mnu1a,player)
 				end
 			
 				player["srbz_info"].pressedprev = true
@@ -299,7 +295,7 @@ addHook("PreThinkFrame", function()
 						player["srbz_info"].inventory_selection = $ + 1
 					end
 
-					S_StartSound(nil,sfx_wepchg,player)
+					S_StartSound(nil,sfx_mnu1a,player)
 				end
 				
 				player["srbz_info"].pressednext = true
