@@ -86,20 +86,21 @@ SRBZ:CreateItem("Insta Burst", {
 	sound = sfx_zish1,
 	damage = 25,
 	onfire = function(player)
-		local brange = 160*FU
-		local range = 35*FU
+		local brange = 256*FU
+		local range = 160*FU
 		local instaburst = P_SpawnMobjFromMobj(player.mo, 0, 0, 0, MT_INSTABURST)
 		instaburst.target = player.mo
 		instaburst.spritexscale = $*2
 		instaburst.spriteyscale = $*2
 		instaburst.scale = $*3/2
 		instaburst.forcedamage = SRBZ:FetchInventorySlot(player).damage
+		
 		searchBlockmap("objects", function(refmobj,foundmobj)
-			if not L_ZCollide(foundmobj,instaburst) or 
-			R_PointToDist2(foundmobj.x,foundmobj.y, instaburst.x, instaburst.y) < range then 
-				return 
+			if not L_ZCollide(foundmobj,instaburst) then 
+				return false
 			end
-			if (foundmobj.valid and ((foundmobj.flags & (MF_ENEMY|MF_BOSS)) or foundmobj.player)) then
+			
+			if (foundmobj.valid and ((foundmobj.flags & (MF_ENEMY|MF_BOSS)) or foundmobj.player)) and R_PointToDist2(foundmobj.x,foundmobj.y, instaburst.x, instaburst.y) < range then
 				P_DamageMobj(foundmobj, instaburst, instaburst.target)
 			end
 		end, 
