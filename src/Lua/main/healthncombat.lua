@@ -1,4 +1,4 @@
-SRBZ.WeaponPresets = {
+SRBZ.ItemPresets = {
 
 }
 
@@ -19,13 +19,13 @@ function SRBZ:CreateItem(name,table)
 	end
 	temp_table = SRBZ:Copy(table) -- temp_table is supposed to add extra info before shipping.
 
-	temp_table.item_id = #self.WeaponPresets + 1
+	temp_table.item_id = #self.ItemPresets + 1
 	temp_table.displayname = name
 	local idname = ("WP_"..name:upper()):gsub(" ","_")
-	rawset(_G, idname, #self.WeaponPresets + 1)
-	self.WeaponPresets[#self.WeaponPresets + 1] = temp_table
+	rawset(_G, idname, #self.ItemPresets + 1)
+	self.ItemPresets[#self.ItemPresets + 1] = temp_table
 	
-	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.WeaponPresets).."]")
+	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.ItemPresets).."]")
 end
 
 SRBZ:CreateItem("Red Ring",  {
@@ -52,7 +52,7 @@ SRBZ:CreateItem("Apple", {
 	firerate = 35,
 	sound = sfx_eatapl,
 	limited = true,
-	count = 10,
+	count = 1,
 	onfire = function(player)
 		if player.mo.health == player.mo.maxhealth then
 			return true
@@ -109,6 +109,46 @@ function SRBZ:ChangeHealth(mobj, amount)
 		mobj.health = mobj.maxhealth
 	else
 		mobj.health = $ + amount
+	end
+end
+
+function SRBZ:IsInventoryFull(player)
+	if player and player.valid then
+		if player["srbz_info"] and SRBZ:FetchInventory(player) then
+			if #SRBZ:FetchInventory(player) >= SRBZ:FetchInventoryLimit(player) then
+				return true
+			else
+				return false
+			end
+		else
+			return true
+		end
+	end
+end
+
+function SRBZ:GiveItem(player, item_id, count, slot) 
+	if player and player.valid then
+		if not item_id or not SRBZ.ItemPresets[item_id] then
+			CONS_Printf(player, "\x85\Invalid item! ["..item_id.."]")
+		elseif player["srbz_info"] and SRBZ:FetchInventory(player) then
+			local item = SRBZ:Copy(SRBZ.ItemPresets[item_id])
+			item.onfire = nil -- onfire not needed. we already fetch from SRBZ.ItemPresets
+			if count ~= nil then
+				item.count = count
+				item.limited = true
+			end
+			if slot then
+				SRBZ:FetchInventory(player)[slot] = item
+			else
+				if not SRBZ:IsInventoryFull(player) then
+					table.insert(SRBZ:FetchInventory(player), item)
+				else
+					CONS_Printf(player, "\x85\Inventory full!")
+				end
+			end
+		elseif not SRBZ:FetchInventory(player) then
+			CONS_Printf(player, "\x85\Invalid inventory!")
+		end
 	end
 end
 
@@ -238,11 +278,10 @@ addHook("PreThinkFrame", function()
 			zombie_inventory_limit = 3,
 			
 			survivor_inventory = {
-				[1] = SRBZ:Copy(SRBZ.WeaponPresets[1]),
-				[2] = SRBZ:Copy(SRBZ.WeaponPresets[3])
+
 			},
 			zombie_inventory = {
-				--[1] = SRBZ:Copy(SRBZ.WeaponPresets.apple)
+				--[1] = SRBZ:Copy(SRBZ.ItemPresets.apple)
 			},
 			
 			weapondelay = 0,
@@ -255,6 +294,10 @@ addHook("PreThinkFrame", function()
 			vote_selectpressed = false,
 			vote_deselectpressed = false,
 		}
+		if #player["srbz_info"].survivor_inventory == 0 then
+			SRBZ:GiveItem(player, 1) 
+			SRBZ:GiveItem(player, 3, 5) 
+		end
 		
 		if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then
 			table.remove(SRBZ:FetchInventory(player),#SRBZ:FetchInventory(player))
@@ -319,7 +362,7 @@ addHook("PreThinkFrame", function()
 					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 				end
 				
-				if SRBZ.WeaponPresets[weaponinfo.item_id].onfire and SRBZ.WeaponPresets[weaponinfo.item_id].onfire(player,weaponinfo) == true then
+				if SRBZ.ItemPresets[weaponinfo.item_id].onfire and SRBZ.ItemPresets[weaponinfo.item_id].onfire(player,weaponinfo) == true then
 					continue
 				end
 				
@@ -381,3 +424,24 @@ addHook("MobjThinker", function(mobj)
 		mobj.ringthinker(mobj.target,mobj)
 	end
 end)
+
+COM_AddCommand("z_giveitem", function(player, item_id, count, slot)
+	if player.mo and player.mo.valid and player["srbz_info"] and SRBZ:FetchInventory(player) then
+		if item_id then
+			item_id = tonumber($)
+		else
+			CONS_Printf(player, "z_giveitem <item_id> <count> <slot>: gives an item to yourself.")
+			return
+		end
+
+		if count then
+			count = tonumber($)
+		end
+
+		if slot then 
+			slot = tonumber($)
+		end
+
+		SRBZ:GiveItem(player,item_id,count,slot)
+	end
+end, COM_ADMIN)
