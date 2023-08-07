@@ -1,47 +1,76 @@
 freeslot("sfx_eatapl", "sfx_oyahx")
 
+
+
 SRBZ.WeaponPresets = {
-	red_ring = {
-		displayname = "Red Ring",
-		object = MT_REDRING,
-		icon = "RINGIND",
-		firerate = 19,
-		color = SKINCOLOR_RED,
-		knockback = 45*FRACUNIT,
-		damage = 17,
-	},
-	auto_ring = {
-		displayname = "Automatic Ring",
-		object = MT_THROWNAUTOMATIC,
-		icon = "AUTOIND",
-		firerate = 5,
-		color = SKINCOLOR_GREEN,
-		damage = 5,
-		knockback = 30*FRACUNIT,
-		flags2 = MF2_AUTOMATIC,
-	},
-	apple = {
-		displayname = "Apple",
-		icon = "APPLEIND",
-		firerate = 35,
-		sound = sfx_eatapl,
-		limited = true,
-		count = 10,
-		onfire = function(player)
-			if player.mo.health == player.mo.maxhealth then
-				return true
-			end
-			SRBZ:ChangeHealth(player.mo, 5)
-		end
-	},
-	iwantsummathat = {		
-		displayname = "I Want Summa That",
-		icon = "SUMMAIND",
-		iconscale = FU/2,
-		firerate = 70,
-		sound = sfx_oyahx,
-	}
+
 }
+
+
+function SRBZ:CreateItem(name,table)
+	local temp_table
+	if not name then
+		error("Name not included.")
+	end
+	if type(name) ~= "string" then
+		error("Arg1 is not a string.")
+	end
+	if not table then
+		error("Table not found.")
+	end
+	if type(table) ~= "table" then
+		error("Arg2 is not a table.")
+	end
+	temp_table = SRBZ:Copy(table) -- temp_table is supposed to add extra info before shipping.
+
+	temp_table.item_id = #self.WeaponPresets + 1
+	temp_table.displayname = name
+	local idname = ("WP_"..name:upper()):gsub(" ","_")
+	rawset(_G, idname, #self.WeaponPresets + 1)
+	self.WeaponPresets[#self.WeaponPresets + 1] = temp_table
+	
+	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.WeaponPresets).."]")
+end
+
+SRBZ:CreateItem("Red Ring",  {
+	object = MT_REDRING,
+	icon = "RINGIND",
+	firerate = 19,
+	color = SKINCOLOR_RED,
+	knockback = 45*FRACUNIT,
+	damage = 17,
+})
+
+SRBZ:CreateItem("Automatic Ring",  {
+	object = MT_THROWNAUTOMATIC,
+	icon = "AUTOIND",
+	firerate = 5,
+	color = SKINCOLOR_GREEN,
+	damage = 5,
+	knockback = 30*FRACUNIT,
+	flags2 = MF2_AUTOMATIC,
+})
+
+SRBZ:CreateItem("Apple", {
+	icon = "APPLEIND",
+	firerate = 35,
+	sound = sfx_eatapl,
+	limited = true,
+	count = 10,
+	onfire = function(player)
+		if player.mo.health == player.mo.maxhealth then
+			return true
+		end
+		SRBZ:ChangeHealth(player.mo, 5)
+	end
+})
+
+SRBZ:CreateItem("I want summa that", {
+	icon = "SUMMAIND",
+	iconscale = FU/2,
+	firerate = 70,
+	sound = sfx_oyahx,	
+})
 
 function SRBZ:FetchInventory(player)
 	if player and player.valid then
@@ -213,10 +242,11 @@ addHook("PreThinkFrame", function()
 			zombie_inventory_limit = 3,
 			
 			survivor_inventory = {
-				[1] = SRBZ:Copy(SRBZ.WeaponPresets.red_ring)
+				[1] = SRBZ:Copy(SRBZ.WeaponPresets[1]),
+				[2] = SRBZ:Copy(SRBZ.WeaponPresets[3])
 			},
 			zombie_inventory = {
-				[1] = SRBZ:Copy(SRBZ.WeaponPresets.apple)
+				--[1] = SRBZ:Copy(SRBZ.WeaponPresets.apple)
 			},
 			
 			weapondelay = 0,
@@ -288,16 +318,18 @@ addHook("PreThinkFrame", function()
 				if SRBZ.game_ended or player.choosing then 
 					continue
 				end
-				
+
 				if weaponinfo.object
 					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 				end
 				
 				player["srbz_info"].weapondelay = weaponinfo.firerate
 				
-				if weaponinfo.onfire and weaponinfo.onfire(player,weaponinfo) == true then
+				if SRBZ.WeaponPresets[weaponinfo.item_id].onfire and SRBZ.WeaponPresets[weaponinfo.item_id].onfire(player,weaponinfo) == true then
 					continue
 				end
+				
+				
 				
 				if weaponinfo.count ~= nil and weaponinfo.count > 0 and weaponinfo.limited == true then
 					weaponinfo.count = $ - 1

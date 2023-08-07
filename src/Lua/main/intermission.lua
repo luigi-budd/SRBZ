@@ -125,7 +125,7 @@ addHook("PreThinkFrame", function()
 	end
 	
 	if SRBZ.win_tics == SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit then
-		local sorted_votes = SRBZ.copy(SRBZ.MapsOnVote)
+		local sorted_votes = SRBZ:Copy(SRBZ.MapsOnVote)
 
 		table.sort(sorted_votes,function(a,b) return a[1] > b[1] end)
 		
