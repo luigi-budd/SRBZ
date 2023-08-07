@@ -254,13 +254,14 @@ addHook("PreThinkFrame", function()
 			vote_selectpressed = false,
 			vote_deselectpressed = false,
 		}
-		if #player["srbz_info"].survivor_inventory == 0 then
-			SRBZ:GiveItem(player, 1) 
-			SRBZ:GiveItem(player, 3, 5) 
-		end
-
-		if #player["srbz_info"].survivor_inventory == 0 then
-			SRBZ:GiveItem(player, 5)
+		
+		if #SRBZ:FetchInventory(player) == 0 then
+			if player.zteam == 1 then
+				SRBZ:GiveItem(player, 1) 
+				SRBZ:GiveItem(player, 3, 5) 
+			elseif player.zteam == 2 then
+				SRBZ:GiveItem(player, 5)
+			end
 		end
 		
 		if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then
