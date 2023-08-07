@@ -270,7 +270,7 @@ addHook("PreThinkFrame", function()
 		end
 		
 		if not SRBZ.game_ended and not player["srbz_info"].ghostmode then 
-			if (cmd.buttons & BT_WEAPONPREV) then
+			if (cmd.buttons & BT_WEAPONPREV) and not player.choosing then
 				if not player["srbz_info"].pressedprev then
 					if player["srbz_info"].inventory_selection - 1 <= 0 then
 						player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
@@ -286,7 +286,7 @@ addHook("PreThinkFrame", function()
 				player["srbz_info"].pressedprev = false
 			end
 		
-			if (cmd.buttons & BT_WEAPONNEXT) then
+			if (cmd.buttons & BT_WEAPONNEXT) and not player.choosing then
 				if not player["srbz_info"].pressednext then
 				
 					if player["srbz_info"].inventory_selection + 1 > SRBZ:FetchInventoryLimit(player) then
