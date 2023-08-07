@@ -143,6 +143,10 @@ hud.add( function(v, player, camera)
 			name = tmo.player.name
 		end
 		
+		if tmo.alias then
+			name = tostring(tmo.alias)
+		end
+
 		if not tmo.player and mobjinfo[tmo.type].npc_name then
 			name = mobjinfo[tmo.type].npc_name
 		end
