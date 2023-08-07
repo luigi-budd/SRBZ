@@ -60,7 +60,7 @@ end, MT_CRRUBY)
 
 addHook("MobjThinker", function(mobj)
 	if mobj.sprite == SPR_SPRK then
-		mobj.color = SKINCOLOR_RUBY
+		mobj.color = SKINCOLOR_RED
 		mobj.colorized = true
 	end
 	--P_RingZMovement(mobj)

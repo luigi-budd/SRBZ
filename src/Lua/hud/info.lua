@@ -35,7 +35,7 @@ SRBZ.infohud = function(v, player)
 			-- [Rubies] --
 			if player.rubies ~= nil then
 				customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "STCFC", 
-				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RUBY)
+				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RED)
 			end
 			
 			-- [Health] --
