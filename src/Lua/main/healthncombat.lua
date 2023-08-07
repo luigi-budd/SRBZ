@@ -28,45 +28,6 @@ function SRBZ:CreateItem(name,table)
 	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.ItemPresets).."]")
 end
 
-SRBZ:CreateItem("Red Ring",  {
-	object = MT_REDRING,
-	icon = "RINGIND",
-	firerate = 19,
-	color = SKINCOLOR_RED,
-	knockback = 45*FRACUNIT,
-	damage = 17,
-})
-
-SRBZ:CreateItem("Automatic Ring",  {
-	object = MT_THROWNAUTOMATIC,
-	icon = "AUTOIND",
-	firerate = 5,
-	color = SKINCOLOR_GREEN,
-	damage = 5,
-	knockback = 30*FRACUNIT,
-	flags2 = MF2_AUTOMATIC,
-})
-
-SRBZ:CreateItem("Apple", {
-	icon = "APPLEIND",
-	firerate = 35,
-	sound = sfx_eatapl,
-	limited = true,
-	count = 1,
-	onfire = function(player)
-		if player.mo.health == player.mo.maxhealth then
-			return true
-		end
-		SRBZ:ChangeHealth(player.mo, 5)
-	end
-})
-
-SRBZ:CreateItem("I want summa that", {
-	icon = "SUMMAIND",
-	iconscale = FU/2,
-	firerate = 70,
-	sound = sfx_oyahx,	
-})
 
 function SRBZ:FetchInventory(player)
 	if player and player.valid then
@@ -214,7 +175,6 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 
 	
-	
 	if dmg >= mo.health then
 		P_KillMobj(mo,inf)
 		return true
@@ -281,7 +241,7 @@ addHook("PreThinkFrame", function()
 
 			},
 			zombie_inventory = {
-				--[1] = SRBZ:Copy(SRBZ.ItemPresets.apple)
+
 			},
 			
 			weapondelay = 0,
@@ -297,6 +257,10 @@ addHook("PreThinkFrame", function()
 		if #player["srbz_info"].survivor_inventory == 0 then
 			SRBZ:GiveItem(player, 1) 
 			SRBZ:GiveItem(player, 3, 5) 
+		end
+
+		if #player["srbz_info"].survivor_inventory == 0 then
+			SRBZ:GiveItem(player, 5)
 		end
 		
 		if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then

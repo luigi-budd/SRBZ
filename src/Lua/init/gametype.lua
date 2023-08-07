@@ -5,7 +5,7 @@ what SRBZ has.
 rawset(_G, "XSLINGER", {});
 */
 
-freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_zpa2")
+freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_zpa2", "sfx_zish1")
 freeslot("sfx_rstart", "sfx_secret", "sfx_cleva1")
 freeslot("sfx_eatapl", "sfx_oyahx", "sfx_mnu1a")
 rawset(_G, "srbz_modname", "srbz"); -- For customhud.
