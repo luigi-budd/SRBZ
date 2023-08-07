@@ -323,13 +323,11 @@ addHook("PreThinkFrame", function()
 					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 				end
 				
-				player["srbz_info"].weapondelay = weaponinfo.firerate
-				
 				if SRBZ.WeaponPresets[weaponinfo.item_id].onfire and SRBZ.WeaponPresets[weaponinfo.item_id].onfire(player,weaponinfo) == true then
 					continue
 				end
 				
-				
+				player["srbz_info"].weapondelay = weaponinfo.firerate
 				
 				if weaponinfo.count ~= nil and weaponinfo.count > 0 and weaponinfo.limited == true then
 					weaponinfo.count = $ - 1
