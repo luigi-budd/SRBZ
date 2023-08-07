@@ -77,9 +77,11 @@ end)
 
 COM_AddCommand("z_forcewin", function(player, arg1)
 	local teamtowin = 1
- if not arg1 or not tonumber(arg1) then return end
- arg1 = to number(arg1)
+ 	if not arg1 or not tonumber(arg1) then return end
+ 	arg1 = tonumber(arg1)
 	
-	if (arg1>0 and arg1<3) then SRBZ:StartWin(arg1) end
+	if (arg1>0 and arg1<3) then 
+		SRBZ:StartWin(arg1) 
+	end
 	
 end,COM_ADMIN)
