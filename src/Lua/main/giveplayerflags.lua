@@ -19,3 +19,20 @@ addHook("LinedefExecute", function(line, mobj, sector)
 		player.powers[pw_tailsfly] = 0
 	end
 end, "NOABILITY")
+
+addHook("PlayerThink", function(player) -- Limit for climbing characters.
+	if gametype ~= GT_SRBZ then return end
+    if player.mo and player.mo.valid then
+        player.x_climbtime = $ or 0 
+        if player.climbing then
+            player.x_climbtime = $ + 1
+        elseif player.x_climbtime then
+            player.x_climbtime = $ - 1  
+            player.pflags = $ | PF_THOKKED
+        end
+
+        if player.x_climbtime > 3*TICRATE then
+            player.climbing = 0
+        end
+    end
+end)
