@@ -1,4 +1,4 @@
-SRBZ.charselect_waittime = TICRATE*3
+SRBZ.charselect_waittime = TICRATE*5
 SRBZ.pickcharinselect = function(player, skinname)
 	player.choosing = false
 	player.chosecharacter = true

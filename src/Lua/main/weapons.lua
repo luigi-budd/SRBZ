@@ -109,3 +109,9 @@ SRBZ:CreateItem("Insta Burst", {
 		instaburst.y-brange,instaburst.y+brange)
 	end
 })
+
+SRBZ:CreateItem("W's mirror", {
+	icon = "MIRRORIND",
+	firerate = TICRATE*5,
+	sound = sfx_oyahx,	
+})
