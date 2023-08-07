@@ -36,7 +36,7 @@ addHook("MobjDeath", function(mobj)
 		
 		for i=1,ruby_count do
 			local the_ruby = P_SpawnMobjFromMobj(mobj,0,0,10*FU,MT_CRRUBY)
-			
+			the_ruby.fuse = 15*TICRATE
 			P_SetObjectMomZ(the_ruby, P_RandomRange(5,10)<<16)
 		
 			if ruby_count > 1 then
@@ -73,4 +73,8 @@ addHook("MobjThinker", function(mobj)
 		end
 	end
 	mobj.lastmomz = mobj.momz
+	
+	if mobj.fuse < 3*TICRATE then
+		mobj.flags2 = $^^MF2_DONTDRAW
+	end
 end, MT_CRRUBY)
