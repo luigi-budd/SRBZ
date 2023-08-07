@@ -28,6 +28,7 @@ addHook("PreThinkFrame", function()
 			local skincount = #SRBZ.getSkinNames(player, true) + 1
 			local selection_name = SRBZ.getSkinNames(player, true)[player.selection] or "sonic"
 			
+			
 			if (cmd.forwardmove > 40) and player.choosing and not player.chosecharacter 
 			and leveltime > SRBZ.charselect_waittime then
 				SRBZ.pickcharinselect(player,selection_name)
@@ -102,11 +103,14 @@ end)
 
 
 addHook("PlayerSpawn", function(player)
-	if gametype ~= GT_SRBZ or SRBZ.round_active then return end
+	if gametype ~= GT_SRBZ return end
 	
-	player.choosing = true
-	player.chosecharacter = false
-	player.selection = 1		
+	player.selection = 1
+	if not SRBZ.round_active then 
+		player.choosing = true
+		player.chosecharacter = false
+	end
+
 	player.prevselection = 1
 	player.selection_anim = (TICRATE/2) + 1 
 end)	
