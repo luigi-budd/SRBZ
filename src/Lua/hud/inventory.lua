@@ -53,7 +53,7 @@ SRBZ.inventoryhud = function(v, player)
 	-- weapon selection 
 	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
 
-	if player["srbz_info"].weapondelay then
+	if player["srbz_info"].weapondelay and SRBZ:FetchInventorySlot(player) then
 		local slotdelay = SRBZ:FetchInventorySlot(player).firerate
 		local delaydiv = min(FixedDiv(player["srbz_info"].weapondelay, slotdelay),FU)
 		v.drawStretched(sel_x, sel_y, delaydiv, FU, cyan_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_50TRANS)
