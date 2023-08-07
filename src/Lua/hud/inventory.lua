@@ -5,6 +5,7 @@ SRBZ.inventoryhud = function(v, player)
 	if player["srbz_info"].ghostmode then return end
 	
 	local s_patch = v.cachePatch("CURWEAP")
+	local cyan_patch = v.cachePatch("Z_CYANSQUARE")
 	local sel = player["srbz_info"].inventory_selection
 	local sel_x = 116*FU
 	if sel > 1 then
@@ -51,4 +52,10 @@ SRBZ.inventoryhud = function(v, player)
 	
 	-- weapon selection 
 	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
+
+	if player["srbz_info"].weapondelay then
+		local slotdelay = SRBZ:FetchInventorySlot(player).firerate
+		local delaydiv = min(FixedDiv(player["srbz_info"].weapondelay, slotdelay),FU)
+		v.drawStretched(sel_x, sel_y, delaydiv, FU, cyan_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_50TRANS)
+	end
 end
