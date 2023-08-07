@@ -31,7 +31,7 @@ addHook("PlayerThink", function(player) -- Limit for climbing characters.
             player.pflags = $ | PF_THOKKED
         end
 
-        if player.x_climbtime > 3*TICRATE then
+        if player.x_climbtime > 2*TICRATE + TICRATE/2 then
             player.climbing = 0
         end
     end
