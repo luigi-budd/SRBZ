@@ -85,7 +85,7 @@ SRBZ:CreateItem("Insta Burst", {
 	firerate = 42,
 	sound = sfx_zish1,
 	damage = 25,
-	onfire = function(player)
+	ontrigger = function(player)
 		local brange = 256*FU
 		local range = 160*FU
 		local instaburst = P_SpawnMobjFromMobj(player.mo, 0, 0, 0, MT_INSTABURST)
