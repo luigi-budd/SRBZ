@@ -362,8 +362,8 @@ addHook("PreThinkFrame", function()
 						ring.ringthinker = weaponinfo.thinker
 					end
 					
-					if weaponinfo.onspawn then
-						weaponinfo.onspawn(ring.target,ring,weaponinfo)
+					if SRBZ.ItemPresets[weaponinfo.item_id].onspawn then
+						SRBZ.ItemPresets[weaponinfo.item_id].onspawn(ring.target,ring,weaponinfo)
 					end
 					
 					ring.weaponinfo = weaponinfo
