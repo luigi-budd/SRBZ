@@ -26,7 +26,7 @@ function SRBZ:CreateItem(name,table)
 	self.ItemPresets[#self.ItemPresets + 1] = temp_table
 	
 	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.ItemPresets).."]")
-	return idname
+	return idglobal
 end
 
 
