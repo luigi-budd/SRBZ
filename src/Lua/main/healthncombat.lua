@@ -94,7 +94,12 @@ function SRBZ:GiveItem(player, item_id, count, slot)
 			CONS_Printf(player, "\x85\Invalid item! ["..item_id.."]")
 		elseif player["srbz_info"] and SRBZ:FetchInventory(player) then
 			local item = SRBZ:Copy(SRBZ.ItemPresets[item_id])
-			item.onfire = nil -- onfire not needed. we already fetch from SRBZ.ItemPresets
+			item.ontrigger = nil -- ontrigger not needed. we already fetch from SRBZ.ItemPresets
+			for i,v in pairs(item) do -- You can't archive functions in netgame.
+				if type(v) == "function" then
+					v = nil
+				end
+			end
 			if count ~= nil then
 				item.count = count
 				item.limited = true
@@ -328,7 +333,7 @@ addHook("PreThinkFrame", function()
 					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
 				end
 				
-				if SRBZ.ItemPresets[weaponinfo.item_id].onfire and SRBZ.ItemPresets[weaponinfo.item_id].onfire(player,weaponinfo) == true then
+				if SRBZ.ItemPresets[weaponinfo.item_id].ontrigger and SRBZ.ItemPresets[weaponinfo.item_id].ontrigger(player,weaponinfo) == true then
 					continue
 				end
 				

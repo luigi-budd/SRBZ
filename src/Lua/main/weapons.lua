@@ -65,7 +65,7 @@ SRBZ:CreateItem("Apple", {
 	sound = sfx_eatapl,
 	limited = true,
 	count = 1,
-	onfire = function(player)
+	ontrigger = function(player)
 		if player.mo.health == player.mo.maxhealth then
 			return true
 		end
