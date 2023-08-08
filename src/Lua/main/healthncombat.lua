@@ -357,16 +357,20 @@ addHook("PreThinkFrame", function()
 					if weaponinfo.knockback ~= nil then
 						ring.forceknockback = weaponinfo.knockback
 					end
-					
-					if weaponinfo.thinker then
-						ring.ringthinker = weaponinfo.thinker
-					end
-					
+
 					if SRBZ.ItemPresets[weaponinfo.item_id].onspawn then
 						SRBZ.ItemPresets[weaponinfo.item_id].onspawn(ring.target,ring,weaponinfo)
 					end
 					
-					ring.weaponinfo = weaponinfo
+					local temp_weaponinfo = SRBZ:Copy(weaponinfo)
+
+					for i,v in pairs(temp_weaponinfo) do -- You can't archive functions in netgame.
+						if type(v) == "function" then
+							v = nil
+						end
+					end
+
+					ring.weaponinfo = temp_weaponinfo
 				end
 
 				
@@ -386,8 +390,9 @@ addHook("PreThinkFrame", function()
 end)
 
 addHook("MobjThinker", function(mobj)
-	if mobj and mobj.valid and mobj.ringthinker and mobj.target then
-		mobj.ringthinker(mobj.target,mobj)
+	if mobj and mobj.valid and mobj.weaponinfo and SRBZ.ItemPresets[mobj.weaponinfo.item_id] 
+	and SRBZ.ItemPresets[mobj.weaponinfo.item_id].thinker and mobj.target then
+		SRBZ.ItemPresets[mobj.weaponinfo.item_id].thinker(mobj.target,mobj)
 	end
 end)
 
