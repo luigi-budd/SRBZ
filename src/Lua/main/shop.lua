@@ -12,6 +12,11 @@ addHook("PlayerThink", function(player)
         elseif not player.shop_open and player.shop_anim then
             player.shop_anim = $ - 1
         end
+
+        if SRBZ.game_ended then
+            player.shop_anim = 0
+            player.shop_open = false
+        end
     end
 end)
 
