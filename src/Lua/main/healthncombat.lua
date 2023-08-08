@@ -22,7 +22,7 @@ function SRBZ:CreateItem(name,table)
 	temp_table.item_id = #self.ItemPresets + 1
 	temp_table.displayname = name
 	local idname = ("WP_"..name:upper()):gsub(" ","_"):gsub("'","")
-	rawset(_G, idname, #self.ItemPresets + 1)
+	local idglobal = rawset(_G, idname, #self.ItemPresets + 1)
 	self.ItemPresets[#self.ItemPresets + 1] = temp_table
 	
 	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.ItemPresets).."]")
