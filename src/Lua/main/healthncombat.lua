@@ -88,6 +88,16 @@ function SRBZ:IsInventoryFull(player)
 	end
 end
 
+function SRBZ:SafeCopyItemFromID(item_id)
+	local item = SRBZ.ItemPresets[item_id] or error("Invalid item_id.")
+	for i,v in pairs(item) do -- You can't archive functions in netgame.
+		if type(v) == "function" then
+			v = nil
+		end
+	end
+	return item
+end
+
 function SRBZ:GiveItem(player, item_id, count, slot) 
 	if player and player.valid then
 		if not item_id or not SRBZ.ItemPresets[item_id] then
@@ -263,6 +273,12 @@ addHook("PreThinkFrame", function()
 			vote_rightpressed = false,
 			vote_selectpressed = false,
 			vote_deselectpressed = false,
+
+			shop_selection = 1,
+			shop_leftpressed = false,
+			shop_rightpressed = false,
+			shop_selectpressed = false,
+			shop_exitpressed = false,
 		}
 		
 		if #SRBZ:FetchInventory(player) == 0 then
