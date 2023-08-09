@@ -61,7 +61,7 @@ SRBZ.shophud = function(v, player)
 		trans = shop.ese<<V_ALPHASHIFT
 	end
 	if player.rubies ~= nil then
-		customhud.CustomFontString(v, 160, 0, "Rubies: "..player.rubies, "STCFC", 
+		customhud.CustomFontString(v, 120, 0, "Rubies: "..player.rubies, "STCFC", 
 		(V_SNAPTOTOP), nil , nil, SKINCOLOR_RED)
 	end
 	if not player["srbz_info"].shop_confirmscreen then
