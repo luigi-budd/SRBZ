@@ -112,7 +112,7 @@ SRBZ:CreateItem("Automatic Ring",  {
 	damage = 9,
 	knockback = 30*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
-	price = 120,
+	price = 100,
 })
 
 SRBZ:CreateItem("Apple", {
@@ -172,7 +172,6 @@ SRBZ:CreateItem("W's mirror", {
 	sound = sfx_oyahx,
 	limited = true,
 	count = 1,
-	damage = 70,
 	price = 200,
 	ontrigger = function(player)
 		local mirrorclone = P_SpawnMobjFromMobj(player.mo,0,0,0,MT_MIRRORCLONE)
@@ -194,7 +193,7 @@ addHook("MobjCollide", function(mo,pmo)
 			thok.color = mo.color
 			thok.fuse = 17
 			P_FlashPal(pmo.player, 3, 5*TICRATE)
-			P_Thrust(pmo, mo.angle, 90*FRACUNIT)
+			P_Thrust(pmo, mo.angle, 180*FRACUNIT)
 			S_StartSound(pmo, sfx_bewar2)
 			P_SetScale(thok,thok.scale*3)
 			P_RemoveMobj(mo)
@@ -207,6 +206,8 @@ end, MT_MIRRORCLONE)
 SRBZ:CreateItem("Tails' fence", {
 	icon = "FENCEIND",
 	firerate = TICRATE*8,
+	limited = true,
+	count = 5,
 	ontrigger = function(player)
 		local wood = P_SpawnMobj(player.mo.x+FixedMul(128*FRACUNIT, cos(player.mo.angle)),
 					             player.mo.y+FixedMul(128*FRACUNIT, sin(player.mo.angle)), 
@@ -216,13 +217,13 @@ SRBZ:CreateItem("Tails' fence", {
 		wood.renderflags = $|RF_PAPERSPRITE
 		wood.target = player.mo
 	end,
-	price = 140,
+	price = 145,
 })
 
 SRBZ:CreateItem("Explosion Ring", {
 	object = MT_THROWNEXPLOSION,
 	icon = "BOMBIND",
-	firerate = TICRATE*7,
+	firerate = TICRATE*3,
 	color = SKINCOLOR_BLACK,
 	damage = 29,
 	knockback = 90*FRACUNIT,

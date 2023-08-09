@@ -56,7 +56,18 @@ SRBZ.inventoryhud = function(v, player)
 	end
 	
 	if SRBZ:FetchInventorySlot(player) and SRBZ:FetchInventorySlot(player).displayname then
+		local iteminfo = ""
+		if SRBZ:FetchInventorySlot(player).damage then
+			iteminfo = $ + "\x85".."DMG: "..SRBZ:FetchInventorySlot(player).damage.." "
+		end
+		if SRBZ:FetchInventorySlot(player).firerate then
+			iteminfo = $ + "\x84".."RATE: "..SRBZ:FetchInventorySlot(player).firerate.." "
+		end
+		if SRBZ:FetchInventorySlot(player).knockback then
+			iteminfo = $ + "\x83".."KB: "..SRBZ:FetchInventorySlot(player).knockback/FU.." "
+		end
 		v.drawString(115*FU, sel_y-(9*FU), SRBZ:FetchInventorySlot(player).displayname, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
+		v.drawString(115*FU, sel_y-(17*FU), iteminfo, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
 	end
 	-- weapon selection 
 	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
