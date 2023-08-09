@@ -26,6 +26,7 @@ mobjinfo[MT_MIRRORCLONE] = {
     spawnhealth = 1,
     radius = 32*FRACUNIT,
     height = 48*FRACUNIT,
+	flags = MF_SOLID,
 }
 mobjinfo[MT_MIRRORCLONE].npc_name = "Mirror Clone"
 mobjinfo[MT_MIRRORCLONE].npc_spawnhealth = {100,100}
@@ -62,7 +63,7 @@ states[S_PROP1_BREAK] = {
 }
 
 addHook("MobjCollide", function(mo,pmo)
-	if pmo.skin ~= "zzombie"
+	if pmo.skin ~= "zzombie" then
 		P_SetObjectMomZ(mo,mo.scale*0)
 		return false
 	else
@@ -171,6 +172,7 @@ SRBZ:CreateItem("W's mirror", {
 	sound = sfx_oyahx,
 	limited = true,
 	count = 1,
+	damage = 70,
 	price = 200,
 	ontrigger = function(player)
 		local mirrorclone = P_SpawnMobjFromMobj(player.mo,0,0,0,MT_MIRRORCLONE)
@@ -181,8 +183,27 @@ SRBZ:CreateItem("W's mirror", {
 		mirrorclone.maxhealth = player.mo.maxhealth
 		mirrorclone.alias = player.name
 		mirrorclone.angle = player.mo.angle
+		mirrorclone.forcedamage = SRBZ:FetchInventorySlot(player).damage
 	end
 })
+
+addHook("MobjCollide", function(mo,pmo)
+	if pmo.player then
+		if pmo.skin == "zzombie" then
+			local thok = P_SpawnMobjFromMobj(mo,0,0,0,MT_THOK)
+			thok.color = mo.color
+			thok.fuse = 17
+			P_FlashPal(pmo.player, 3, 5*TICRATE)
+			P_Thrust(pmo, mo.angle, 90*FRACUNIT)
+			S_StartSound(pmo, sfx_bewar2)
+			P_SetScale(thok,thok.scale*3)
+			P_RemoveMobj(mo)
+		else
+			return false
+		end
+	end
+end, MT_MIRRORCLONE)
+
 SRBZ:CreateItem("Tails' fence", {
 	icon = "FENCEIND",
 	firerate = TICRATE*8,

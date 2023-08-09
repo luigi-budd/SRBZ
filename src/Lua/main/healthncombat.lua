@@ -447,3 +447,9 @@ COM_AddCommand("z_giveitem", function(player, item_id, count, slot)
 		SRBZ:GiveItem(player,item_id,count,slot)
 	end
 end, COM_ADMIN)
+
+addHook("SeenPlayer", function(player)
+	if gametype == GT_SRBZ then
+		return false
+	end
+end)
