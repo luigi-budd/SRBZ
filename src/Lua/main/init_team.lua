@@ -6,3 +6,12 @@ addHook("PlayerSpawn", function(p)
 	
 	if p.zteam == 2 then R_SetPlayerSkin(p, "zzombie") end
 end)
+
+addHook("ViewpointSwitch", function(player, nextplayer)
+	if player.spectator then
+		return
+	end
+	if nextplayer.zteam ~= player.zteam then
+		return false
+	end
+end)
