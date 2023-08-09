@@ -1,3 +1,60 @@
+freeslot("MT_SHOPKEEPER")
+
+mobjinfo[MT_SHOPKEEPER] = {
+    doomednum = -1,
+    spawnstate = S_PLAY_STND,
+    spawnhealth = 1,
+    radius = 32*FRACUNIT,
+    height = 48*FRACUNIT,
+    flags = MF_SOLID,
+}
+mobjinfo[MT_SHOPKEEPER].npc_name = "Shop Keeper"
+mobjinfo[MT_SHOPKEEPER].npc_spawnhealth = {100,100}
+addHook("MobjSpawn", function(mobj)
+    mobj.state = S_PLAY_STND
+
+    local rand = P_RandomRange(1,8)
+
+    -- due to srb2 limitations im just gonna elseif this
+    -- and this is pretty wip so im gonna just clean this up later
+    if rand == 1 then
+        mobj.skin = "sonic"
+        mobj.alias = "Sonic"
+        mobj.color = SKINCOLOR_BLUE
+    elseif rand == 2 then
+        mobj.skin = "tails"
+        mobj.alias = "Tails"
+        mobj.color = SKINCOLOR_ORANGE
+    elseif rand == 3 then
+        mobj.skin = "knuckles"
+        mobj.alias = "Knuckles"
+        mobj.color = SKINCOLOR_RED
+    elseif rand == 4 then
+        mobj.skin = "amy"
+        mobj.alias = "Amy"
+        mobj.color = SKINCOLOR_ROSY
+    elseif rand == 5 then
+        mobj.skin = "fang"
+        mobj.alias = "Fang"
+        mobj.color = SKINCOLOR_LAVENDER
+    elseif rand == 6 then
+        mobj.skin = "metalsonic"
+        mobj.alias = "Metal Sonic"
+        mobj.color = SKINCOLOR_COBALT
+    elseif rand == 7 then
+        mobj.skin = "sonic"
+        mobj.alias = "W"
+        mobj.color = SKINCOLOR_WHITE
+    elseif rand == 8 then
+        mobj.skin = "fang"
+        mobj.alias = "Bob"
+        mobj.color = SKINCOLOR_YELLOW
+    end
+
+    mobj.dontshowhealth = true
+
+end,MT_SHOPKEEPER)
+
 addHook("PlayerThink", function(player)
     if player.mo and player.mo.valid then
         if player.shop_open == nil then

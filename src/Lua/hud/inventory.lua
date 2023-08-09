@@ -2,7 +2,7 @@ SRBZ.inventoryhud = function(v, player)
 	if gametype ~= GT_SRBZ then return end
 	if player.choosing then return end
 	if SRBZ.game_ended then return end
-	if player.shop_open then return end
+	
 	if player["srbz_info"].ghostmode then return end
 	
 	local s_patch = v.cachePatch("CURWEAP")
@@ -20,6 +20,10 @@ SRBZ.inventoryhud = function(v, player)
 		local overone_xpos = ((i-1)*20)*FU
 		local iconscale = FU
 		
+		if player.shop_open then 
+			y = 146*FU
+			sel_y = y
+		end
 		local patch
 		
 		if i > 1 then

@@ -340,7 +340,7 @@ addHook("PreThinkFrame", function()
 			-- TryShoot
 			
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
-			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD then
+			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD and not player.shop_open then
 				
 				local weaponinfo = SRBZ:FetchInventorySlot(player)
 				local ring

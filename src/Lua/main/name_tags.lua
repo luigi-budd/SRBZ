@@ -143,12 +143,12 @@ hud.add( function(v, player, camera)
 			name = tmo.player.name
 		end
 		
-		if tmo.alias then
-			name = tostring(tmo.alias)
-		end
-
 		if not tmo.player and mobjinfo[tmo.type].npc_name then
 			name = mobjinfo[tmo.type].npc_name
+		end
+
+		if tmo.alias then
+			name = tostring(tmo.alias)
 		end
 
 		local health = ("["+tostring(tmo.health)+"/"+tostring(tmo.maxhealth)+"]")
@@ -175,7 +175,9 @@ hud.add( function(v, player, camera)
 		local trans = min(9, (((distedit * 10) / FRACUNIT) / distlimit)) * V_10TRANS
 		if name then
 			customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, SKINCOLOR_FOREST)
-			customhud.CustomFontString(v,hpos,vpos+(lineheight*FRACUNIT),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
+			if not tmo.dontshowhealth then
+				customhud.CustomFontString(v,hpos,vpos+(lineheight*FRACUNIT),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
+			end
 		end
 		--v.drawString(hpos, vpos, name, nameflags|trans|V_ALLOWLOWERCASE, namefont)
 		--v.drawString(hpos, vpos+(lineheight*FRACUNIT), health, rflags|trans|V_ALLOWLOWERCASE, ringfont)
