@@ -10,6 +10,41 @@ mobjinfo[MT_SHOPKEEPER] = {
 }
 mobjinfo[MT_SHOPKEEPER].npc_name = "Shop Keeper"
 mobjinfo[MT_SHOPKEEPER].npc_spawnhealth = {100,100}
+
+SRBZ.Shops = {
+    ["sonic"] = {
+        SRBZ:SafeCopyItemFromID(1),
+    },
+    ["tails"] = {
+
+
+    },
+    ["knuckles"] = {
+
+
+    },
+    ["amy"] = {
+
+
+    },
+    ["fang"] = {
+
+
+    },
+    ["metalsonic"] = {
+
+
+    },
+    ["w"] = {
+
+
+    },
+    ["bob"] = {
+
+
+    },
+}
+
 addHook("MobjSpawn", function(mobj)
     mobj.state = S_PLAY_STND
 

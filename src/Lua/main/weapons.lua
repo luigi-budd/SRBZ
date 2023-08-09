@@ -17,6 +17,48 @@ freeslot(
 	"SFX_ZISH1"
 )
 
+freeslot("MT_PROPWOOD","S_PROP1","S_PROP1_BREAK","SPR_WPRP")
+
+mobjinfo[MT_PROPWOOD] = {
+    sprite = SPR_WPRP,
+	spawnstate = S_PROP1,
+	painstate = S_PROP1,
+	painsound = sfx_dmpain,
+	deathstate = S_PROP1_BREAK,
+	deathsound = sfx_wbreak,
+	spawnhealth = 50,
+	speed = 0,
+	radius = 96*FRACUNIT,
+	height = 138*FRACUNIT,
+	flags = MF_SHOOTABLE|MF_SOLID,
+}
+mobjinfo[MT_PROPWOOD].npc_name = "Wood Fence"
+mobjinfo[MT_PROPWOOD].npc_spawnhealth = {5,15}
+
+states[S_PROP1] = {
+	nextstate = S_PROP1,
+	sprite = SPR_WPRP,
+	frame = FF_FULLBRIGHT,
+	tics = 2
+}
+
+states[S_PROP1_BREAK] = {
+	nextstate = S_NULL,
+	sprite = SPR_WPRP,
+	action = A_Scream,
+	frame = B,
+	tics = 2
+}
+
+addHook("MobjCollide", function(mo,pmo)
+	if pmo.skin ~= "zzombie"
+		P_SetObjectMomZ(mo,mo.scale*0)
+		return false
+	else
+		P_SetObjectMomZ(mo,mo.scale*-128)
+	end
+end, MT_PROPWOOD)
+
 mobjinfo[MT_INSTABURST] = {
 	doomednum = -1,
 	spawnhealth = 1,
@@ -100,7 +142,7 @@ SRBZ:CreateItem("Insta Burst", {
 				return false
 			end
 			
-			if (foundmobj.valid and ((foundmobj.flags & (MF_ENEMY|MF_BOSS)) or foundmobj.player)) and R_PointToDist2(foundmobj.x,foundmobj.y, instaburst.x, instaburst.y) < range then
+			if (foundmobj.valid and ((foundmobj.flags & (MF_SHOOTABLE)) or foundmobj.player)) and R_PointToDist2(foundmobj.x,foundmobj.y, instaburst.x, instaburst.y) < range then
 				P_DamageMobj(foundmobj, instaburst, instaburst.target)
 			end
 		end, 
@@ -109,9 +151,22 @@ SRBZ:CreateItem("Insta Burst", {
 		instaburst.y-brange,instaburst.y+brange)
 	end
 })
-
 SRBZ:CreateItem("W's mirror", {
 	icon = "MIRRORIND",
 	firerate = TICRATE*5,
-	sound = sfx_oyahx,	
+	sound = sfx_oyahx,
+})
+SRBZ:CreateItem("Tails' fence", {
+	icon = "FENCEIND",
+	firerate = TICRATE*8,
+	sound = sfx_oyahx,
+	ontrigger = function(player)
+		local wood = P_SpawnMobj(player.mo.x+FixedMul(128*FRACUNIT, cos(player.mo.angle)),
+					             player.mo.y+FixedMul(128*FRACUNIT, sin(player.mo.angle)), 
+								 player.mo.z, MT_PROPWOOD)
+		wood.angle = player.mo.angle+ANGLE_90
+		S_StartSound(player.mo, sfx_jshard)
+		wood.renderflags = $|RF_PAPERSPRITE
+		wood.target = player.mo
+	end
 })
