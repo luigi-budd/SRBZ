@@ -1,13 +1,14 @@
 freeslot("MT_SHOPKEEPER")
 
 mobjinfo[MT_SHOPKEEPER] = {
-    doomednum = -1,
+    doomednum = 861,
     spawnstate = S_PLAY_STND,
     spawnhealth = 1,
     radius = 32*FRACUNIT,
     height = 48*FRACUNIT,
     flags = MF_SOLID,
 }
+
 mobjinfo[MT_SHOPKEEPER].npc_name = "Shop Keeper"
 mobjinfo[MT_SHOPKEEPER].npc_spawnhealth = {100,100}
 
@@ -40,7 +41,7 @@ addHook("MobjSpawn", function(mobj)
         mobj.color = SKINCOLOR_BLUE
     elseif rand == 2 then
         mobj.skin = "tails"
-        mobj.alias = "Tails"
+        mobj.alias = "Tail-less"
         mobj.color = SKINCOLOR_ORANGE
     elseif rand == 3 then
         mobj.skin = "knuckles"
