@@ -156,6 +156,11 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 	end
 
+	if mo.player then
+		mo.player.shop_open = false
+		mo.player.shop_anim = 0
+	end
+
 	if inf.forcedamage ~= nil then
 		dmg = inf.forcedamage
 	end
@@ -279,6 +284,7 @@ addHook("PreThinkFrame", function()
 			shop_rightpressed = false,
 			shop_selectpressed = false,
 			shop_exitpressed = false,
+			shop_confirmscreen = false,
 		}
 		
 		if #SRBZ:FetchInventory(player) == 0 then

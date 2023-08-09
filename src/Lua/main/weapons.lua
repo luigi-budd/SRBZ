@@ -18,6 +18,17 @@ freeslot(
 )
 
 freeslot("MT_PROPWOOD","S_PROP1","S_PROP1_BREAK","SPR_WPRP")
+freeslot("MT_MIRRORCLONE")
+
+mobjinfo[MT_MIRRORCLONE] = {
+    doomednum = -1,
+    spawnstate = S_PLAY_STND,
+    spawnhealth = 1,
+    radius = 32*FRACUNIT,
+    height = 48*FRACUNIT,
+}
+mobjinfo[MT_MIRRORCLONE].npc_name = "Mirror Clone"
+mobjinfo[MT_MIRRORCLONE].npc_spawnhealth = {100,100}
 
 mobjinfo[MT_PROPWOOD] = {
     sprite = SPR_WPRP,
@@ -89,6 +100,7 @@ SRBZ:CreateItem("Red Ring",  {
 	color = SKINCOLOR_RED,
 	knockback = 45*FRACUNIT,
 	damage = 17,
+	price = 65,
 })
 
 SRBZ:CreateItem("Automatic Ring",  {
@@ -96,23 +108,25 @@ SRBZ:CreateItem("Automatic Ring",  {
 	icon = "AUTOIND",
 	firerate = 5,
 	color = SKINCOLOR_GREEN,
-	damage = 5,
+	damage = 9,
 	knockback = 30*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
+	price = 120,
 })
 
 SRBZ:CreateItem("Apple", {
 	icon = "APPLEIND",
-	firerate = 35,
+	firerate = 50,
 	sound = sfx_eatapl,
 	limited = true,
-	count = 1,
+	count = 8,
 	ontrigger = function(player)
 		if player.mo.health == player.mo.maxhealth then
 			return true
 		end
-		SRBZ:ChangeHealth(player.mo, 5)
-	end
+		SRBZ:ChangeHealth(player.mo, 8)
+	end,
+	price = 40,
 })
 
 SRBZ:CreateItem("I want summa that", {
@@ -149,17 +163,29 @@ SRBZ:CreateItem("Insta Burst", {
 		instaburst, 
 		instaburst.x-brange,instaburst.x+brange,
 		instaburst.y-brange,instaburst.y+brange)
-	end
+	end,
 })
 SRBZ:CreateItem("W's mirror", {
 	icon = "MIRRORIND",
 	firerate = TICRATE*5,
 	sound = sfx_oyahx,
+	limited = true,
+	count = 1,
+	price = 200,
+	ontrigger = function(player)
+		local mirrorclone = P_SpawnMobjFromMobj(player.mo,0,0,0,MT_MIRRORCLONE)
+		mirrorclone.target = player.mo
+		mirrorclone.skin = player.mo.skin
+		mirrorclone.color = player.mo.color
+		mirrorclone.health = player.mo.health
+		mirrorclone.maxhealth = player.mo.maxhealth
+		mirrorclone.alias = player.name
+		mirrorclone.angle = player.mo.angle
+	end
 })
 SRBZ:CreateItem("Tails' fence", {
 	icon = "FENCEIND",
 	firerate = TICRATE*8,
-	sound = sfx_oyahx,
 	ontrigger = function(player)
 		local wood = P_SpawnMobj(player.mo.x+FixedMul(128*FRACUNIT, cos(player.mo.angle)),
 					             player.mo.y+FixedMul(128*FRACUNIT, sin(player.mo.angle)), 
@@ -168,5 +194,16 @@ SRBZ:CreateItem("Tails' fence", {
 		S_StartSound(player.mo, sfx_jshard)
 		wood.renderflags = $|RF_PAPERSPRITE
 		wood.target = player.mo
-	end
+	end,
+	price = 140,
+})
+
+SRBZ:CreateItem("Explosion Ring", {
+	object = MT_THROWNEXPLOSION,
+	icon = "BOMBIND",
+	firerate = TICRATE*7,
+	color = SKINCOLOR_BLACK,
+	damage = 29,
+	knockback = 90*FRACUNIT,
+	price = 230,
 })

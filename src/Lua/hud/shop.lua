@@ -1,6 +1,10 @@
 SRBZ.shophud = function(v, player)
 	if SRBZ.game_ended then return end
 	if not player.shop_anim then return end
+	if not player.shop_person then return end
+
+	local sp = player.shop_person
+	local theshop = sp.shop
 	
 	local animlength = 1*TICRATE + TICRATE/2
 	
@@ -56,31 +60,55 @@ SRBZ.shophud = function(v, player)
 	if player.shop_anim ~= animlength then
 		trans = shop.ese<<V_ALPHASHIFT
 	end
-	for i=0,2 do
-		local item = SRBZ:SafeCopyItemFromID(i+1)
-		local item_scale = item.iconscale or FU
-		local item_x = (i*100*FU)+(120*FU)-((player["srbz_info"].shop_selection-1) * (100*FU)) -- (player["srbz_info"].shop_selection-1 * (120*FU))
-		-- Background to the shop item.
-		v.drawScaled(item_x,item_y,FU/2,item_bg_patch,trans)
-		-- Ruby Icon
-		v.drawScaled(item_x+(FU),item_y-(FU*13),FU,ruby_patch,trans)
-		-- Ruby Price
-		v.drawString(item_x+(16*FU),item_y-(9*FU),"\x85".."69420",trans, "fixed")
-		-- Weapon Icon
-		v.drawScaled(item_x,item_y+(9*FU),item_scale,v.cachePatch(item.icon),trans)
-		-- Name
-		v.drawString(item_x,item_y+(1*FU),item.displayname:upper(),trans, "thin-fixed")
-		-- Delay
-		v.drawString(item_x+(16*FU),item_y+(13*FU),"\x84".."DELAY: "..item.firerate,trans, "thin-fixed")
-		-- Damage
-		if item.damage then
-			v.drawString(item_x,item_y+(25*FU),"\x85".."DAMAGE: "..item.damage,trans, "thin-fixed")
+	if player.rubies ~= nil then
+		customhud.CustomFontString(v, 160, 0, "Rubies: "..player.rubies, "STCFC", 
+		(V_SNAPTOTOP), nil , nil, SKINCOLOR_RED)
+	end
+	if not player["srbz_info"].shop_confirmscreen then
+		for i=1,#theshop do
+			local item 
+			local item_x = (i*100*FU)+(120*FU)-((player["srbz_info"].shop_selection-1) * (100*FU)) - 100*FU -- (player["srbz_info"].shop_selection-1 * (120*FU))
+			if theshop[i] and theshop[i][2] then
+				item = theshop[i][2]
+				local item_scale = item.iconscale or FU
+				
+				-- Background to the shop item.
+				v.drawScaled(item_x,item_y,FU/2,item_bg_patch,trans)
+				-- Ruby Icon
+				v.drawScaled(item_x+(FU),item_y-(FU*13),FU,ruby_patch,trans)
+				-- Ruby Price
+				if theshop[i] and theshop[i][1] then
+					v.drawString(item_x+(16*FU),item_y-(9*FU),"\x85"..theshop[i][1],trans, "fixed")
+				end
+				-- Weapon Icon
+				v.drawScaled(item_x,item_y+(9*FU),item_scale,v.cachePatch(item.icon),trans)
+				-- Name
+				v.drawString(item_x,item_y+(1*FU),item.displayname:upper(),trans, "thin-fixed")
+				-- Delay
+				v.drawString(item_x+(16*FU),item_y+(13*FU),"\x84".."DELAY: "..item.firerate,trans, "thin-fixed")
+				-- Damage
+				if item.damage then
+					v.drawString(item_x,item_y+(25*FU),"\x85".."DAMAGE: "..item.damage,trans, "thin-fixed")
+				end
+				-- Knockback
+				if item.knockback then
+					v.drawString(item_x,item_y+(33*FU),"\x83".."KNOCKBACK: "..item.knockback/FU,trans, "thin-fixed")
+				end
+			else
+				v.drawScaled(item_x,item_y,FU/2,item_bg_patch,trans)
+				v.drawString(item_x,item_y+(1*FU),"EMPTY!",trans, "thin-fixed")
+			end
 		end
-		-- Knockback
-		if item.knockback then
-			v.drawString(item_x,item_y+(33*FU),"\x83".."KNOCKBACK: "..item.knockback/FU,trans, "thin-fixed")
+		v.drawScaled(120*FU,item_y,FU/2,cursor_patch,trans)
+	else
+		local itemchoosing = player.shop_person.shop[player["srbz_info"].shop_selection][2]
+		if itemchoosing then
+			v.drawString(160*FU,42*FU,"BUY: JUMP ... CANCEL:  SPIN", (V_SNAPTOTOP), "thin-fixed-center")
+			v.drawString(160*FU,50*FU,"\x82".."Are you sure you want to buy "..itemchoosing.displayname.."?", (V_SNAPTOTOP), "thin-fixed-center")
+			if not (leveltime % 3) and SRBZ:FetchInventorySlot(player) then
+				v.drawString(160*FU,58*FU,"\x84".."WARNING! YOUR HELD ITEM WILL BE REPLACED!", (V_SNAPTOTOP), "thin-fixed-center")
+			end
 		end
 	end
-	v.drawScaled(120*FU,item_y,FU/2,cursor_patch,trans)
 end
 

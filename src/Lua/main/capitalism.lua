@@ -51,7 +51,7 @@ end)
 
 addHook("TouchSpecial", function(special, toucher)
 	if toucher and toucher.valid and toucher.player then
-		if toucher.player.zteam == 2 then
+		if toucher.player.rubies + 1 > 500 then
 			return true
 		end
 		P_GivePlayerRubies(toucher.player, 1)
