@@ -72,6 +72,23 @@ function SRBZ:Copy(orig)
     if orig_type == 'table' then
         copy = {}
         for orig_key, orig_value in pairs(orig) do
+			if type(orig_value) == "function" then
+				continue
+			end
+            copy[orig_key] = orig_value
+        end
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
+function SRBZ:FullCopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in pairs(orig) do
             copy[orig_key] = orig_value
         end
     else -- number, string, boolean, etc

@@ -17,7 +17,7 @@ function SRBZ:CreateItem(name,table)
 	if type(table) ~= "table" then
 		error("Arg2 is not a table.")
 	end
-	temp_table = SRBZ:Copy(table) -- temp_table is supposed to add extra info before shipping.
+	temp_table = SRBZ:FullCopy(table) -- temp_table is supposed to add extra info before shipping.
 
 	temp_table.item_id = #self.ItemPresets + 1
 	temp_table.displayname = name
@@ -105,11 +105,7 @@ function SRBZ:GiveItem(player, item_id, count, slot)
 		elseif player["srbz_info"] and SRBZ:FetchInventory(player) then
 			local item = SRBZ:Copy(SRBZ.ItemPresets[item_id])
 			item.ontrigger = nil -- ontrigger not needed. we already fetch from SRBZ.ItemPresets
-			for i,v in pairs(item) do -- You can't archive functions in netgame.
-				if type(v) == "function" then
-					v = nil
-				end
-			end
+
 			if count ~= nil then
 				item.count = count
 				item.limited = true
@@ -286,7 +282,7 @@ addHook("PreThinkFrame", function()
 			shop_exitpressed = false,
 			shop_confirmscreen = false,
 		}
-		
+
 		if #SRBZ:FetchInventory(player) == 0 then
 			if player.zteam == 1 then
 				SRBZ:GiveItem(player, 1) 
@@ -395,11 +391,9 @@ addHook("PreThinkFrame", function()
 					
 					local temp_weaponinfo = SRBZ:Copy(weaponinfo)
 
-					for i,v in pairs(temp_weaponinfo) do -- You can't archive functions in netgame.
-						if type(v) == "function" then
-							v = nil
-						end
-					end
+					temp_weaponinfo.onspawn = nil
+					temp_weaponinfo.ontrigger = nil
+					temp_weaponinfo.onhit = nil
 
 					ring.weaponinfo = temp_weaponinfo
 				end

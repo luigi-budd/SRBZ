@@ -11,6 +11,4 @@ addHook("NetVars", function(net)
 	SRBZ.MapsOnVote = net($);
 	SRBZ.NextMapVoted = net($);
 	
-	
-	--SRBZ.WeaponPresets = net($);
 end)
