@@ -28,31 +28,56 @@
 
 SRBZ.MapTimers={}
 
-SRBZ.AddMapTimer=function(n,m,t,a)
-	if n==nil error("Name of the Timer is not specified") end
-	if m==nil error("Map ID is not specified") end
-	if t==nil error("Time is not specified") end
-	if type(n)!="string" error("Timer Name should be string") end
-	if type(m)!="number" error("Map ID should be number") end
-	if type(t)!="number" error("Time should be number in ticks") end
-	--if type(timepoint)~="table" and type(timepoint)~="nil" error("TimePoint values must be a table") end
-	if type(a)!="boolean" error ("Timer Activity value should be boolean") end
-	SRBZ.MapTimers[n]={map=m,time=t,active=a,originaltime=t}
+SRBZ.AddMapTimer=function(timer_name,map_number,map_time,active)
+	if timer_name == nil then 
+		error("Name of the Timer is not specified") end
+	if map_number == nil then 
+		error("Map Number is not specified") end
+	if map_time == nil then 
+		error("Time is not specified") end
+
+	if type(timer_name) ~= "string" then 
+		error("Timer Name should be string") end
+	if type(map_number) ~= "number" then 
+		error("Map Number should be number") end
+	if type(map_time) ~= "number" then 
+		error("Time should be number in ticks") end
+	if type(active) ~= "boolean" then 
+		error("Timer Activity value should be boolean") end
+
+	SRBZ.MapTimers[name] = {
+		map = map_number,
+		time = map_time,
+		active = active,
+		originaltime = map_time
+	}
 end
 SRBZ.ToggleMapTimer=function(timer)
-	if timer==nil error("Timer name is not specified") end
-	if type(timer)!="string" error("Name of the Timer should be string") end
+	if timer == nil then 
+		error("Timer name is not specified")
+	end
+	if type(timer) ~= "string" then 
+		error("Name of the Timer should be string")
+	end
 	SRBZ.MapTimers[timer].active = not SRBZ.MapTimers[timer].active
 end
 SRBZ.ResetMapTimer=function(timer)
-	if timer==nil error("Timer name is not specified") end
-	if type(timer)!="string" error("Name of the Timer should be string") end
-	SRBZ.MapTimers[timer].time=SRBZ.MapTimers[timer].originaltime
+	if timer == nil then 
+		error("Timer name is not specified")
+	end
+	if type(timer) ~= "string" then
+		error("Name of the Timer should be string")
+	end
+	SRBZ.MapTimers[timer].time = SRBZ.MapTimers[timer].originaltime
 end
 
 addHook("ThinkFrame",do
-	for timerName,timer in pairs(SRBZ.MapTimers)
-		if gamemap==timer.map and timer.active timer.time=$-1 end
-		if timer.time<=0 timer.active=false end
+	for timerName,timer in pairs(SRBZ.MapTimers) do
+		if gamemap == timer.map and timer.active then
+			timer.time = $ - 1
+		end
+		if timer.time <= 0 then
+			timer.active = false
+		end
 	end
 end)
