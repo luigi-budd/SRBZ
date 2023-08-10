@@ -83,25 +83,8 @@ addHook("MobjSpawn", function(mobj)
             offset = P_SignedRandom()/16
         end
         mobj.shop[i] = {}
-        if item.price ~= nil then
-            mobj.shop[i][1] = item.price + P_SignedRandom()/6
-        end
+        mobj.shop[i][1] = item.price 
         mobj.shop[i][2] = item 
-        if mobj.shop[i][2].damage then
-            mobj.shop[i][2].damage = $ + offset/2
-            if mobj.shop[i][2].damage <= 1 then
-                mobj.shop[i][2].damage = 1
-            end
-        end
-        if mobj.shop[i][2].knockback then
-            mobj.shop[i][2].knockback = $ + offset*FU
-        end
-        if mobj.shop[i][2].firerate then
-            mobj.shop[i][2].firerate = $ - offset/4
-            if mobj.shop[i][2].firerate <= 1 then
-                mobj.shop[i][2].firerate = 1
-            end
-        end
     end
     mobj.dontshowhealth = true
 

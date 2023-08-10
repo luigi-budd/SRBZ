@@ -1,5 +1,7 @@
 freeslot("MT_CRRUBY","S_CRRUBY","SPR_RBY1", "sfx_rbyhit") -- idk what CR means but i just slap it there
 
+SRBZ.RubyLimit = 2500;
+
 mobjinfo[MT_CRRUBY]= {
 	doomednum = -1,
 	spawnstate = S_CRRUBY,
@@ -20,8 +22,8 @@ states[S_CRRUBY] = {
 
 addHook("PlayerThink", function(player)
 	player.rubies = $ or 0
-	if player.rubies > 500 then
-		player.rubies = 500
+	if player.rubies > SRBZ.RubyLimit then
+		player.rubies = SRBZ.RubyLimit
 	end
 end)
 
@@ -37,11 +39,11 @@ addHook("MobjDeath", function(mobj)
 		for i=1,ruby_count do
 			local the_ruby = P_SpawnMobjFromMobj(mobj,0,0,10*FU,MT_CRRUBY)
 			the_ruby.fuse = 15*TICRATE
-			P_SetObjectMomZ(the_ruby, P_RandomRange(5,10)<<16)
+			P_SetObjectMomZ(the_ruby, P_RandomRange(5,7)<<16)
 		
 			if ruby_count > 1 then
 				local angle = P_RandomByte() * 256 * 2^16
-				P_InstaThrust(the_ruby, angle, 3*FU)
+				P_InstaThrust(the_ruby, angle, 2*FU)
 			end
 		end
 	end
@@ -51,7 +53,7 @@ end)
 
 addHook("TouchSpecial", function(special, toucher)
 	if toucher and toucher.valid and toucher.player then
-		if toucher.player.rubies + 1 > 500 then
+		if toucher.player.rubies + 1 > SRBZ.RubyLimit then
 			return true
 		end
 		P_GivePlayerRubies(toucher.player, 1)

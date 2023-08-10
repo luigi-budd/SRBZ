@@ -50,14 +50,14 @@ SRBZ.playerfunc = function(player)
 end
 
 mobjinfo[MT_BLUECRAWLA].npc_name = "Blue Crawla"
-mobjinfo[MT_BLUECRAWLA].npc_spawnhealth = {25,40}
-mobjinfo[MT_BLUECRAWLA].rubydrop = {1,5}
+mobjinfo[MT_BLUECRAWLA].npc_spawnhealth = {12,23}
+mobjinfo[MT_BLUECRAWLA].rubydrop = {3,8}
 mobjinfo[MT_BLUECRAWLA].painstate = S_POSS_PAIN
 --
 --S_POSS_PAIN2
 
 
 mobjinfo[MT_REDCRAWLA].npc_name = "Red Crawla"
-mobjinfo[MT_REDCRAWLA].npc_spawnhealth = {40,65}
-mobjinfo[MT_REDCRAWLA].rubydrop = {5,8}
+mobjinfo[MT_REDCRAWLA].npc_spawnhealth = {30,60}
+mobjinfo[MT_REDCRAWLA].rubydrop = {8,12}
 mobjinfo[MT_REDCRAWLA].painstate = S_SPOS_PAIN

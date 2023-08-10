@@ -101,18 +101,18 @@ SRBZ:CreateItem("Red Ring",  {
 	color = SKINCOLOR_RED,
 	knockback = 45*FRACUNIT,
 	damage = 17,
-	price = 65,
+	price = 15,
 })
 
 SRBZ:CreateItem("Automatic Ring",  {
 	object = MT_THROWNAUTOMATIC,
 	icon = "AUTOIND",
-	firerate = 5,
+	firerate = 4,
 	color = SKINCOLOR_GREEN,
 	damage = 9,
 	knockback = 30*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
-	price = 100,
+	price = 80,
 })
 
 SRBZ:CreateItem("Apple", {
@@ -120,14 +120,14 @@ SRBZ:CreateItem("Apple", {
 	firerate = 50,
 	sound = sfx_eatapl,
 	limited = true,
-	count = 8,
+	count = 5,
 	ontrigger = function(player)
 		if player.mo.health == player.mo.maxhealth then
 			return true
 		end
 		SRBZ:ChangeHealth(player.mo, 8)
 	end,
-	price = 40,
+	price = 25,
 })
 
 SRBZ:CreateItem("I want summa that", {
@@ -171,7 +171,7 @@ SRBZ:CreateItem("W's mirror", {
 	firerate = TICRATE*5,
 	sound = sfx_oyahx,
 	limited = true,
-	count = 1,
+	count = 3,
 	price = 200,
 	ontrigger = function(player)
 		local mirrorclone = P_SpawnMobjFromMobj(player.mo,0,0,0,MT_MIRRORCLONE)
