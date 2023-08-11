@@ -18,6 +18,10 @@ function SRBZ:StartWin(team)
 	end
 end
 
+addHook("PlayerThink", function(player)
+	player.zombiequeue = $ or 0
+end)
+
 addHook("ThinkFrame", function()
 	if gametype ~= GT_SRBZ or gamestate ~= GS_LEVEL then return end --stop the trolling
 	
@@ -29,13 +33,15 @@ addHook("ThinkFrame", function()
 		
 		-- simpler than ze's rng for sure.
 		for player in players.iterate do
-			if player.choosing == true and player.chosecharacter == false then
+			if player.choosing == true and player.chosecharacter == false then -- get tf out of character select
 				local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
-				SRBZ.pickcharinselect(player,selection_name) -- get tf out of character select	
+				SRBZ.pickcharinselect(player,selection_name) 
 			end
 			table.insert(choosingnums, #player)
+			player.zombiequeue = $ + 1
 		end
-		
+		-- At this point, every player's playernum is sroted in choosingnums
+		table.sort(choosingnums,function(a,b) return players[a].zombiequeue < players[b].zombiequeue end)
 		if SRBZ.PlayerCount() > 1 and #choosingnums > 1 then
 			for _I_=1,amountchoosing do
 				local playernumindex = P_RandomRange(1,#choosingnums)
@@ -45,6 +51,8 @@ addHook("ThinkFrame", function()
 				
 				P_KillMobj(player.mo,nil,nil,DMG_INSTAKILL)
 				player.zteam = 2
+				player.zombiequeue = 0
+				table.remove(choosingnums, playernumindex)
 			end
 		end
 		
