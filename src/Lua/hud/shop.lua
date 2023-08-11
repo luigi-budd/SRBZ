@@ -85,7 +85,8 @@ SRBZ.shophud = function(v, player)
 				-- Name
 				v.drawString(item_x,item_y+(1*FU),item.displayname:upper(),trans, "thin-fixed")
 				-- Delay
-				v.drawString(item_x+(16*FU),item_y+(13*FU),"\x84".."DELAY: "..item.firerate,trans, "thin-fixed")
+				local secondsrate = G_TicsToSeconds(item.firerate).."."..G_TicsToCentiseconds(item.firerate)
+				v.drawString(item_x+(16*FU),item_y+(13*FU),"\x84".."RATE: "..secondsrate,trans, "thin-fixed")
 				-- Damage
 				if item.damage then
 					v.drawString(item_x,item_y+(25*FU),"\x85".."DAMAGE: "..item.damage,trans, "thin-fixed")

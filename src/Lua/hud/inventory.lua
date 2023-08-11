@@ -61,7 +61,8 @@ SRBZ.inventoryhud = function(v, player)
 			iteminfo = $ + "\x85".."DMG: "..SRBZ:FetchInventorySlot(player).damage.." "
 		end
 		if SRBZ:FetchInventorySlot(player).firerate then
-			iteminfo = $ + "\x84".."RATE: "..SRBZ:FetchInventorySlot(player).firerate.." "
+			local firerate = SRBZ:FetchInventorySlot(player).firerate
+			iteminfo = $ + "\x84".."RATE: "..G_TicsToSeconds(firerate).."."..G_TicsToCentiseconds(firerate).." "
 		end
 		if SRBZ:FetchInventorySlot(player).knockback then
 			iteminfo = $ + "\x83".."KB: "..SRBZ:FetchInventorySlot(player).knockback/FU.." "
