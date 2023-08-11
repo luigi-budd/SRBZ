@@ -353,7 +353,8 @@ SRBZ:CreateItem("Scatter Ring",  {
 				shot.color = SRBZ:FetchInventorySlot(player).color
 				shot.fuse = SRBZ:FetchInventorySlot(player).fuse
 				shot.forcedamage = SRBZ:FetchInventorySlot(player).damage
-
+				shot.forceknockback = SRBZ:FetchInventorySlot(player).knockback
+				
 				shot.momx = $ + mo.momx / 3
 				shot.momy = $ + mo.momy / 3
 				shot.momz = $ + mo.momz / 3
@@ -368,6 +369,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 				shot.color = SRBZ:FetchInventorySlot(player).color
 				shot.fuse = SRBZ:FetchInventorySlot(player).fuse
 				shot.forcedamage = SRBZ:FetchInventorySlot(player).damage
+				shot.forceknockback = SRBZ:FetchInventorySlot(player).knockback
 
 				shot.momx = $ + mo.momx / 3
 				shot.momy = $ + mo.momy / 3
