@@ -440,6 +440,16 @@ COM_AddCommand("z_giveitem", function(player, item_id, count, slot)
 	end
 end, COM_ADMIN)
 
+COM_AddCommand("z_resetinventory", function(player)
+	player["srbz_info"].survivor_inventory = {
+		SRBZ:CopyItemFromID(ITEM_RED_RING)
+	}
+	player["srbz_info"].zombie_inventory = {
+		SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
+	}
+	CONS_Printf(player, "\x85\Cleared inventory!")
+end)
+
 addHook("SeenPlayer", function(player)
 	if gametype == GT_SRBZ then
 		return false
