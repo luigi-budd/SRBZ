@@ -1,18 +1,5 @@
 freeslot("MT_SHOPKEEPER")
 
-local itemlist = {
-	1,
-	2,
-	3,
-	6,
-	7,
-	8,
-	9,
-	10,
-	11,
-	12,
-}
-
 mobjinfo[MT_SHOPKEEPER] = {
     doomednum = 861,
     spawnstate = S_PLAY_STND,
@@ -84,7 +71,12 @@ addHook("MobjSpawn", function(mobj)
     end
     mobj.shop = {}
     local shopitemcount = P_RandomRange(3,4)
-    
+    local itemlist = {}
+	for i=1,#SRBZ.ItemPresets do
+		if SRBZ.ItemPresets[i] and SRBZ.ItemPresets[i].price then
+			table.insert(itemlist, i)
+		end
+	end
     for i=1,shopitemcount do
         local rng = P_RandomRange(1,#itemlist) 
         local choseitem = itemlist[rng]
@@ -106,7 +98,7 @@ end,MT_SHOPKEEPER)
 
 addHook("PlayerThink", function(player)
     if player.mo and player.mo.valid then
-        if player.shop_person then
+        if player.shop_person and player.shop_person.shop then
             local itemchoosing = player.shop_person.shop[player["srbz_info"].shop_selection][2]
 
             if not itemchoosing and player["srbz_info"].shop_confirmscreen then
