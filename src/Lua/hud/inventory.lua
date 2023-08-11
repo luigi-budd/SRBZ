@@ -68,6 +68,8 @@ SRBZ.inventoryhud = function(v, player)
 		end
 		v.drawString(115*FU, sel_y-(9*FU), SRBZ:FetchInventorySlot(player).displayname, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
 		v.drawString(115*FU, sel_y-(17*FU), iteminfo, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
+	else
+		v.drawString(115*FU, sel_y-(9*FU), "EMPTY", V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
 	end
 	-- weapon selection 
 	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
