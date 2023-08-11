@@ -193,7 +193,9 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 	elseif mobjinfo[mo.type].npc_name
 		--print(mobjinfo[mo.type].npc_name)
-		mo.state = mobjinfo[mo.type].painstate
+		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
+			S_StartSound(mo,mobjinfo[mo.type].painsound)
+		end
 		P_Thrust(mo, inf.angle, knockback)
 		--S_StartSound(mo, sfx_dmpain)
 	end
