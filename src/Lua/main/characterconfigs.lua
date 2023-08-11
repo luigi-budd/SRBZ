@@ -50,6 +50,17 @@ SRBZ.AddConfig = function(charname, table)
 	SRBZ.CharacterConfig[charname] = table
 end
 
+SRBZ.AddConfig("zzombie", {
+	normalspeed = 28 * FRACUNIT,
+	sprintspeed = 29 * FRACUNIT,
+	health = 115,
+	maxhealth = 115,
+	charability = CA_NONE,
+	charability2 = CA2_NONE,
+	jumpfactor = 17 * FRACUNIT / 19,
+	actionspd = 9*FRACUNIT,
+})
+
 SRBZ.AddConfig("sonic", {
 	normalspeed = 22 * FRACUNIT,
 	sprintspeed = 29 * FRACUNIT,
@@ -75,8 +86,8 @@ SRBZ.AddConfig("tails", {
 SRBZ.AddConfig("knuckles", {
 	normalspeed = 17 * FRACUNIT,
 	sprintspeed = 24 * FRACUNIT,
-	health = 155,
-	maxhealth = 155,
+	health = 120,
+	maxhealth = 120,
 	charability = CA_GLIDEANDCLIMB,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
