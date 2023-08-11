@@ -101,7 +101,7 @@ SRBZ:CreateItem("Red Ring",  {
 	color = SKINCOLOR_RED,
 	knockback = 45*FRACUNIT,
 	damage = 17,
-	price = 15,
+	price = 50,
 })
 
 SRBZ:CreateItem("Automatic Ring",  {
@@ -112,7 +112,7 @@ SRBZ:CreateItem("Automatic Ring",  {
 	damage = 9,
 	knockback = 30*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
-	price = 80,
+	price = 130,
 })
 
 SRBZ:CreateItem("Apple", {
@@ -127,7 +127,7 @@ SRBZ:CreateItem("Apple", {
 		end
 		SRBZ:ChangeHealth(player.mo, 8)
 	end,
-	price = 25,
+	price = 60,
 })
 
 SRBZ:CreateItem("I want summa that", {
@@ -217,7 +217,7 @@ SRBZ:CreateItem("Tails' fence", {
 		wood.renderflags = $|RF_PAPERSPRITE
 		wood.target = player.mo
 	end,
-	price = 145,
+	price = 190,
 })
 
 SRBZ:CreateItem("Explosion Ring", {

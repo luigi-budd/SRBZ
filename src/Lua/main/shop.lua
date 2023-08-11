@@ -74,7 +74,7 @@ addHook("MobjSpawn", function(mobj)
     for i=1,shopitemcount do
         local rng = P_RandomRange(1,#itemlist) 
         local choseitem = itemlist[rng]
-        local item = SRBZ:SafeCopyItemFromID(choseitem)
+        local item = SRBZ:CopyItemFromID(choseitem)
 
         table.remove(itemlist,rng) -- no repeating items
 

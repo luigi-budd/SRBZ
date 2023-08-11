@@ -21,7 +21,7 @@ function SRBZ:CreateItem(name,table)
 
 	temp_table.item_id = #self.ItemPresets + 1
 	temp_table.displayname = name
-	local idname = ("WP_"..name:upper()):gsub(" ","_"):gsub("'","")
+	local idname = ("ITEM_"..name:upper()):gsub(" ","_"):gsub("'","")
 	local idglobal = rawset(_G, idname, #self.ItemPresets + 1)
 	self.ItemPresets[#self.ItemPresets + 1] = temp_table
 	
@@ -88,7 +88,7 @@ function SRBZ:IsInventoryFull(player)
 	end
 end
 
-function SRBZ:SafeCopyItemFromID(item_id)
+function SRBZ:CopyItemFromID(item_id)
 	local item = SRBZ:Copy(SRBZ.ItemPresets[item_id]) or error("Invalid item_id.")
 	item.ontrigger = nil
 	item.onspawn = nil
@@ -263,10 +263,10 @@ addHook("PreThinkFrame", function()
 			zombie_inventory_limit = 3,
 			
 			survivor_inventory = {
-
+				SRBZ:CopyItemFromID(ITEM_RED_RING)
 			},
 			zombie_inventory = {
-
+				SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
 			},
 			
 			weapondelay = 0,
@@ -286,15 +286,6 @@ addHook("PreThinkFrame", function()
 			shop_exitpressed = false,
 			shop_confirmscreen = false,
 		}
-
-		if #SRBZ:FetchInventory(player) == 0 then
-			if player.zteam == 1 then
-				SRBZ:GiveItem(player, 1) 
-				SRBZ:GiveItem(player, 3, 5) 
-			elseif player.zteam == 2 then
-				SRBZ:GiveItem(player, 5)
-			end
-		end
 		
 		if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then
 			table.remove(SRBZ:FetchInventory(player),#SRBZ:FetchInventory(player))
