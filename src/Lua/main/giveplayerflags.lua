@@ -3,6 +3,11 @@ SRBZ.giveplayerflags = function(player)
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
 		player.pflags = $ & ~PF_DIRECTIONCHAR
 		SRBZ.SetCCtoplayer(player)
+		if mapheaderinfo[gamemap].srbz_noabilities then
+			player.pflags = $ & ~PF_GLIDING
+			player.pflags = $ & ~PF_BOUNCING
+			player.powers[pw_tailsfly] = 0
+		end
 	else 
 		if leveltime < 2 then
 			SRBZ.RevertChars(player) 
