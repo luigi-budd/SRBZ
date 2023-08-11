@@ -51,6 +51,7 @@ end
 
 mobjinfo[MT_BLUECRAWLA].npc_name = "Blue Crawla"
 mobjinfo[MT_BLUECRAWLA].npc_spawnhealth = {12,23}
+mobjinfo[MT_BLUECRAWLA].npc_name_color = SKINCOLOR_BLUE
 mobjinfo[MT_BLUECRAWLA].rubydrop = {3,8}
 mobjinfo[MT_BLUECRAWLA].painstate = S_POSS_PAIN
 --
@@ -59,5 +60,6 @@ mobjinfo[MT_BLUECRAWLA].painstate = S_POSS_PAIN
 
 mobjinfo[MT_REDCRAWLA].npc_name = "Red Crawla"
 mobjinfo[MT_REDCRAWLA].npc_spawnhealth = {30,60}
+mobjinfo[MT_REDCRAWLA].npc_name_color = SKINCOLOR_RED
 mobjinfo[MT_REDCRAWLA].rubydrop = {8,12}
 mobjinfo[MT_REDCRAWLA].painstate = S_SPOS_PAIN

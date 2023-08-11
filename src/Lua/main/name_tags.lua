@@ -147,6 +147,13 @@ hud.add( function(v, player, camera)
 			name = mobjinfo[tmo.type].npc_name
 		end
 
+		local textcolor = SKINCOLOR_GREEN
+		local namecolor = SKINCOLOR_FOREST
+
+		if mobjinfo[tmo.type].npc_name_color then
+			namecolor = mobjinfo[tmo.type].npc_name_color
+		end
+
 		if tmo.alias then
 			name = tostring(tmo.alias)
 		end
@@ -164,7 +171,7 @@ hud.add( function(v, player, camera)
 			--lineheight = 4
 		end
 		
-		local textcolor = SKINCOLOR_GREEN
+
 		local flash = (leveltime/(TICRATE/6))%2 == 0
 		if flash and tmo.health == 0 then
 			textcolor = SKINCOLOR_RED
@@ -174,7 +181,7 @@ hud.add( function(v, player, camera)
 		local distedit = max(0, distance - (distlimit*FRACUNIT/2)) * 2
 		local trans = min(9, (((distedit * 10) / FRACUNIT) / distlimit)) * V_10TRANS
 		if name then
-			customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, SKINCOLOR_FOREST)
+			customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, namecolor)
 			if not tmo.dontshowhealth then
 				customhud.CustomFontString(v,hpos,vpos+(lineheight*FRACUNIT),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
 			end

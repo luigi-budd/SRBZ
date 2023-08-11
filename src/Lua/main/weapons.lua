@@ -46,6 +46,7 @@ mobjinfo[MT_PROPWOOD] = {
 }
 mobjinfo[MT_PROPWOOD].npc_name = "Wood Fence"
 mobjinfo[MT_PROPWOOD].npc_spawnhealth = {5,15}
+mobjinfo[MT_PROPWOOD].npc_name_color = SKINCOLOR_BROWN
 
 states[S_PROP1] = {
 	nextstate = S_PROP1,
