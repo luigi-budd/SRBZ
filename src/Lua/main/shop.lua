@@ -9,6 +9,7 @@ local itemlist = {
 	ITEM_EXPLOSION_RING,
 	ITEM_NEGATIVE_RING,
 	ITEM_BLUE_SPRING,
+	ITEM_BOUNCE_RING,
 }
 
 mobjinfo[MT_SHOPKEEPER] = {

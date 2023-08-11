@@ -374,6 +374,10 @@ addHook("PreThinkFrame", function()
 						ring.color = weaponinfo.color
 					end 
 					
+					if weaponinfo.fuse ~= nil then
+						ring.fuse = weaponinfo.fuse
+					end
+					
 					if weaponinfo.damage ~= nil then
 						ring.forcedamage = weaponinfo.damage
 					end
