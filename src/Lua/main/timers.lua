@@ -19,7 +19,7 @@ function SRBZ:StartWin(team)
 end
 
 addHook("PlayerThink", function(player)
-	player.zombiequeue = $ or 0
+	player.waszombie = $ or false -- waszombie is to prevent repeating players
 end)
 
 addHook("ThinkFrame", function()
@@ -37,12 +37,14 @@ addHook("ThinkFrame", function()
 				local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
 				SRBZ.pickcharinselect(player,selection_name) 
 			end
-			table.insert(choosingnums, #player)
-			player.zombiequeue = $ + 1
+			if not player.waszombie then
+				table.insert(choosingnums, #player)
+			end
 		end
 		-- At this point, every player's playernum is sroted in choosingnums
-		table.sort(choosingnums,function(a,b) return players[a].zombiequeue < players[b].zombiequeue end)
-		if SRBZ.PlayerCount() > 1 and #choosingnums > 1 then
+		-- except for the players that were zombies last game.
+
+		if SRBZ.PlayerCount() > 1 then
 			for _I_=1,amountchoosing do
 				local playernumindex = P_RandomRange(1,#choosingnums)
 				local playernum = choosingnums[playernumindex]
@@ -51,14 +53,18 @@ addHook("ThinkFrame", function()
 				
 				P_KillMobj(player.mo,nil,nil,DMG_INSTAKILL)
 				player.zteam = 2
-				player.zombiequeue = 0
-				table.remove(choosingnums, playernumindex)
+				player.waszombie = true
+			end
+		end
+
+		for player in players.iterate do
+			if player.waszombie and player.zteam == 1 then
+				player.waszombie = false
 			end
 		end
 		
 		choosingnums = nil -- release memory idk wtf
 	end
-	
 	if SRBZ.time_limit and SRBZ.game_time >= SRBZ.time_limit and not (SRBZ.game_ended) then
 		SRBZ:StartWin(1)
 	end
