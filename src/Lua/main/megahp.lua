@@ -23,8 +23,10 @@ states[S_MEGAHP] = {
 sfxinfo[sfx_maxhp].caption="Max HP increased"
 
 SRBZ.HitMegaHP = function(special, toucher)
-	if toucher and toucher.valid then
+	if toucher and toucher.valid and toucher.player and toucher.player.zteam and toucher.player.zteam == 1 then
 		toucher.maxhealth = $ + 60
 		toucher.health = toucher.maxhealth
+	else
+		return true
 	end
 end
