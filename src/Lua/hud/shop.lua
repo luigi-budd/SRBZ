@@ -105,7 +105,7 @@ SRBZ.shophud = function(v, player)
 		if itemchoosing then
 			v.drawString(160*FU,42*FU,"BUY: JUMP ... CANCEL:  SPIN", (V_SNAPTOTOP), "thin-fixed-center")
 			v.drawString(160*FU,50*FU,"\x82".."Are you sure you want to buy "..itemchoosing.displayname.."?", (V_SNAPTOTOP), "thin-fixed-center")
-			if not (leveltime % 3) and SRBZ:FetchInventorySlot(player) then
+			if not (leveltime % 3) and SRBZ:FetchInventorySlot(player) and SRBZ:IsInventoryFull(player) then
 				v.drawString(160*FU,58*FU,"\x84".."WARNING! YOUR HELD ITEM WILL BE REPLACED!", (V_SNAPTOTOP), "thin-fixed-center")
 			end
 		end

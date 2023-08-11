@@ -170,9 +170,9 @@ addHook("PreThinkFrame", do
                             S_StartSound(nil, sfx_notadd, player)
                         else
                             player.shop_open = false
-                            player.shop_delay = TICRATE*2
-                            player["srbz_info"].shop_exitpressed  = true
+                            player.shop_delay = TICRATE*2   
                         end
+                        player["srbz_info"].shop_exitpressed  = true
                     end
                 else
                     player["srbz_info"].shop_exitpressed = false
@@ -189,9 +189,17 @@ addHook("PreThinkFrame", do
                             player.rubies = $ - player.shop_person.shop[player["srbz_info"].shop_selection][1]
                             -- copied from SRBZ:FetchInventory()
                             if player["srbz_info"].survivor_inventory and player.zteam == 1 then
-                                player["srbz_info"].survivor_inventory[player["srbz_info"].inventory_selection] = player.shop_person.shop[player["srbz_info"].shop_selection][2]
+                                if SRBZ:IsInventoryFull(player) then
+                                    player["srbz_info"].survivor_inventory[player["srbz_info"].inventory_selection] =  player.shop_person.shop[player["srbz_info"].shop_selection][2]
+                                else
+                                    table.insert(player["srbz_info"].survivor_inventory, player.shop_person.shop[player["srbz_info"].shop_selection][2])
+                                end
                             elseif player["srbz_info"].zombie_inventory and player.zteam == 2 then
-                                player["srbz_info"].zombie_inventory[player["srbz_info"].inventory_selection] = player.shop_person.shop[player["srbz_info"].shop_selection][2]
+                                if SRBZ:IsInventoryFull(player) then
+                                    player["srbz_info"].zombie_inventory[player["srbz_info"].inventory_selection] = player.shop_person.shop[player["srbz_info"].shop_selection][2]
+                                else
+                                    table.insert(player["srbz_info"].zombie_inventory, player.shop_person.shop[player["srbz_info"].shop_selection][2])
+                                end
                             else
                                 error("Could not fetch inventory.",2)
                             end
