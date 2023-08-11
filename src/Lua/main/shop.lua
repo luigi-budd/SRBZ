@@ -1,5 +1,16 @@
 freeslot("MT_SHOPKEEPER")
 
+local itemlist = {
+	ITEM_RED_RING,
+	ITEM_AUTOMATIC_RING,
+	ITEM_APPLE,
+	ITEM_WS_MIRROR,
+	ITEM_TAILS_FENCE,
+	ITEM_EXPLOSION_RING,
+	ITEM_NEGATIVE_RING,
+	ITEM_BLUE_SPRING,
+}
+
 mobjinfo[MT_SHOPKEEPER] = {
     doomednum = 861,
     spawnstate = S_PLAY_STND,
@@ -11,6 +22,7 @@ mobjinfo[MT_SHOPKEEPER] = {
 
 mobjinfo[MT_SHOPKEEPER].npc_name = "Shop Keeper"
 mobjinfo[MT_SHOPKEEPER].npc_spawnhealth = {100,100}
+mobjinfo[MT_SHOPKEEPER].disablehealthhud = true
 
 addHook("MobjCollide", function(mo,pmo)
     if not pmo.player then
@@ -70,7 +82,7 @@ addHook("MobjSpawn", function(mobj)
     end
     mobj.shop = {}
     local shopitemcount = P_RandomRange(3,4)
-    local itemlist = {1,2,3,6,7,8}
+    
     for i=1,shopitemcount do
         local rng = P_RandomRange(1,#itemlist) 
         local choseitem = itemlist[rng]
@@ -86,7 +98,7 @@ addHook("MobjSpawn", function(mobj)
         mobj.shop[i][1] = item.price 
         mobj.shop[i][2] = item 
     end
-    mobj.dontshowhealth = true
+    
 
 end,MT_SHOPKEEPER)
 

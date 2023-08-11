@@ -8,6 +8,12 @@ SRBZ.playerfunc = function(player)
 	end
 end
 
+addHook("MobjSpawn", function(mobj)
+	if mobjinfo[mobj.type].disablehealthhud then
+		mobj.dontshowhealth = true
+	end
+end)
+
 mobjinfo[MT_BLUECRAWLA].npc_name = "Blue Crawla"
 mobjinfo[MT_BLUECRAWLA].npc_spawnhealth = {12,23}
 mobjinfo[MT_BLUECRAWLA].npc_name_color = SKINCOLOR_BLUE
