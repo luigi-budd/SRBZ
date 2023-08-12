@@ -167,7 +167,6 @@ SRBZ:CreateItem("Red Ring",  {
 	color = SKINCOLOR_RED,
 	knockback = 45*FRACUNIT,
 	damage = 17,
-	price = 60,
 })
 
 SRBZ:CreateItem("Automatic Ring",  {
@@ -178,7 +177,7 @@ SRBZ:CreateItem("Automatic Ring",  {
 	damage = 9,
 	knockback = 30*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
-	price = 170,
+	price = 150,
 })
 
 SRBZ:CreateItem("Apple", {
@@ -193,7 +192,7 @@ SRBZ:CreateItem("Apple", {
 		end
 		SRBZ:ChangeHealth(player.mo, 8)
 	end,
-	price = 60,
+	price = 40,
 })
 
 SRBZ:CreateItem("I want summa that", {
@@ -238,7 +237,7 @@ SRBZ:CreateItem("W's mirror", {
 	sound = sfx_oyahx,
 	limited = true,
 	count = 3,
-	price = 200,
+	price = 150,
 	ontrigger = function(player)
 		local mirrorclone = P_SpawnMobjFromMobj(player.mo,0,0,0,MT_MIRRORCLONE)
 		mirrorclone.target = player.mo
@@ -283,7 +282,7 @@ SRBZ:CreateItem("Tails' fence", {
 		wood.renderflags = $|RF_PAPERSPRITE
 		wood.target = player.mo
 	end,
-	price = 190,
+	price = 110,
 })
 
 SRBZ:CreateItem("Explosion Ring", {
@@ -293,7 +292,7 @@ SRBZ:CreateItem("Explosion Ring", {
 	color = SKINCOLOR_BLACK,
 	damage = 29,
 	knockback = 90*FRACUNIT,
-	price = 270,
+	price = 240,
 })
 
 SRBZ:CreateItem("Negative Ring",  {
@@ -302,8 +301,8 @@ SRBZ:CreateItem("Negative Ring",  {
 	firerate = 17,
 	color = SKINCOLOR_WHITE,
 	knockback = -45*FRACUNIT,
-	damage = 19,
-	price = 550,
+	damage = 25,
+	price = 410,
 })
 
 SRBZ:CreateItem("Blue Spring",  {
@@ -319,7 +318,7 @@ SRBZ:CreateItem("Blue Spring",  {
 		S_StartSound(player.mo, sfx_jshard)
 		spring.target = player.mo
 	end,
-	price = 140,
+	price = 120,
 })
 
 SRBZ:CreateItem("Bounce Ring",  {
@@ -330,7 +329,7 @@ SRBZ:CreateItem("Bounce Ring",  {
 	damage = 11,
 	fuse = 10*TICRATE,
 	--flags2 = MF2_BOUNCERING,
-	price = 120,
+	price = 140,
 })
 
 SRBZ:CreateItem("Scatter Ring",  {
@@ -341,7 +340,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 	damage = 11,
 	fuse = TICRATE/2,
 	color = SKINCOLOR_PURPLE,
-	price = 340,
+	price = 250,
 	ontrigger = function(player)
 		local mt = MT_SRBZ_THROWNSCATTER
 		local mo = player.mo

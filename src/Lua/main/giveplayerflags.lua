@@ -2,6 +2,7 @@ SRBZ.giveplayerflags = function(player)
 	if gametype == GT_SRBZ then
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
 		player.pflags = $ & ~PF_DIRECTIONCHAR
+		player.pflags = $ & PF_FORCESTRAFE
 		SRBZ.SetCCtoplayer(player)
 		if mapheaderinfo[gamemap].srbz_noabilities then
 			player.pflags = $ & ~PF_GLIDING
