@@ -1,8 +1,11 @@
 SRBZ.giveplayerflags = function(player)
 	if gametype == GT_SRBZ then
+		player.fixautomatic = $ or false
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
 		player.pflags = $ & ~PF_DIRECTIONCHAR
-		player.pflags = $ & PF_FORCESTRAFE
+		if player.fixautomatic then
+			player.pflags = $ & PF_FORCESTRAFE
+		end
 		SRBZ.SetCCtoplayer(player)
 		if mapheaderinfo[gamemap].srbz_noabilities then
 			player.pflags = $ & ~PF_GLIDING
@@ -41,4 +44,17 @@ addHook("PlayerThink", function(player) -- Limit for climbing characters.
             player.climbing = 0
         end
     end
+end)
+
+COM_AddCommand("z_fixautocam", function(player)
+	player.fixautomatic = not $
+	CONS_Printf(player, "z_fixautocam is now "..tostring(player.fixautomatic))
+end)
+
+addHook("PlayerMsg", function(source, ctype, target, msg)
+	if ctype == 0 then
+		if msg == "!autocam" then
+			COM_BufInsertText(server, "say If your camera is bugged. Congratulations! You're a dumbass that uses the automatic camera option LMAO. Type z_fixautocam in console, and its fixed. But too bad! No abilities you dumb fuck.")
+		end
+	end
 end)
