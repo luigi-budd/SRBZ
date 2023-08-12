@@ -445,6 +445,16 @@ COM_AddCommand("z_giveitem", function(player, item_id, count, slot)
 end, COM_ADMIN)
 
 COM_AddCommand("z_resetinventory", function(player)
+	for i=1,player["srbz_info"].survivor_inventory_limit do
+		if player["srbz_info"].survivor_inventory[i] and player["srbz_info"].survivor_inventory[i].price then
+			local item_name = player["srbz_info"].survivor_inventory[i].displayname
+			local item_cost = player["srbz_info"].survivor_inventory[i].price
+			local toprint = string.format("%s sold for \x85\%s Rubies.",item_name,tostring(item_cost))
+			
+			CONS_Printf(player,toprint)
+			player.rubies = $ + item_cost
+		end
+	end
 	player["srbz_info"].survivor_inventory = {
 		SRBZ:CopyItemFromID(ITEM_RED_RING)
 	}
