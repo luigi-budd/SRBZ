@@ -298,10 +298,16 @@ SRBZ:CreateItem("Explosion Ring", {
 SRBZ:CreateItem("Negative Ring",  {
 	object = MT_REDRING,
 	icon = "NEGATIVERINGIND",
-	firerate = 17,
+	firerate = 25,
 	color = SKINCOLOR_WHITE,
-	knockback = -45*FRACUNIT,
+	knockback = 100*FRACUNIT,
 	damage = 25,
+	onhit = function(mo, hit)
+		P_SetObjectMomZ(hit, 30*FU)
+		if hit.player then
+			P_FlashPal(hit.player, 3, 10)
+		end
+	end,
 	price = 410,
 })
 
