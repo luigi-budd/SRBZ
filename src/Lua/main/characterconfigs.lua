@@ -51,13 +51,13 @@ SRBZ.AddConfig = function(charname, table)
 end
 
 SRBZ.AddConfig("zzombie", {
-	normalspeed = 28 * FRACUNIT,
-	sprintspeed = 29 * FRACUNIT,
-	health = 115,
-	maxhealth = 115,
+	normalspeed = 20 * FRACUNIT,
+	sprintspeed = 20 * FRACUNIT,
+	health = 90,
+	maxhealth = 90,
 	charability = CA_NONE,
 	charability2 = CA2_NONE,
-	jumpfactor = 17 * FRACUNIT / 19,
+	jumpfactor = 22 * FRACUNIT / 19,
 	actionspd = 9*FRACUNIT,
 })
 
