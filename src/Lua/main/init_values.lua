@@ -8,6 +8,14 @@ SRBZ.playerfunc = function(player)
 	end
 end
 
+addHook("PlayerSpawn", function(player)
+	local spawnsounds = {sfx_inf1,sfx_inf2}
+	if player.mo and player.mo.valid and player.zteam == 2 and SRBZ.round_active then
+		local soundrng = P_RandomRange(1,#spawnsounds)
+		S_StartSound(player.mo,spawnsounds[soundrng])
+	end
+end)
+
 addHook("MobjSpawn", function(mobj)
 	if mobjinfo[mobj.type].disablehealthhud then
 		mobj.dontshowhealth = true
