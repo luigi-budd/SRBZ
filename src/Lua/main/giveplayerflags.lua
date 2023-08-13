@@ -1,6 +1,5 @@
 SRBZ.giveplayerflags = function(player)
 	if gametype == GT_SRBZ then
-		player.fixautomatic = $ or false
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
 		player.pflags = $ & ~PF_DIRECTIONCHAR
 		player.pflags = $ & ~PF_ANALOGMODE 
