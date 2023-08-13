@@ -18,7 +18,7 @@ freeslot(
 )
 
 freeslot("MT_PROPWOOD","S_PROP1","S_PROP1_BREAK","SPR_WPRP")
-freeslot("MT_MIRRORCLONE")
+freeslot("MT_MIRRORCLONE", "sfx_mrr12")
 freeslot(
 "MT_SRBZ_THROWNSCATTER",
 "S_SRBZ_THROWNSCATTER1",
@@ -234,7 +234,7 @@ SRBZ:CreateItem("Insta Burst", {
 SRBZ:CreateItem("W's mirror", {
 	icon = "MIRRORIND",
 	firerate = TICRATE*5,
-	sound = sfx_oyahx,
+	sound = sfx_mrr12,
 	limited = true,
 	count = 3,
 	price = 150,
