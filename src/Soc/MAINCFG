@@ -108,4 +108,5 @@ Music = MP_DOM
 NoZone = True
 Weather = PRECIP_STORM
 SkyNum = 20
+Lua.srbz_timelimit = 7
 
