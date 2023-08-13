@@ -10,7 +10,7 @@ end
 
 addHook("PlayerSpawn", function(player)
 	local spawnsounds = {sfx_inf1,sfx_inf2}
-	if player.mo and player.mo.valid and player.zteam == 2 and SRBZ.round_active then
+	if player.mo and player.mo.valid and player.zteam == 2 and SRBZ.round_active and leveltime then
 		local soundrng = P_RandomRange(1,#spawnsounds)
 		S_StartSound(player.mo,spawnsounds[soundrng])
 	end
