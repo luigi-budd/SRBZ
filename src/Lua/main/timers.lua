@@ -1,3 +1,9 @@
+SRBZ.killwhenchosen = CV_RegisterVar({
+	name = "z_killwhenchosen",
+	defaultvalue = 1,
+	PossibleValue = CV_OnOff,
+	flags = CV_NETVAR,
+})
 
 function SRBZ:StartWin(team)
 	self.game_ended = true
@@ -50,8 +56,12 @@ addHook("ThinkFrame", function()
 				local playernum = choosingnums[playernumindex]
 				local player = players[playernum]
 				
-				
-				P_KillMobj(player.mo,nil,nil,DMG_INSTAKILL)
+				if SRBZ.killwhenchosen.value then
+					P_KillMobj(player.mo,nil,nil,DMG_INSTAKILL)
+				else
+					SRBZ.SetCChealth(player)
+					SRBZ.SetCCtoplayer(player)
+				end
 				player.zteam = 2
 				player.waszombie = true
 			end
