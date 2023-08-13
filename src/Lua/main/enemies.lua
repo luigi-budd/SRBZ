@@ -33,7 +33,7 @@ mobjinfo[MT_GOLDCRAWLA] = {
 	spawnhealth = 1,
 	reactiontime = 32,
 	painchance = 170,
-	speed = 50,
+	speed = 20,
 	radius = 24*FRACUNIT,
 	height = 32*FRACUNIT,
 	mass = 100,
@@ -41,18 +41,18 @@ mobjinfo[MT_GOLDCRAWLA] = {
 }
 
 mobjinfo[MT_GOLDCRAWLA].npc_name = "Gold Crawla"
-mobjinfo[MT_GOLDCRAWLA].npc_spawnhealth = {200,500}
+mobjinfo[MT_GOLDCRAWLA].npc_spawnhealth = {100,245}
 mobjinfo[MT_GOLDCRAWLA].npc_name_color = SKINCOLOR_GOLD
-mobjinfo[MT_GOLDCRAWLA].rubydrop = {80,120}
+mobjinfo[MT_GOLDCRAWLA].rubydrop = {50,60}
 mobjinfo[MT_GOLDCRAWLA].painsound = sfx_dmpain
 
 states[S_GOSS_STND] = {SPR_GOSS, A, 5, A_Look, 0, 0, S_GOSS_STND}
-states[S_GOSS_RUN1] = {SPR_GOSS, A, 3, A_Chase, 0, 0, S_GOSS_RUN2}
-states[S_GOSS_RUN2] = {SPR_GOSS, B, 3, A_Chase, 0, 0, S_GOSS_RUN3}
-states[S_GOSS_RUN3] = {SPR_GOSS, C, 3, A_Chase, 0, 0, S_GOSS_RUN4}
-states[S_GOSS_RUN4] = {SPR_GOSS, D, 3, A_Chase, 0, 0, S_GOSS_RUN5}
-states[S_GOSS_RUN5] = {SPR_GOSS, E, 3, A_Chase, 0, 0, S_GOSS_RUN6}
-states[S_GOSS_RUN6] = {SPR_GOSS, F, 3, A_Chase, 0, 0, S_GOSS_RUN1}
+states[S_GOSS_RUN1] = {SPR_GOSS, A, 1, A_Chase, 0, 0, S_GOSS_RUN2}
+states[S_GOSS_RUN2] = {SPR_GOSS, B, 1, A_Chase, 0, 0, S_GOSS_RUN3}
+states[S_GOSS_RUN3] = {SPR_GOSS, C, 1, A_Chase, 0, 0, S_GOSS_RUN4}
+states[S_GOSS_RUN4] = {SPR_GOSS, D, 1, A_Chase, 0, 0, S_GOSS_RUN5}
+states[S_GOSS_RUN5] = {SPR_GOSS, E, 1, A_Chase, 0, 0, S_GOSS_RUN6}
+states[S_GOSS_RUN6] = {SPR_GOSS, F, 1, A_Chase, 0, 0, S_GOSS_RUN1}
 
 mobjinfo[MT_GOLDBUZZ].npc_name = "Gold Buzz"
 mobjinfo[MT_GOLDBUZZ].npc_spawnhealth = {3,8}
@@ -65,3 +65,14 @@ mobjinfo[MT_REDBUZZ].npc_spawnhealth = {10,17}
 mobjinfo[MT_REDBUZZ].npc_name_color = SKINCOLOR_RED
 mobjinfo[MT_REDBUZZ].rubydrop = {5,7}
 mobjinfo[MT_REDBUZZ].painsound = sfx_dmpain
+
+local function GoldCrawlaRNG(mobj)
+	if gametype ~= GT_SRBZ then return end
+	if P_RandomChance(FRACUNIT/10) then
+		P_SpawnMobjFromMobj(mobj,0,0,0,MT_GOLDCRAWLA)
+		mobj.fuse = 1
+		return true
+	end
+end
+addHook("MobjSpawn", GoldCrawlaRNG, MT_BLUECRAWLA)
+addHook("MobjSpawn", GoldCrawlaRNG, MT_REDCRAWLA)
