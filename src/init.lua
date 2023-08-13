@@ -7,6 +7,7 @@ dofile "libraries/mtimeconv.lua"
 
 dofile "main/netvars.lua"
 dofile "main/characterconfigs.lua"
+dofile "main/enemies.lua"
 dofile "main/init_values.lua"
 dofile "main/init_team.lua"
 dofile "main/intermission.lua"
