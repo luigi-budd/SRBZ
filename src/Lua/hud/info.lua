@@ -43,6 +43,27 @@ SRBZ.infohud = function(v, player)
 			local healthstring = "+ "..health.."/"..maxhealth
 			customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 
 			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
+			
+						
+			-- [Survivor Count] --			
+			v.drawStretched((138-32-7)*FU, 2*FU, 16*FU, 6*FU, v.cachePatch("Z_BG_BLUE"), 
+			V_SNAPTOTOP)
+			
+			customhud.CustomFontString(v, 138-32, 1, tostring(SRBZ.SurvivorCount()), "STCFC", 
+			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_BLUE)
+			
+
+			
+			-- [Zombie Count] --
+			
+			v.drawStretched((138+64-7)*FU, 2*FU, 16*FU, 6*FU, v.cachePatch("Z_BG_RED"), 
+			V_SNAPTOTOP)
+			
+			customhud.CustomFontString(v, 138+64, 1, tostring(SRBZ.ZombieCount()), "STCFC", 
+			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_RED)
+			
+
+			
 		end
 		
 		-- [Timer] --
