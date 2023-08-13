@@ -47,10 +47,10 @@ SRBZ.infohud = function(v, player)
 			
 						
 			-- [Survivor Count] --			
-			v.drawStretched((138-32-7)*FU, 2*FU, 16*FU, 6*FU, v.cachePatch("Z_BG_BLUE"), 
+			v.drawStretched((138-28-7)*FU, 2*FU, 16*FU, 6*FU, v.cachePatch("Z_BG_BLUE"), 
 			V_SNAPTOTOP)
 			
-			customhud.CustomFontString(v, 138-32, 1, tostring(SRBZ.SurvivorCount()), "STCFC", 
+			customhud.CustomFontString(v, 138-28, 1, tostring(SRBZ.SurvivorCount()), "STCFC", 
 			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_BLUE)
 			
 
