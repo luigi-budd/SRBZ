@@ -87,7 +87,7 @@ G_AddGametype({
 	name = "SRBZ Survival",
 	identifier = "srbz",
 	typeoflevel = TOL_SRBZ,
-	rules = GTR_TIMELIMIT|GTR_ALLOWEXIT|GTR_RESPAWNDELAY|GTR_SPAWNENEMIES|GTR_CUTSCENES,
+	rules = GTR_TIMELIMIT|GTR_ALLOWEXIT|GTR_RESPAWNDELAY|GTR_SPAWNENEMIES|GTR_CUTSCENES|GTR_SPECTATORS|GTR_NOSPECTATORSPAWN,
 	intermissiontype = int_none, -- No intermission screen for possible inbuilt screen.
 	--headerleftcolor = 152,
 	--headerrightcolor = 40,

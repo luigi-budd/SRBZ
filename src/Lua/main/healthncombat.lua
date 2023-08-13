@@ -300,6 +300,8 @@ addHook("PreThinkFrame", function()
 			player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
 		end
 		
+		if player and not player.mo then continue end
+		
 		-- decrement
 		if player["srbz_info"].weapondelay then
 			player["srbz_info"].weapondelay = $ - 1

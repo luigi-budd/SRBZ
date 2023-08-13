@@ -5,6 +5,8 @@ SRBZ.inventoryhud = function(v, player)
 	
 	if player["srbz_info"].ghostmode then return end
 	
+	if player and not player.mo then return end
+	
 	local s_patch = v.cachePatch("CURWEAP")
 	local cyan_patch = v.cachePatch("Z_CYANSQUARE")
 	local sel = player["srbz_info"].inventory_selection

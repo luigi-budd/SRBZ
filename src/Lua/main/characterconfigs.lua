@@ -2,7 +2,7 @@ SRBZ.SetCCtoplayer = function(player)
 	local pmo = player.mo
 	local cc = SRBZ.CharacterConfig
 	
-	if cc[pmo.skin] then
+	if pmo and cc[pmo.skin] then
 		if cc[pmo.skin].normalspeed then player.normalspeed = cc[pmo.skin].normalspeed
 		else player.normalspeed = cc["default"].normalspeed end
 		
