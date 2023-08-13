@@ -6,7 +6,6 @@ SRBZ.AddMapTimer(
 	"Stonewood Timer1",
 	424, -- "MAPJ0"
 	5*TICRATE,
-	true,
 	function(timernum,timername)
 		print("Timer done: "..timername.." [".. timernum .. "]")
 	end
@@ -27,7 +26,7 @@ end)
 
 SRBZ.MapTimers = {}
 
-SRBZ.AddMapTimer = function(timer_name,map_number,map_time,active,onend)
+SRBZ.AddMapTimer = function(timer_name,map_number,map_time,onend)
 	if timer_name == nil then 
 		error("Name of the Timer is not specified") end
 	if map_number == nil then 
@@ -41,8 +40,6 @@ SRBZ.AddMapTimer = function(timer_name,map_number,map_time,active,onend)
 		error("Map Number should be number") end
 	if map_time and type(map_time) ~= "number" then 
 		error("Time should be number in ticks") end
-	if active and type(active) ~= "boolean" then 
-		error("Timer Activity value should be boolean") end
 	if onend and type(onend) ~= "function" then
 		error("Onend should be a function") end
 
@@ -50,13 +47,13 @@ SRBZ.AddMapTimer = function(timer_name,map_number,map_time,active,onend)
 		name = timer_name,
 		map = map_number,
 		time = map_time,
-		active = active,
+		active = false,
 		originaltime = map_time,
 		on_end = onend,
 	})
 	return #SRBZ.MapTimers
 end
-SRBZ.ResetMapTimer=function(timernum)
+SRBZ.ResetMapTimer = function(timernum)
 	if timernum == nil then 
 		error("Timer number is not specified")
 	end
@@ -65,6 +62,13 @@ SRBZ.ResetMapTimer=function(timernum)
 	end
 	SRBZ.MapTimers[timernum].time = SRBZ.MapTimers[timernum].originaltime
 end
+
+addHook("MapLoad", function()
+	for i,v in ipairs(MapTimers) do
+		v.active = false
+		SRBZ.ResetMapTimer(i)
+	end
+end)
 
 addHook("ThinkFrame",do
 	for i,timer in ipairs(SRBZ.MapTimers) do
