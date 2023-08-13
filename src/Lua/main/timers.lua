@@ -1,6 +1,13 @@
 SRBZ.killwhenchosen = CV_RegisterVar({
 	name = "z_killwhenchosen",
-	defaultvalue = 1,
+	defaultvalue = "On",
+	PossibleValue = CV_OnOff,
+	flags = CV_NETVAR,
+})
+
+SRBZ.choosenotice = CV_RegisterVar({
+	name = "z_choosenotice",
+	defaultvalue = "On",
 	PossibleValue = CV_OnOff,
 	flags = CV_NETVAR,
 })
@@ -61,6 +68,9 @@ addHook("ThinkFrame", function()
 				else
 					SRBZ.SetCChealth(player)
 					SRBZ.SetCCtoplayer(player)
+				end
+				if SRBZ.choosenotice.value then
+					print(string.format("\x83\%s\x83\ has risen from the dead!",player.name))
 				end
 				player.zteam = 2
 				player.waszombie = true
