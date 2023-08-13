@@ -11,7 +11,8 @@ addHook("NetVars", function(net)
 	SRBZ.MapsOnVote = net($);
 	SRBZ.NextMapVoted = net($);
 	
-	for i,v in pairs(SRBZ.MapTimers) do
+	for i,v in ipairs(SRBZ.MapTimers) do
+		v.name = net($)
 		v.map = net($)
 		v.time = net($)
 		v.active = net($)

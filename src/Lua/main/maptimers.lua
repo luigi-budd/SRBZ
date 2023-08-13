@@ -1,34 +1,33 @@
---Custom timers for maps
---Code by LeonardoTheMutant
---
---Functions:
---  SRBZ.AddMapTimer(name, mapID, time, active) - Create timer with the name [name] for map [mapID] (not extended map num!) that will work [time] ticks and is [active] on level startup
---  SRBZ.ToggleMapTimer(name) - toggle the state of the timer
---  SRBZ.ResetMapTimer(name) - Reset the timer to the original time value
---
---Access your timer:
---  SRBZ.MapTimers["Your_Timer_Name"].time - get the current time of your timer
---  SRBZ.MapTimers["Your_Timer_Name"].active - is timer active or not, true = is it counting down, false = it is paused
---
---How to actually use it on your map (ThinkFrame hook LUA example):
---  addHook("ThinkFrame", function(
---      local mytimer=SRBZ.MapTimers["MyTimer"]
---      if mytimer.time==105 then
---          print("3 SECONDS LEFT!")
---      elseif mytimer.time==70 then
---          print("2 SECONDS LEFT!!")
---      elseif mytimer.time==35 then
---          print("ONE SECOND!!!!")
---      elseif my.timer.time==0 and not mytimer.active then
---          print("TIME OVER!")
---          dosomethingelse()
---      end
---      if (not mytimer.active and mytimer.time ~= 0) print("WHY THE FUCK MY TIMER IS STOPPED") end --please ignore this line :skull:
---  end))
+-- Custom timers for maps
+-- Code by LeonardoTheMutant and Jisk
+-- Example
+/*
+SRBZ.AddMapTimer(
+	"Stonewood Timer1",
+	424, -- "MAPJ0"
+	5*TICRATE,
+	true,
+	function(timernum,timername)
+		print("Timer done: "..timername.." [".. timernum .. "]")
+	end
+)
+*/
 
-SRBZ.MapTimers={}
 
-SRBZ.AddMapTimer=function(timer_name,map_number,map_time,active)
+rawset(_G, "G_BuildMapNum", function(str)
+  str = string.gsub($, "MAP", "") -- Remove "MAP" from the string
+  local x = string.sub(str, 1, 1)
+  local y = string.sub(str, 2)
+
+  x = tonumber($) and tonumber($) or R_Char2Frame($)
+  y = tonumber($) and tonumber($) or R_Char2Frame($) + 10
+
+  return 36 * x + y + 100
+end)
+
+SRBZ.MapTimers = {}
+
+SRBZ.AddMapTimer = function(timer_name,map_number,map_time,active,onend)
 	if timer_name == nil then 
 		error("Name of the Timer is not specified") end
 	if map_number == nil then 
@@ -36,45 +35,44 @@ SRBZ.AddMapTimer=function(timer_name,map_number,map_time,active)
 	if map_time == nil then 
 		error("Time is not specified") end
 
-	if type(timer_name) ~= "string" then 
+	if timer_name and type(timer_name) ~= "string" then 
 		error("Timer Name should be string") end
-	if type(map_number) ~= "number" then 
+	if map_number and type(map_number) ~= "number" then 
 		error("Map Number should be number") end
-	if type(map_time) ~= "number" then 
+	if map_time and type(map_time) ~= "number" then 
 		error("Time should be number in ticks") end
-	if type(active) ~= "boolean" then 
+	if active and type(active) ~= "boolean" then 
 		error("Timer Activity value should be boolean") end
+	if onend and type(onend) ~= "function" then
+		error("Onend should be a function") end
 
-	SRBZ.MapTimers[name] = {
+	table.insert(SRBZ.MapTimers,{
+		name = timer_name,
 		map = map_number,
 		time = map_time,
 		active = active,
-		originaltime = map_time
-	}
+		originaltime = map_time,
+		on_end = onend,
+	})
+	return #SRBZ.MapTimers
 end
-SRBZ.ToggleMapTimer=function(timer)
-	if timer == nil then 
-		error("Timer name is not specified")
+SRBZ.ResetMapTimer=function(timernum)
+	if timernum == nil then 
+		error("Timer number is not specified")
 	end
-	if type(timer) ~= "string" then 
-		error("Name of the Timer should be string")
+	if type(timernum) ~= "string" then
+		error("Name of the timer should be a string")
 	end
-	SRBZ.MapTimers[timer].active = not SRBZ.MapTimers[timer].active
-end
-SRBZ.ResetMapTimer=function(timer)
-	if timer == nil then 
-		error("Timer name is not specified")
-	end
-	if type(timer) ~= "string" then
-		error("Name of the Timer should be string")
-	end
-	SRBZ.MapTimers[timer].time = SRBZ.MapTimers[timer].originaltime
+	SRBZ.MapTimers[timernum].time = SRBZ.MapTimers[timernum].originaltime
 end
 
 addHook("ThinkFrame",do
-	for timerName,timer in pairs(SRBZ.MapTimers) do
+	for i,timer in ipairs(SRBZ.MapTimers) do
 		if gamemap == timer.map and timer.active then
 			timer.time = $ - 1
+			if timer.time <= 0 and timer.on_end then
+				timer.on_end(i, timer.name)
+			end
 		end
 		if timer.time <= 0 then
 			timer.active = false
