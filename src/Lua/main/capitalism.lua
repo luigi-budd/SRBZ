@@ -1,6 +1,6 @@
 freeslot("MT_CRRUBY","S_CRRUBY","SPR_RBY1", "sfx_rbyhit") -- idk what CR means but i just slap it there
 
-SRBZ.RubyLimit = 2500;
+SRBZ.RubyLimit = 500000;
 
 mobjinfo[MT_CRRUBY]= {
 	doomednum = -1,
