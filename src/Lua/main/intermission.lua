@@ -54,7 +54,7 @@ end)
 addHook("PreThinkFrame", function()
 	for player in players.iterate do
 		local cmd = player.cmd
-		if player.mo and player.mo.valid then
+		if player.mo and player.mo.valid and player["srbz_info"] then
 			if SRBZ.win_tics > SRBZ.MapVoteStartFrame then
 				if SRBZ.win_tics < SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit then
 					if cmd.sidemove < -40 then
