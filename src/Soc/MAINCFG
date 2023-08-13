@@ -60,6 +60,18 @@ SelectHeading = SRBZ Maps
 Lua.srbz_timelimit = 7
 Lua.srbz_noabilities = true
 
+Level J3
+Levelname = Ice Mountain
+Subtitle = Squares, Pits and Trees.
+Act = 0
+Weather = 2
+SkyNum = 17
+Music = MP_ICE
+TypeOfLevel = SRBZ
+NextLevel = J3
+NoZone = True
+SelectHeading = SRBZ Maps
+
 Level N0
 Levelname = Ancient Catacombs
 Subtitle = Lost in the creepy catacombs

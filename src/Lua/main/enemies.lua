@@ -66,6 +66,12 @@ mobjinfo[MT_REDBUZZ].npc_name_color = SKINCOLOR_RED
 mobjinfo[MT_REDBUZZ].rubydrop = {5,7}
 mobjinfo[MT_REDBUZZ].painsound = sfx_dmpain
 
+mobjinfo[MT_PENGUINATOR].npc_name = "Penguinator"
+mobjinfo[MT_PENGUINATOR].npc_spawnhealth = {40,80}
+mobjinfo[MT_PENGUINATOR].npc_name_color = SKINCOLOR_ICY
+mobjinfo[MT_PENGUINATOR].rubydrop = {10,20}
+mobjinfo[MT_PENGUINATOR].painsound = sfx_dmpain
+
 local function GoldCrawlaRNG(mobj)
 	if gametype ~= GT_SRBZ then return end
 	if P_RandomChance(FRACUNIT/75) then
