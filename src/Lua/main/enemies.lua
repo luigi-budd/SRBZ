@@ -68,7 +68,7 @@ mobjinfo[MT_REDBUZZ].painsound = sfx_dmpain
 
 local function GoldCrawlaRNG(mobj)
 	if gametype ~= GT_SRBZ then return end
-	if P_RandomChance(FRACUNIT/20) then
+	if P_RandomChance(FRACUNIT/75) then
 		P_SpawnMobjFromMobj(mobj,0,0,0,MT_GOLDCRAWLA)
 		mobj.fuse = 1
 		return true
