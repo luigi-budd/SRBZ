@@ -21,6 +21,9 @@ function SRBZ:CreateItem(name,table)
 
 	temp_table.item_id = #self.ItemPresets + 1
 	temp_table.displayname = name
+	if temp_table.count then
+		temp_table.maxcount = temp_table.count
+	end
 	local idname = ("ITEM_"..name:upper()):gsub(" ","_"):gsub("'","")
 	local idglobal = rawset(_G, idname, #self.ItemPresets + 1)
 	self.ItemPresets[#self.ItemPresets + 1] = temp_table
@@ -444,11 +447,20 @@ COM_AddCommand("z_giveitem", function(player, item_id, count, slot)
 	end
 end, COM_ADMIN)
 
-COM_AddCommand("z_resetinventory", function(player)
+COM_AddCommand("z_sellinventory", function(player)
 	for i=1,player["srbz_info"].survivor_inventory_limit do
 		if player["srbz_info"].survivor_inventory[i] and player["srbz_info"].survivor_inventory[i].price then
 			local item_name = player["srbz_info"].survivor_inventory[i].displayname
 			local item_cost = player["srbz_info"].survivor_inventory[i].price
+			local item_count 
+			local item_maxcount
+			if player["srbz_info"].survivor_inventory[i].count then
+				item_count = player["srbz_info"].survivor_inventory[i].count
+				item_maxcount = player["srbz_info"].survivor_inventory[i].maxcount
+			end
+			if item_count and item_maxcount then
+				item_cost = (item_cost*item_count)/item_maxcount
+			end
 			local toprint = string.format("%s sold for \x85\%s Rubies.",item_name,tostring(item_cost))
 			
 			CONS_Printf(player,toprint)
@@ -462,6 +474,10 @@ COM_AddCommand("z_resetinventory", function(player)
 		SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
 	}
 	CONS_Printf(player, "\x85\Cleared inventory!")
+end)
+
+COM_AddCommand("z_sellhand", function(player)
+
 end)
 
 addHook("SeenPlayer", function(player)
