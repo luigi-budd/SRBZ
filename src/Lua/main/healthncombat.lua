@@ -461,9 +461,12 @@ COM_AddCommand("z_sellinventory", function(player)
 			if item_count and item_maxcount then
 				item_cost = (item_cost*item_count)/item_maxcount
 			end
-			local toprint = string.format("%s sold for \x85\%s Rubies.",item_name,tostring(item_cost))
+			item_cost = ($*3)/4 -- Give only 75% back.
+			
+			local toprint = string.format("%s sold for \x85\%s Rubies. (75 percent given back)",item_name,tostring(item_cost))
 			
 			CONS_Printf(player,toprint)
+			
 			player.rubies = $ + item_cost
 		end
 	end
@@ -477,7 +480,41 @@ COM_AddCommand("z_sellinventory", function(player)
 end)
 
 COM_AddCommand("z_sellhand", function(player)
-
+	local inventory 
+	if player.zteam == 1 then
+		inventory = player["srbz_info"].survivor_inventory
+	elseif player.zteam == 2 then
+		inventory = player["srbz_info"].zombie_inventory
+	end
+	local inventory_slot = inventory[player["srbz_info"].inventory_selection]
+	if inventory_slot and inventory_slot.price then -- Sellable
+		local item_name = inventory[player["srbz_info"].inventory_selection].displayname
+		local item_cost = inventory[player["srbz_info"].inventory_selection].price
+		local item_count 
+		local item_maxcount
+		if inventory[player["srbz_info"].inventory_selection].count then
+			item_count = inventory[player["srbz_info"].inventory_selection].count
+			item_maxcount = inventory[player["srbz_info"].inventory_selection].maxcount
+		end
+		if item_count and item_maxcount then
+			item_cost = (item_cost*item_count)/item_maxcount
+		end
+		
+		item_cost = ($*3)/4 -- Give only 75% back.
+		
+		local toprint = string.format("%s sold for \x85\%s Rubies. (75 percent given back)",item_name,tostring(item_cost))
+		
+		CONS_Printf(player,toprint)
+		
+		inventory[player["srbz_info"].inventory_selection] = nil
+		
+		player.rubies = $ + item_cost
+		
+	elseif inventory_slot and not inventory_slot.price then -- Unsellable but has slot
+		CONS_Printf(player, "\x85\This item is unsellable!")
+	else -- Nothing in slot at all
+		CONS_Printf(player, "\x85\Blank inventory slot!")
+	end
 end)
 
 addHook("SeenPlayer", function(player)
