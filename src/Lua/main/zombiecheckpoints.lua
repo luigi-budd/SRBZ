@@ -22,18 +22,13 @@ addHook("MapLoad", function()
 			z = mapthing.z,
 			angle = mapthing.angle
 		}
-
-		--print(mapthing.pitch)
-		--print(mapthing.x)
-		--print(mapthing.y)
-		--print(mapthing.z)
 	end
 end)
 
 addHook("PlayerSpawn", function(player)
 	if player.mo and player.mo.valid and player.zteam == 2 then
 		if SRBZ.ZombieCheckpoints and SRBZ.CurrentZombieCheckpoint 
-		and SRBZ.ZombieCheckpoints[SRBZ.CurrentZombieCheckpoint] then
+		and SRBZ.ZombieCheckpoints[SRBZ.CurrentZombieCheckpoint] and leveltime then
 			local checkpoint = SRBZ.ZombieCheckpoints[SRBZ.CurrentZombieCheckpoint]
 			
 			P_SetOrigin(player.mo, checkpoint.x*FU, checkpoint.y*FU, checkpoint.z*FU)
