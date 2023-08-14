@@ -174,7 +174,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 		
 		if inf.weaponinfo and SRBZ.ItemPresets[inf.weaponinfo.item_id] and SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit and inf.target then
-			SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit(inf.target, mo)
+			SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit(inf.target, mo, inf)
 		end
 	end
 	

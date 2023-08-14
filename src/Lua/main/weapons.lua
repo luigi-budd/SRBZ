@@ -237,8 +237,8 @@ SRBZ:CreateItem("W's mirror", {
 	firerate = TICRATE*5,
 	sound = sfx_mrr12,
 	limited = true,
-	count = 3,
-	price = 150,
+	count = 5,
+	price = 230,
 	ontrigger = function(player)
 		local mirrorclone = P_SpawnMobjFromMobj(player.mo,0,0,0,MT_MIRRORCLONE)
 		mirrorclone.target = player.mo
@@ -301,15 +301,21 @@ SRBZ:CreateItem("Negative Ring",  {
 	icon = "NEGATIVERINGIND",
 	firerate = 25,
 	color = SKINCOLOR_WHITE,
-	knockback = 100*FRACUNIT,
-	damage = 25,
+	knockback = 80*FRACUNIT,
+	damage = 27,
 	onhit = function(mo, hit)
-		P_SetObjectMomZ(hit, 30*FU)
+		P_SetObjectMomZ(hit, 15*FU)
 		if hit.player then
-			P_FlashPal(hit.player, 3, 10)
+			P_FlashPal(hit.player, 3, 5)
 		end
 	end,
-	price = 410,
+	onspawn = function(pmo, mo)
+		mo.momx = $/4
+		mo.momy = $/4
+		mo.momz = $/4
+		mo.scale = $*2
+	end,
+	price = 650,
 })
 
 SRBZ:CreateItem("Blue Spring",  {
@@ -335,8 +341,8 @@ SRBZ:CreateItem("Bounce Ring",  {
 	knockback = 20*FRACUNIT,
 	damage = 11,
 	fuse = 10*TICRATE,
-	--flags2 = MF2_BOUNCERING,
-	price = 140,
+	flags2 = MF2_BOUNCERING,
+	price = 220,
 })
 
 SRBZ:CreateItem("Scatter Ring",  {
@@ -392,3 +398,100 @@ SRBZ:CreateItem("Scatter Ring",  {
 		end
 	end
 })
+
+SRBZ:CreateItem("Green Shell",  {
+	object = MT_SHELL,
+	icon = "SHELLIND",
+	firerate = 20,
+	fuse = 5*TICRATE,
+	color = SKINCOLOR_GREEN,
+	knockback = 15*FU,
+	damage = 12,
+	onspawn = function(pmo, mo)
+		mo.scale = $*2
+	end,
+	onhit = function(pmo, hit, shell)
+		shell.fuse = 1
+	end,
+	price = 340,
+})
+
+SRBZ:CreateItem("Red Shell",  {
+	object = MT_SHELL,
+	icon = "REDSHELLIND",
+	firerate = 19,
+	fuse = 7*TICRATE,
+	color = SKINCOLOR_RED,
+	knockback = 0,
+	damage = 18,
+	onspawn = function(pmo, mo)
+		mo.scale = $*3
+	end,
+	onhit = function(pmo, hit, shell)
+		shell.fuse = 1
+	end,
+	price = 630,
+})
+
+SRBZ:CreateItem("Scatra",  {
+	icon = "SCATRAIND",
+	firerate = TICRATE/3,
+	sound = sfx_shgn,
+	knockback = 30*FRACUNIT,
+	damage = 9,
+	fuse = TICRATE/8,
+	color = SKINCOLOR_DUSK,
+	price = 850,
+	ontrigger = function(player)
+		local mt = MT_SRBZ_THROWNSCATTER
+		local mo = player.mo
+		local spread = 4
+		--S_StartSound(mo, sfx_shgn)
+		for i = -1, 1
+			local shot = P_SPMAngle(mo, mt, mo.angle + i * ANG1*spread, 1, 0)
+			if shot and shot.valid
+				shot.color = SRBZ:FetchInventorySlot(player).color
+				shot.fuse = SRBZ:FetchInventorySlot(player).fuse
+				shot.forcedamage = SRBZ:FetchInventorySlot(player).damage
+				shot.forceknockback = SRBZ:FetchInventorySlot(player).knockback
+				shot.colorized = true
+				
+				shot.momx = $ + mo.momx / 3
+				shot.momy = $ + mo.momy / 3
+				shot.momz = $ + mo.momz / 3
+			end
+		end
+		for i = -1, 1, 2
+			local prevaim = player.aiming
+			player.aiming = $ + i * ANG1*spread
+			local shot = P_SPMAngle(mo, mt, mo.angle, 1, 0)
+			player.aiming = prevaim
+			if shot and shot.valid
+				shot.color = SRBZ:FetchInventorySlot(player).color
+				shot.fuse = SRBZ:FetchInventorySlot(player).fuse
+				shot.forcedamage = SRBZ:FetchInventorySlot(player).damage
+				shot.forceknockback = SRBZ:FetchInventorySlot(player).knockback
+				shot.colorized =  true
+				
+				shot.momx = $ + mo.momx / 3
+				shot.momy = $ + mo.momy / 3
+				shot.momz = $ + mo.momz / 3
+			end
+		end
+		if not P_IsObjectOnGround(mo)
+			local aim = max(-FRACUNIT, min(FRACUNIT, -player.aiming/13000))
+			if P_MobjFlip(mo) * aim > 0
+				aim = $ * 2/8
+			end
+			mo.momz = $ + FixedMul(mo.scale, aim)
+			P_Thrust(mo, mo.angle, -FRACUNIT*9)
+		end
+	end
+})
+
+addHook("MobjCollide", function(thing, tmthing)
+	if gametype ~= GT_SRBZ then return end
+	if thing.type == tmthing.type then
+		return false
+	end
+end, MT_SHELL)
