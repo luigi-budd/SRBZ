@@ -80,3 +80,40 @@ addHook("MobjThinker", function(mobj)
 		mobj.flags2 = $^^MF2_DONTDRAW
 	end
 end, MT_CRRUBY)
+
+COM_AddCommand("z_sendrubies", function(player, player2, rubies)
+	local function giveinstructions()
+		CONS_Printf(player, "z_sendrubies <receivingplayernum> <rubies>: gives rubies to a player")
+	end
+	if not player2 or not rubies then
+		giveinstructions()
+		return
+	end
+	rubies = tonumber($)
+	player2 = tonumber($)
+	if not players[player2] then
+		CONS_Printf(player, "\x85\This player does not exist.")
+		return
+	end
+	
+	if rubies > player.rubies then
+		CONS_Printf(player, "\x85\You don't have enough rubies to do this.")
+		return
+	end
+	
+	if rubies <= 0 then 
+		CONS_Printf(player, "\x85\Rubies must not be negative or zero.")
+		return
+	end
+	
+	player.rubies = $ - rubies 
+	players[player2].rubies = $ + rubies
+	
+	CONS_Printf(player, "\x82\You sent "..rubies.." rubies to "..players[player2].name)
+	CONS_Printf(
+	players[player2], 
+	string.format("\x82\%s\x82\ sent you %s rubies", players[player2].name, tostring(rubies))
+	)
+	
+	
+end)
