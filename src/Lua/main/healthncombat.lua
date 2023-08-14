@@ -164,18 +164,20 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		mo.player.shop_anim = 0
 	end
 
-	if inf.forcedamage ~= nil then
-		dmg = inf.forcedamage
+	if inf then
+		if inf.forcedamage ~= nil then
+			dmg = inf.forcedamage
+		end
+		
+		if inf.forceknockback ~= nil then
+			knockback = inf.forceknockback
+		end
+		
+		if inf.weaponinfo and SRBZ.ItemPresets[inf.weaponinfo.item_id] and SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit and inf.target then
+			SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit(inf.target, mo)
+		end
 	end
 	
-	if inf.forceknockback ~= nil then
-		knockback = inf.forceknockback
-	end
-	
-	if inf.weaponinfo and SRBZ.ItemPresets[inf.weaponinfo.item_id] and SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit and inf.target then
-		SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit(inf.target, mo)
-	end
-
 	if mo.player then
 		if mo.player.zteam == 1 then
 			mo.player.powers[pw_flashing] = 35
