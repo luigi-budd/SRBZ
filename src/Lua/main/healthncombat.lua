@@ -163,7 +163,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		mo.player.shop_open = false
 		mo.player.shop_anim = 0
 	end
-
+	
 	if inf then
 		if inf.forcedamage ~= nil then
 			dmg = inf.forcedamage
@@ -176,6 +176,12 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		if inf.weaponinfo and SRBZ.ItemPresets[inf.weaponinfo.item_id] and SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit and inf.target then
 			SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit(inf.target, mo)
 		end
+	end
+	
+	if inf.player then
+		P_AddPlayerScore(inf.player, dmg)
+	elseif src.player then
+		P_AddPlayerScore(src.player, dmg)
 	end
 	
 	if mo.player then
