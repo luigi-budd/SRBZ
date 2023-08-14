@@ -23,6 +23,7 @@ dofile "main/timers.lua"
 dofile "main/shop.lua"
 dofile "main/name_tags.lua"
 dofile "main/maptimers.lua"
+dofile "main/zombiecheckpoints.lua"
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"

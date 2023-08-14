@@ -64,7 +64,7 @@ SRBZ.ResetMapTimer = function(timernum)
 end
 
 addHook("MapLoad", function()
-	for i,v in ipairs(MapTimers) do
+	for i,v in ipairs(SRBZ.MapTimers) do
 		v.active = false
 		SRBZ.ResetMapTimer(i)
 	end

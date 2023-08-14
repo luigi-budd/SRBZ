@@ -11,11 +11,14 @@ addHook("NetVars", function(net)
 	SRBZ.MapsOnVote = net($);
 	SRBZ.NextMapVoted = net($);
 	
+	SRBZ.CurrentZombieCheckpoint = net($);
+	SRBZ.ZombieCheckpoints = net($);
+	
 	for i,v in ipairs(SRBZ.MapTimers) do
-		v.name = net($)
-		v.map = net($)
-		v.time = net($)
-		v.active = net($)
-		v.originaltime = net($)
+		v.name = net($);
+		v.map = net($);
+		v.time = net($);
+		v.active = net($);
+		v.originaltime = net($);
 	end
 end)
