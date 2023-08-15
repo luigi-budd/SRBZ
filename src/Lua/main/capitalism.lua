@@ -2,6 +2,19 @@ freeslot("MT_CRRUBY","S_CRRUBY","SPR_RBY1", "sfx_rbyhit") -- idk what CR means b
 
 SRBZ.RubyLimit = 500000;
 
+function A_RubyDrop(actor, var1)
+	for i=1,var1 do
+		local the_ruby = P_SpawnMobjFromMobj(actor,0,0,10*FU,MT_CRRUBY)
+		the_ruby.fuse = 16*TICRATE
+		P_SetObjectMomZ(the_ruby, P_RandomRange(5,7)<<16)
+
+		if var1 > 1 then
+			local angle = P_RandomByte() * 256 * 2^16
+			P_InstaThrust(the_ruby, angle, 2*FU)
+		end
+	end
+end
+
 mobjinfo[MT_CRRUBY]= {
 	doomednum = -1,
 	spawnstate = S_CRRUBY,
@@ -31,24 +44,21 @@ addHook("MobjDeath", function(mobj)
 
 	if gametype ~= GT_SRBZ then return end
 	
-	if mobjinfo[mobj.type].rubydrop and type(mobjinfo[mobj.type].rubydrop) == "table" 
-	and #mobjinfo[mobj.type].rubydrop == 2 then
-	
-		local ruby_count = P_RandomRange(mobjinfo[mobj.type].rubydrop[1],mobjinfo[mobj.type].rubydrop[2])
-		
-		for i=1,ruby_count do
-			local the_ruby = P_SpawnMobjFromMobj(mobj,0,0,10*FU,MT_CRRUBY)
-			the_ruby.fuse = 15*TICRATE
-			P_SetObjectMomZ(the_ruby, P_RandomRange(5,7)<<16)
-		
-			if ruby_count > 1 then
-				local angle = P_RandomByte() * 256 * 2^16
-				P_InstaThrust(the_ruby, angle, 2*FU)
-			end
-		end
+	if mobj.rubiesholding then
+		A_RubyDrop(mobj,mobj.rubiesholding)
+		mobj.rubiesholding = 0
 	end
 end)
 
+addHook("MobjSpawn", function(mobj)
+	if gametype ~= GT_SRBZ then return end
+	
+	if mobjinfo[mobj.type].rubydrop and type(mobjinfo[mobj.type].rubydrop) == "table" 
+	and #mobjinfo[mobj.type].rubydrop == 2 then
+		local ruby_count = P_RandomRange(mobjinfo[mobj.type].rubydrop[1],mobjinfo[mobj.type].rubydrop[2])
+		mobj.rubiesholding = ruby_count
+	end
+end)
 
 
 addHook("TouchSpecial", function(special, toucher)

@@ -15,13 +15,13 @@ freeslot(
 mobjinfo[MT_BLUECRAWLA].npc_name = "Blue Crawla"
 mobjinfo[MT_BLUECRAWLA].npc_spawnhealth = {12,23}
 mobjinfo[MT_BLUECRAWLA].npc_name_color = SKINCOLOR_BLUE
-mobjinfo[MT_BLUECRAWLA].rubydrop = {3,6}
+mobjinfo[MT_BLUECRAWLA].rubydrop = {4,10}
 mobjinfo[MT_BLUECRAWLA].painsound = sfx_dmpain
 
 mobjinfo[MT_REDCRAWLA].npc_name = "Red Crawla"
-mobjinfo[MT_REDCRAWLA].npc_spawnhealth = {30,60}
+mobjinfo[MT_REDCRAWLA].npc_spawnhealth = {30,55}
 mobjinfo[MT_REDCRAWLA].npc_name_color = SKINCOLOR_RED
-mobjinfo[MT_REDCRAWLA].rubydrop = {6,10}
+mobjinfo[MT_REDCRAWLA].rubydrop = {10,35}
 mobjinfo[MT_REDCRAWLA].painsound = sfx_dmpain
 
 mobjinfo[MT_GOLDCRAWLA] = {
@@ -41,7 +41,7 @@ mobjinfo[MT_GOLDCRAWLA] = {
 }
 
 mobjinfo[MT_GOLDCRAWLA].npc_name = "Gold Crawla"
-mobjinfo[MT_GOLDCRAWLA].npc_spawnhealth = {100,245}
+mobjinfo[MT_GOLDCRAWLA].npc_spawnhealth = {180,245}
 mobjinfo[MT_GOLDCRAWLA].npc_name_color = SKINCOLOR_GOLD
 mobjinfo[MT_GOLDCRAWLA].rubydrop = {50,60}
 mobjinfo[MT_GOLDCRAWLA].painsound = sfx_dmpain
@@ -69,12 +69,12 @@ mobjinfo[MT_REDBUZZ].painsound = sfx_dmpain
 mobjinfo[MT_PENGUINATOR].npc_name = "Penguinator"
 mobjinfo[MT_PENGUINATOR].npc_spawnhealth = {40,80}
 mobjinfo[MT_PENGUINATOR].npc_name_color = SKINCOLOR_ICY
-mobjinfo[MT_PENGUINATOR].rubydrop = {10,20}
+mobjinfo[MT_PENGUINATOR].rubydrop = {15,25}
 mobjinfo[MT_PENGUINATOR].painsound = sfx_dmpain
 
 local function GoldCrawlaRNG(mobj)
 	if gametype ~= GT_SRBZ then return end
-	if P_RandomChance(FRACUNIT/75) then
+	if P_RandomChance( FRACUNIT/(75-(SRBZ.PlayerCount()*2)) ) then
 		P_SpawnMobjFromMobj(mobj,0,0,0,MT_GOLDCRAWLA)
 		mobj.fuse = 1
 		return true
