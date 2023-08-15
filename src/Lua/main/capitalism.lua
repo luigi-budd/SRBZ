@@ -89,6 +89,12 @@ COM_AddCommand("z_sendrubies", function(player, player2, rubies)
 		giveinstructions()
 		return
 	end
+	
+	if not tonumber(rubies) then
+		giveinstructions()
+		return
+	end
+	
 	rubies = tonumber($)
 	player2 = tonumber($)
 	if not players[player2] then

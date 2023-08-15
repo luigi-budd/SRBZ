@@ -74,6 +74,7 @@ addHook("ThinkFrame", function()
 				end
 				player.zteam = 2
 				player.waszombie = true
+				table.remove(choosingnums,playernumindex)
 			end
 		end
 
