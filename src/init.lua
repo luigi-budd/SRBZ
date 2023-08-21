@@ -4,6 +4,7 @@ dofile "libraries/customhudlib.lua"
 dofile "libraries/countingplayers.lua"
 dofile "libraries/getcharacterlist.lua"
 dofile "libraries/mtimeconv.lua"
+dofile "libraries/basexx.lua" -- https://github.com/aiq/basexx
 
 dofile "main/netvars.lua"
 dofile "main/characterconfigs.lua"
