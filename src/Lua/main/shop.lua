@@ -59,11 +59,11 @@ SRBZ.ShopkeeperList={
 SRBZ.AddShopkeeper = function(name, skin, color)
     if (not name) then error("Shopkeeper needs a name!") end
     if (not skin) then error("Shopkeeper's skin is not specified") end
-    if (not color) then error("Shopkeeper's mobj_t color is not specified") end
+    if (not color) then error("Shopkeeper's SKINCOLOR_* color is not specified") end
     if (type(name)!="string") then error("Name should be a string") end
     if (type(skin)!="string") then error("Skin should be a string name of a skin") end
-    if (not skins[skin]) then error("Shopkeeper's specified skin does not exist!") end --somehow this doesn't work even on correct values
-    if (type(color)!="number") then error("Color should be a SKINCOLOR_* value") end --no idea why it fails on correct values
+    if (not skins[skin]) then error("Shopkeeper's specified skin does not exist!") end
+    if (type(color)!="number") then error("Color should be a SKINCOLOR_* value") end
     table.insert(SRBZ.ShopkeeperList, {
         ["name"]=name,
         ["skin"]=skin,
