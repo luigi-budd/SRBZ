@@ -15,7 +15,7 @@ mobjinfo[MT_SHOPKEEPER].disablehealthhud = true
 
 SRBZ.ShopkeeperList={
     {
-        ["name"]="Sonic" --Shopkeeper's name, this string is also shown when you come close to him
+        ["name"]="Sonic", --Shopkeeper's name, this string is also shown when you come close to him
         ["skin"]="sonic", --mobj_t.skin
         ["color"]=SKINCOLOR_BLUE --mobj_t.color
     },
@@ -50,11 +50,27 @@ SRBZ.ShopkeeperList={
         ["color"]=SKINCOLOR_WHITE
     },
     {
-        ["name"]="Bob"
+        ["name"]="Bob",
         ["skin"]="fang",
         ["color"]=SKINCOLOR_YELLOW
     }
 }
+
+SRBZ.AddShopkeeper = function(name, skin, color)
+    if (not name) then error("Shopkeeper needs a name!") end
+    if (not skin) then error("Shopkeeper's skin is not specified") end
+    if (not color) then error("Shopkeeper's mobj_t color is not specified") end
+    if (type(name)!="string") then error("Name should be a string") end
+    if (type(skin)!="string") then error("Skin should be a string name of a skin") end
+    if (not skins[skin]) then error("Shopkeeper's specified skin does not exist!") end --somehow this doesn't work even on correct values
+    if (type(color)!="number") then error("Color should be a SKINCOLOR_* value") end --no idea why it fails on correct values
+    table.insert(SRBZ.ShopkeeperList, {
+        ["name"]=name,
+        ["skin"]=skin,
+        ["color"]=color
+    })
+    print("Added \""..name.."\" ("..skincolors[color].name.." "..skin..") as a Shopkeeper to the SRBZ")
+end
 
 addHook("MobjCollide", function(mo,pmo)
     if not pmo.player then
