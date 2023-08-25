@@ -207,11 +207,9 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
 			S_StartSound(mo,mobjinfo[mo.type].painsound)
 		end
-		P_Thrust(mo, inf.angle, knockback)
-		--S_StartSound(mo, sfx_dmpain)
-	end
+		P_Thrust(mo, inf.angle, mo.info.mass/100 * knockback) --better than just knockback
 	
-
+	end
 	
 	if dmg >= mo.health then
 		P_KillMobj(mo,inf)
@@ -235,9 +233,7 @@ end)
 
 addHook("MobjDeath", function(mobj)
 	if SRBZ.round_active and not SRBZ_game_ended and SRBZ.PlayerCount() > 1 then
-		local player = mobj.player
-		
-		player.zteam = 2
+		mobj.player.zteam = 2
 	end
 end,MT_PLAYER)
 
@@ -353,6 +349,15 @@ addHook("PreThinkFrame", function()
 			else
 				player["srbz_info"].pressednext = false	
 			end
+
+			--make keyboard weapon keys work for inventory selection
+			if (cmd.buttons & BT_WEAPONMASK >=1 and cmd.buttons & BT_WEAPONMASK<=5) and (not player.choosing) then
+				if not player["srbz_info"].pressedbtn then
+					player["srbz_info"].inventory_selection=cmd.buttons&BT_WEAPONMASK
+					S_StartSound(nil,sfx_mnu1a,player)
+				end
+				player["srbz_info"].pressedbtn = true
+			else player["srbz_info"].pressedbtn = false end
 			
 			-- TryShoot
 			
@@ -478,7 +483,7 @@ COM_AddCommand("z_sellinventory", function(player)
 			end
 			item_cost = ($*3)/4 -- Give only 75% back.
 			
-			local toprint = string.format("%s sold for \x85\%s Rubies. (75 percent given back)",item_name,tostring(item_cost))
+			local toprint = string.format("%s sold for \x85%s Rubies. (75 percent given back)",item_name,tostring(item_cost))
 			
 			CONS_Printf(player,toprint)
 			
@@ -491,7 +496,7 @@ COM_AddCommand("z_sellinventory", function(player)
 	player["srbz_info"].zombie_inventory = {
 		SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
 	}
-	CONS_Printf(player, "\x85\Cleared inventory!")
+	CONS_Printf(player, "\x85".."Cleared inventory!")
 end)
 
 COM_AddCommand("z_sellhand", function(player)
