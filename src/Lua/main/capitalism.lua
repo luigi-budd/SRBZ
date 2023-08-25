@@ -33,6 +33,8 @@ states[S_CRRUBY] = {
 	nextstate = S_CRRUBY,
 }
 
+sfxinfo[sfx_rbyhit].caption="Ruby"
+
 addHook("PlayerThink", function(player)
 	player.rubies = $ or 0
 	if player.rubies > SRBZ.RubyLimit then
