@@ -214,7 +214,18 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		P_Thrust(mo, inf.angle, mo.info.mass/100 * knockback) --you know it's better to make alt mass
 	
 	end
-	
+
+	if mobjinfo[src.type].npc_name and mo.player
+		local damage = P_RandomKey(9)+3
+		if damage >= mo.health then P_KillMobj(mo,src)
+		else mo.health=$-damage end
+	end
+	if src.player and (not inf or src.player.charability2==CA2_GUNSLINGER) and mobjinfo[mo.type].npc_name
+		local damage = P_RandomKey(9)+1
+		if damage >= mo.health then P_KillMobj(mo,src)
+		else mo.health=$-damage end
+	end
+
 	if dmg >= mo.health then
 		P_KillMobj(mo,inf)
 		return true
