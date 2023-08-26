@@ -47,9 +47,9 @@ SRBZ.inventoryhud = function(v, player)
 		
 		-- weapon icons
 		if SRBZ:FetchInventory(player)[i] then
-			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
+			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOBOTTOM)
 		else
-			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT)
+			v.drawStretched(x, y, iconscale, iconscale, patch, V_SNAPTOBOTTOM|V_TRANSLUCENT)
 		end
 
 		if SRBZ:FetchInventory(player)[i] and SRBZ:FetchInventory(player)[i].count and SRBZ:FetchInventory(player)[i].limited then
@@ -69,17 +69,17 @@ SRBZ.inventoryhud = function(v, player)
 		if SRBZ:FetchInventorySlot(player).knockback then
 			iteminfo = $ + "\x83".."KB: "..SRBZ:FetchInventorySlot(player).knockback/FU.." "
 		end
-		v.drawString(115*FU, sel_y-(9*FU), SRBZ:FetchInventorySlot(player).displayname, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
-		v.drawString(115*FU, sel_y-(17*FU), iteminfo, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
+		v.drawString(115*FU, sel_y-(9*FU), SRBZ:FetchInventorySlot(player).displayname, V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
+		v.drawString(115*FU, sel_y-(17*FU), iteminfo, V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
 	else
-		v.drawString(115*FU, sel_y-(9*FU), "EMPTY", V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
+		v.drawString(115*FU, sel_y-(9*FU), "EMPTY", V_SNAPTOBOTTOM|V_TRANSLUCENT,"thin-fixed")
 	end
 	-- weapon selection 
-	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM)
+	v.drawStretched(sel_x-(2*FU), sel_y-(2*FU), FU, FU, s_patch, V_SNAPTOBOTTOM)
 
 	if player["srbz_info"].weapondelay and SRBZ:FetchInventorySlot(player) then
 		local slotdelay = SRBZ:FetchInventorySlot(player).firerate
 		local delaydiv = min(FixedDiv(player["srbz_info"].weapondelay, slotdelay),FU)
-		v.drawStretched(sel_x, sel_y, delaydiv, FU, cyan_patch, V_SNAPTOLEFT|V_SNAPTOBOTTOM|V_50TRANS)
+		v.drawStretched(sel_x, sel_y, delaydiv, FU, cyan_patch, V_SNAPTOBOTTOM|V_50TRANS)
 	end
 end
