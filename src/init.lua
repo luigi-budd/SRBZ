@@ -30,6 +30,7 @@ dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
 dofile "hud/shop.lua"
 dofile "hud/inventory.lua"
+dofile "hud/mapinfo_animation.lua"
 dofile "hud/toggle.lua"
 dofile "hud/intermission.lua"
 
