@@ -17,46 +17,86 @@ SRBZ.ShopkeeperList={
     {
         ["name"]="Sonic", --Shopkeeper's name, this string is also shown when you come close to him
         ["skin"]="sonic", --mobj_t.skin
-        ["color"]=SKINCOLOR_BLUE --mobj_t.color
+        ["color"]=SKINCOLOR_BLUE, --mobj_t.color
+        ["phrases"]={ --phrases, these supposed to appear when you do shoping
+            "Escaping from Zombies, huh?",
+            "Hope these items will help", --I suck at making quotes
+            "Remember, never step back!"
+        }
     },
     {
         ["name"]="Tail-less",
         ["skin"]="tails",
-        ["color"]=SKINCOLOR_ORANGE
+        ["color"]=SKINCOLOR_ORANGE,
+        ["phrases"]={
+            "Yes, I am the Tail-less fox",
+            "Awwww... I am afraid of Zomibes...",
+            "Let's look what I have..."
+        }
     },
     {
         ["name"]="Knuckles",
         ["skin"]="knuckles",
-        ["color"]=SKINCOLOR_RED
+        ["color"]=SKINCOLOR_RED,
+        ["phrases"]={
+            "I feel some strange energy around...",
+            "Take any of these, they will help you",
+            "Found these goodies on my treasure hunting..."
+        }
     },
     {
         ["name"]="Amy",
         ["skin"]="amy",
-        ["color"]=SKINCOLOR_ROSY
+        ["color"]=SKINCOLOR_ROSY,
+        ["phrases"]={
+            "Have no fear. Amy Rose is here!",
+            "These items will definetly help you",
+            "I wonder what happened to my darling Sonic..."
+        }
     },
     {
         ["name"]="Fang",
         ["skin"]="fang",
-        ["color"]=SKINCOLOR_LAVENDER
+        ["color"]=SKINCOLOR_LAVENDER,
+        ["phrases"]={
+            "Naghhhhh...! I hate these Zombies!",
+            "Good defence never hurts",
+            "Undeads will beg for mercy with these items"
+        }
     },
     {
         ["name"]="Metal Sonic",
         ["skin"]="metalsonic",
-        ["color"]=SKINCOLOR_COBALT
+        ["color"]=SKINCOLOR_COBALT,
+        ["phrases"]={
+            "*CLIENT DETECTED. ACTIVATING SHOP*",
+            "*ENTRING SELLING MODE*",
+            "*I AM THE REAL SONIC!*"
+        }
     },
     {
         ["name"]="W",
         ["skin"]="sonic",
-        ["color"]=SKINCOLOR_WHITE
+        ["color"]=SKINCOLOR_WHITE,
+        ["phrases"]={
+            "Hey! Welcome to my shop!",
+            "W?",
+            "Some idiot made phrases for me, they have to be replaced..."
+        }
     },
     {
         ["name"]="Bob",
         ["skin"]="fang",
-        ["color"]=SKINCOLOR_YELLOW
+        ["color"]=SKINCOLOR_YELLOW,
+        ["phrases"]={
+            "Ahoy stranger!",
+            "Take any of these and get out of this place!",
+            "I hope you have enough rupies to take something with you..."
+        }
     }
 }
 
-SRBZ.AddShopkeeper = function(name, skin, color)
+SRBZ.AddShopkeeper = function(name, skin, color, phrases)
     if (not name) then error("Shopkeeper needs a name!") end
     if (not skin) then error("Shopkeeper's skin is not specified") end
     if (not color) then error("Shopkeeper's SKINCOLOR_* color is not specified") end
@@ -64,10 +104,12 @@ SRBZ.AddShopkeeper = function(name, skin, color)
     if (type(skin)!="string") then error("Skin should be a string name of a skin") end
     if (not skins[skin]) then error("Shopkeeper's specified skin does not exist!") end
     if (type(color)!="number") then error("Color should be a SKINCOLOR_* value") end
+    if (phrases and type(phrases)!="table") error("phrases should be a table of strings") end
     table.insert(SRBZ.ShopkeeperList, {
         ["name"]=name,
         ["skin"]=skin,
-        ["color"]=color
+        ["color"]=color,
+        ["phrases"]=phrases
     })
     print("Added \""..name.."\" ("..skincolors[color].name.." "..skin..") as a Shopkeeper to the SRBZ")
 end
@@ -81,6 +123,7 @@ addHook("MobjCollide", function(mo,pmo)
     end
     if not pmo.player.shop_open and not pmo.player.shop_delay then
         pmo.player.shop_open = true
+        mo.phrase=P_RandomKey(#mo.phrases)+1 --random phrase to be shown on the screen
         pmo.player.shop_person = mo
         pmo.player["srbz_info"].shop_selection = 1
     end
@@ -95,6 +138,7 @@ addHook("MobjSpawn", function(mobj)
     mobj.alias=SRBZ.ShopkeeperList[rand]["name"]
     mobj.skin=SRBZ.ShopkeeperList[rand]["skin"]
     mobj.color=SRBZ.ShopkeeperList[rand]["color"]
+    mobj.phrases=SRBZ.ShopkeeperList[rand]["phrases"]
     mobj.shop = {}
     local itemlist = {}
 	for i=1,#SRBZ.ItemPresets do

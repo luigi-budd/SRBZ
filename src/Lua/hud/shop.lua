@@ -61,6 +61,13 @@ SRBZ.shophud = function(v, player)
 	end
 	if not player["srbz_info"].shop_confirmscreen then
 		v.drawString(160*FU,42*FU,"\x82".."BUY:\x80 JUMP     \x82LEAVE:\x80 SPIN", trans, "thin-fixed-center")
+		--draw the shopkeeper's phrase
+		if player.shop_person.phrases then
+			local shopkeeper = player.shop_person
+			--idk if I should use customhud's string drawer to apply mobj's color
+			customhud.CustomFontString(v,160*FU,24*FU, shopkeeper.phrases[shopkeeper.phrase], "STCFC", trans, "center", FU, shopkeeper.color)
+		end
+		--draw shop items
 		for i=1,#theshop do
 			local item 
 			local item_x = (i*100*FU)+(120*FU)-((player["srbz_info"].shop_selection-1) * (100*FU)) - 100*FU -- (player["srbz_info"].shop_selection-1 * (120*FU))
