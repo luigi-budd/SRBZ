@@ -203,11 +203,15 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			S_StartSound(mo, chosen_hurtsound)
 		end
 	elseif mobjinfo[mo.type].npc_name
+		if (not mo.target) and (inf or src.player) then --enemies wake up if you hit them from behind
+			mo.target = src
+			mo.state=mo.info.seestate
+		end
 		--print(mobjinfo[mo.type].npc_name)
 		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
 			S_StartSound(mo,mobjinfo[mo.type].painsound)
 		end
-		P_Thrust(mo, inf.angle, mo.info.mass/100 * knockback) --better than just knockback
+		P_Thrust(mo, inf.angle, mo.info.mass/100 * knockback) --you know it's better to make alt mass
 	
 	end
 	
