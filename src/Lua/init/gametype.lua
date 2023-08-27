@@ -5,7 +5,7 @@ what SRBZ has.
 rawset(_G, "XSLINGER", {});
 */
 
-freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_zpa2", "sfx_zish1")
+freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_zpa2")
 freeslot("sfx_rstart", "sfx_secret", "sfx_cleva1")
 freeslot("sfx_eatapl", "sfx_oyahx", "sfx_mnu1a")
 freeslot("sfx_inf1","sfx_inf2","sfx_pipe")
@@ -117,5 +117,22 @@ G_AddGametype({
 	description = "Escape from the Zombies! Don't get caught and eaten by them! They can catch up with you anytime..."
 })
 
+sfxinfo[sfx_zdi1].caption="Zombie scream"
+sfxinfo[sfx_zdi2].caption="Zombie scream"
+sfxinfo[sfx_zpa1].caption="Zombie pain"
+sfxinfo[sfx_zpa2].caption="Zombie pain"
+sfxinfo[sfx_zish1].caption="Swoop"
 
+sfxinfo[sfx_rstart].caption="Zombies escaped..."
+sfxinfo[sfx_secret].caption="Secret revealed!"
+sfxinfo[sfx_cleva1].caption="\"Calling for transport!\""
 
+sfxinfo[sfx_eatapl].caption="Num num num!"
+sfxinfo[sfx_oyahx].caption="OHHH YEAH"
+sfxinfo[sfx_mnu1a].caption="Selecting"
+
+sfxinfo[sfx_inf1].caption="\"The zombies will be back\""
+sfxinfo[sfx_inf2].caption="\"We've been enslaved\""
+sfxinfo[sfx_pipe].caption="Pipe"
+
+sfxinfo[sfx_oldrad].caption="Typewriter"

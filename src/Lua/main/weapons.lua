@@ -13,12 +13,12 @@ freeslot(
 	"S_INSTABURST5B",
 	"S_INSTABURST6A",
 	"S_INSTABURST6B",
-	"SPR_ZMSH",
-	"SFX_ZISH1"
+	"SPR_ZMSH"
 )
 
 freeslot("MT_PROPWOOD","S_PROP1","S_PROP1_BREAK","SPR_WPRP")
 freeslot("MT_MIRRORCLONE", "sfx_mrr12")
+sfxinfo[sfx_mrr12].caption="W's Mirror"
 freeslot(
 "MT_SRBZ_THROWNSCATTER",
 "S_SRBZ_THROWNSCATTER1",
@@ -30,6 +30,7 @@ freeslot(
 "S_SRBZ_THROWNSCATTER7"
 )
 freeslot("sfx_shgn")
+sfxinfo[sfx_shgn].caption="Shotgun"
 -- RSNEO slap
 mobjinfo[MT_SRBZ_THROWNSCATTER] = { 
 	spawnstate = S_SRBZ_THROWNSCATTER1,
