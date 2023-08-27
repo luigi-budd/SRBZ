@@ -53,7 +53,7 @@ SRBZ.inventoryhud = function(v, player)
 		end
 
 		if SRBZ:FetchInventory(player)[i] and SRBZ:FetchInventory(player)[i].count and SRBZ:FetchInventory(player)[i].limited then
-			v.drawString(x, y, tostring(SRBZ:FetchInventory(player)[i].count), V_SNAPTOLEFT|V_SNAPTOBOTTOM, "thin-fixed")
+			v.drawString(x, y, tostring(SRBZ:FetchInventory(player)[i].count), V_SNAPTOBOTTOM, "thin-fixed")
 		end
 	end
 	
