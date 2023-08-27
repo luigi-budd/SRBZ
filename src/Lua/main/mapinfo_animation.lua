@@ -1,12 +1,11 @@
-SRBZ.TWRITE_COUNT = 0
-
-SRBZ.TWRITE_MAPNAME_COUNT = 0
+SRBZ.TWRITE_MAPNAME_COUNT = 0 --lvlttl
+SRBZ.TWRITE_COUNT = 0 --subtitle
 
 addHook("ThinkFrame", function()
 	if gametype ~= GT_SRBZ or gamestate ~= GS_LEVEL then return end
 	local mapinfo = mapheaderinfo[gamemap]
 	
-	if mapinfo and leveltime > 20 then
+	if mapinfo and leveltime > 20 and leveltime%2 then
 		local lengthOfSubtitle = mapinfo.subttl:len()
 		local lengthOfTitle = mapinfo.lvlttl:len()
 		if SRBZ.TWRITE_MAPNAME_COUNT < lengthOfTitle then
