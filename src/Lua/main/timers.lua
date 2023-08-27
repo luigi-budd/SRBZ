@@ -50,7 +50,7 @@ addHook("ThinkFrame", function()
 				local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
 				SRBZ.pickcharinselect(player,selection_name) 
 			end
-			if not player.waszombie then
+			if not player.waszombie and not player.spectator then
 				table.insert(choosingnums, #player)
 			end
 		end
