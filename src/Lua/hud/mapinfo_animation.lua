@@ -1,13 +1,9 @@
 SRBZ.mapinfohud = function(v, player)
+	
 	local mapinfo = mapheaderinfo[gamemap]
-	if mapinfo and mapinfo.subttl then
-		local timeToFinish = TICRATE*3
-		local lengthOfSubtitle = mapinfo.subttl:len()
-		print(lengthOfSubtitle)
-		if leveltime <= timeToFinish then
-			if (timeToFinish%lengthOfSubtitle) == 0  then
-				S_StartSound(nil, sfx_oldrad)
-			end
-		end
-	end
+	
+	if gametype ~= GT_SRBZ then return end
+	customhud.CustomFontString(v,0,46*FU, mapinfo.lvlttl:sub(1,SRBZ.TWRITE_MAPNAME_COUNT), "STCFC", V_SNAPTOLEFT|V_SNAPTOTOP, nil, FU, SKINCOLOR_WHITE)
+	customhud.CustomFontString(v,0,54*FU, mapinfo.subttl:sub(1,SRBZ.TWRITE_COUNT), "STCFC", V_SNAPTOLEFT|V_SNAPTOTOP, nil, FU, SKINCOLOR_WHITE)
+
 end
