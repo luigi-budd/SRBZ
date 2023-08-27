@@ -12,11 +12,4 @@ addHook("PlayerThink", function(player)
 	if (player.zteam == 2 and player.mo.color ~= SKINCOLOR_MOSS) then 
 		player.mo.color = SKINCOLOR_MOSS 
 	end
-		
-	-- [ Keep Players From Exiting ] -- 
-		
-	/*
-	if (not SRBZ.round_active and player.zteam == 2) player.exiting = 1
-	else player.exiting = 0 end
-	*/
 end)
