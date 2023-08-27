@@ -90,6 +90,14 @@ addHook("MobjThinker", function(mobj)
 	if mobj.fuse < 3*TICRATE then
 		mobj.flags2 = $^^MF2_DONTDRAW
 	end
+	local findrange = 255*FRACUNIT
+	searchBlockmap("objects", function(refmobj, foundmobj)
+		if foundmobj and abs(mobj.z-foundmobj.z) < 50*FU and foundmobj.valid and foundmobj.player then
+			P_FlyTo(mobj,foundmobj.x,foundmobj.y,foundmobj.z,2*FRACUNIT,true)
+		end
+	end,mobj,
+	mobj.x-findrange,mobj.x+findrange,
+	mobj.y-findrange,mobj.y+findrange)
 end, MT_CRRUBY)
 
 COM_AddCommand("z_sendrubies", function(player, player2, rubies)
