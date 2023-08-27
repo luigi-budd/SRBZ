@@ -92,7 +92,7 @@ addHook("MobjThinker", function(mobj)
 	end
 	local findrange = 255*FRACUNIT
 	searchBlockmap("objects", function(refmobj, foundmobj)
-		if foundmobj and abs(mobj.z-foundmobj.z) < 50*FU and foundmobj.valid and foundmobj.player then
+		if foundmobj and abs(mobj.z-foundmobj.z) < 150*FU and foundmobj.valid and foundmobj.player then
 			P_FlyTo(mobj,foundmobj.x,foundmobj.y,foundmobj.z,2*FRACUNIT,true)
 		end
 	end,mobj,
