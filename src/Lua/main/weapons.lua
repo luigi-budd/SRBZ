@@ -163,10 +163,15 @@ states[S_INSTABURST6B] = {SPR_NULL, 0, 1, A_CapeChase, 0, 0, S_NULL}
 SRBZ:CreateItem("Red Ring",  {
 	object = MT_REDRING,
 	icon = "RINGIND",
-	firerate = 19,
+	firerate = 17,
 	color = SKINCOLOR_RED,
-	knockback = 45*FRACUNIT,
-	damage = 17,
+	knockback = 55*FRACUNIT,
+	damage = 15,
+	onspawn = function(pmo, mo)
+		mo.momx = FixedMul($,1*FRACUNIT + FRACUNIT/2)
+		mo.momy = FixedMul($,1*FRACUNIT + FRACUNIT/2)
+		mo.momz = FixedMul($,1*FRACUNIT + FRACUNIT/2)		
+	end,
 })
 
 SRBZ:CreateItem("Automatic Ring",  {
