@@ -169,9 +169,10 @@ SRBZ:CreateItem("Red Ring",  {
 	knockback = 55*FRACUNIT,
 	damage = 15,
 	onspawn = function(pmo, mo)
-		mo.momx = FixedMul($,1*FRACUNIT + FRACUNIT/2)
-		mo.momy = FixedMul($,1*FRACUNIT + FRACUNIT/2)
-		mo.momz = FixedMul($,1*FRACUNIT + FRACUNIT/2)		
+		--1.5*FU = FU+FU/2 = (3*FU)/2 = 98304
+		mo.momx = FixedMul($,98304)
+		mo.momy = FixedMul($,98304)
+		mo.momz = FixedMul($,98304)
 	end,
 })
 
