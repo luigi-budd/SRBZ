@@ -212,7 +212,8 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 	end
 	
-	if ((mobjinfo[src.type].npc_name) and (mo.player)) or ((src.player) and mobjinfo[mo.type].npc_name)
+
+	if ((mobjinfo[src.type].npc_name) and (mo.player)) or ((src.player) and mobjinfo[mo.type].npc_name) and (not (inf and inf.weaponinfo and inf.weaponinfo[SRBZ.ItemPresets[inf.weaponinfo.item_id]]))
 		dmg = P_RandomKey(9)+3
 	end
 	if dmg >= mo.health then
