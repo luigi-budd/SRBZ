@@ -19,6 +19,8 @@ SRBZ.SetCCtoplayer = function(player)
 		else player.jumpfactor = cc["default"].jumpfactor end
 		
 		if (cc[pmo.skin].actionspd) then player.actionspd = cc[pmo.skin].actionspd end
+
+		if (cc[pmo.skin].charflags) then player.charflags = $|cc[pmo.skin].charflags end
 	end
 end
 
@@ -130,6 +132,7 @@ SRBZ.AddConfig("metalsonic", {
 	charability = CA_JUMPBOOST,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
+	charflags = SF_MACHINE
 })
 
 SRBZ.RevertChars = function(p)
