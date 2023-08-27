@@ -1,4 +1,5 @@
 freeslot("MT_SHOPKEEPER")
+freeslot("SPR_TAK1")
 
 mobjinfo[MT_SHOPKEEPER] = {
     doomednum = 861,
@@ -93,6 +94,18 @@ SRBZ.ShopkeeperList={
             "Take any of these and get out of this place!",
             "I hope you have enough rupies to take something with you..."
         }
+    },
+	{
+        ["name"]="Takis",
+        ["skin"]="sonic",
+        ["color"]=SKINCOLOR_GREEN,
+        ["phrases"]={
+			"Cheap items for high prices.",
+			"I'm not gonna say the line, dork!",
+			"It's Sale Hour!",
+			"i want summa dat"
+        },
+		["forcesprite"] = SPR_TAK1,
     }
 }
 
@@ -129,16 +142,24 @@ addHook("MobjCollide", function(mo,pmo)
     end
 end, MT_SHOPKEEPER)
 
+addHook("MobjThinker", function(mobj)
+	if mobj.shopid and SRBZ.ShopkeeperList[mobj.shopid]["forcesprite"] then
+		mobj.sprite = SRBZ.ShopkeeperList[mobj.shopid]["forcesprite"]
+		mobj.tics = 2500000 -- dont be cringe
+	end
+end, MT_SHOPKEEPER)
 
 addHook("MobjSpawn", function(mobj)
     mobj.state = S_PLAY_STND
 
     local rand = P_RandomRange(1,#SRBZ.ShopkeeperList)
 
+	mobj.shopid = rand
     mobj.alias=SRBZ.ShopkeeperList[rand]["name"]
     mobj.skin=SRBZ.ShopkeeperList[rand]["skin"]
     mobj.color=SRBZ.ShopkeeperList[rand]["color"]
     mobj.phrases=SRBZ.ShopkeeperList[rand]["phrases"]
+
     mobj.shop = {}
     local itemlist = {}
 	for i=1,#SRBZ.ItemPresets do
