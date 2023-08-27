@@ -189,7 +189,7 @@ SRBZ:CreateItem("Automatic Ring",  {
 
 SRBZ:CreateItem("Apple", {
 	icon = "APPLEIND",
-	iconscale = FU/2,
+	iconscale = FU>>1,
 	firerate = 50,
 	sound = sfx_eatapl,
 	limited = true,
@@ -317,9 +317,9 @@ SRBZ:CreateItem("Negative Ring",  {
 		end
 	end,
 	onspawn = function(pmo, mo)
-		mo.momx = $/4
-		mo.momy = $/4
-		mo.momz = $/4
+		mo.momx = $>>2
+		mo.momy = $>>2
+		mo.momz = $>>2
 		mo.scale = $*2
 	end,
 	price = 650,
@@ -358,7 +358,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 	sound = sfx_shgn,
 	knockback = 13*FRACUNIT,
 	damage = 11,
-	fuse = TICRATE/2,
+	fuse = TICRATE>>1,
 	color = SKINCOLOR_PURPLE,
 	price = 250,
 	ontrigger = function(player)
@@ -398,7 +398,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 		if not P_IsObjectOnGround(mo)
 			local aim = max(-FRACUNIT, min(FRACUNIT, -player.aiming/13000))
 			if P_MobjFlip(mo) * aim > 0
-				aim = $ * 2/8
+				aim = ($ * 2)>>3
 			end
 			mo.momz = $ + FixedMul(mo.scale, aim)
 			P_Thrust(mo, mo.angle, -FRACUNIT*9)
@@ -446,7 +446,7 @@ SRBZ:CreateItem("Scatra",  {
 	sound = sfx_shgn,
 	knockback = 30*FRACUNIT,
 	damage = 9,
-	fuse = TICRATE/8,
+	fuse = TICRATE>>3,
 	color = SKINCOLOR_DUSK,
 	price = 850,
 	ontrigger = function(player)
@@ -488,7 +488,7 @@ SRBZ:CreateItem("Scatra",  {
 		if not P_IsObjectOnGround(mo)
 			local aim = max(-FRACUNIT, min(FRACUNIT, -player.aiming/13000))
 			if P_MobjFlip(mo) * aim > 0
-				aim = $ * 2/8
+				aim = ($ * 2)>>3
 			end
 			mo.momz = $ + FixedMul(mo.scale, aim)
 			P_Thrust(mo, mo.angle, -FRACUNIT*9)
