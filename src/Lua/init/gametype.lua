@@ -5,10 +5,12 @@ what SRBZ has.
 rawset(_G, "XSLINGER", {});
 */
 
-freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_zpa2", "sfx_zish1")
+freeslot("sfx_zdi1","sfx_zdi2","sfx_zish1","sfx_zpa1","sfx_zpa2")
 freeslot("sfx_rstart", "sfx_secret", "sfx_cleva1")
 freeslot("sfx_eatapl", "sfx_oyahx", "sfx_mnu1a")
 freeslot("sfx_inf1","sfx_inf2","sfx_pipe")
+freeslot("sfx_oldrad")
+
 rawset(_G, "srbz_modname", "srbz"); -- For customhud.
 
 
@@ -19,6 +21,27 @@ rawset(_G, 'L_ZCollide', function(mo1,mo2)
 	if mo2.z > mo1.height+mo1.z then return false end
 	return true
 end)
+
+-- asset by buggiethebug
+rawset(_G, "P_FlyTo", function(mo, fx, fy, fz, sped, addques) --A very useful command honestly.
+    if mo.valid
+        local flyto = P_AproxDistance(P_AproxDistance(fx - mo.x, fy - mo.y), fz - mo.z)
+        if flyto < 1
+            flyto = 1
+        end
+        --local anglesucc = R_PointToAngle2(mo.x, mo.y, fx, fy)
+        
+        if addques
+            mo.momx = $ + FixedMul(FixedDiv(fx - mo.x, flyto), sped)
+            mo.momy = $ + FixedMul(FixedDiv(fy - mo.y, flyto), sped)
+            mo.momz = $ + FixedMul(FixedDiv(fz - mo.z, flyto), sped)
+        else
+            mo.momx = FixedMul(FixedDiv(fx - mo.x, flyto), sped)
+            mo.momy = FixedMul(FixedDiv(fy - mo.y, flyto), sped)
+            mo.momz = FixedMul(FixedDiv(fz - mo.z, flyto), sped)
+        end    
+    end    
+end) 
 
 rawset(_G, "P_GivePlayerRubies", function(player, amount)
 	if player.rubies == nil then
@@ -94,5 +117,22 @@ G_AddGametype({
 	description = "Escape from the Zombies! Don't get caught and eaten by them! They can catch up with you anytime..."
 })
 
+sfxinfo[sfx_zdi1].caption="Zombie scream"
+sfxinfo[sfx_zdi2].caption="Zombie scream"
+sfxinfo[sfx_zpa1].caption="Zombie pain"
+sfxinfo[sfx_zpa2].caption="Zombie pain"
+sfxinfo[sfx_zish1].caption="Swoop"
 
+sfxinfo[sfx_rstart].caption="Zombies escaped..."
+sfxinfo[sfx_secret].caption="Secret revealed!"
+sfxinfo[sfx_cleva1].caption="\"Calling for transport!\""
 
+sfxinfo[sfx_eatapl].caption="Num num num!"
+sfxinfo[sfx_oyahx].caption="OHHH YEAH"
+sfxinfo[sfx_mnu1a].caption="Selecting"
+
+sfxinfo[sfx_inf1].caption="\"The zombies will be back\""
+sfxinfo[sfx_inf2].caption="\"We've been enslaved\""
+sfxinfo[sfx_pipe].caption="Pipe"
+
+sfxinfo[sfx_oldrad].caption="Typewriter"

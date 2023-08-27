@@ -28,7 +28,7 @@ function SRBZ:CreateItem(name,table)
 	local idglobal = rawset(_G, idname, #self.ItemPresets + 1)
 	self.ItemPresets[#self.ItemPresets + 1] = temp_table
 	
-	print("\x84\SRBZ:".."\x82\ Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.ItemPresets).."]")
+	print("\x84SRBZ:".."\x82 Weapon ".."\""..name.." ("..idname..")".."\" included ["..(#self.ItemPresets).."]")
 	return idglobal
 end
 
@@ -178,11 +178,8 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 	end
 	
-	if inf.player then
-		P_AddPlayerScore(inf.player, dmg)
-	elseif src.player then
-		P_AddPlayerScore(src.player, dmg)
-	end
+	if (inf and inf.player) then P_AddPlayerScore(inf.player, dmg)
+	elseif (src and src.player) then P_AddPlayerScore(src.player, dmg) end
 
 	if mo.player then
 		if mo.player.zteam == 1 then
@@ -203,16 +200,23 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			S_StartSound(mo, chosen_hurtsound)
 		end
 	elseif mobjinfo[mo.type].npc_name
+		if (not mo.target) and (inf or src.player) then --enemies wake up if you hit them from behind
+			mo.target = src
+			mo.state=mo.info.seestate
+		end
 		--print(mobjinfo[mo.type].npc_name)
 		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
 			S_StartSound(mo,mobjinfo[mo.type].painsound)
 		end
-		P_Thrust(mo, inf.angle, knockback)
-		--S_StartSound(mo, sfx_dmpain)
+		P_Thrust(mo, inf.angle, mo.info.mass/100 * knockback) --you know it's better to make alt mass
+	
 	end
 	
-
-	
+	if (not inf) or (not inf.weaponinfo)
+		if ((mobjinfo[src.type].npc_name) and (mo.player)) or ((src.player) and mobjinfo[mo.type].npc_name)
+			dmg = P_RandomKey(9)+3
+		end
+	end
 	if dmg >= mo.health then
 		P_KillMobj(mo,inf)
 		return true
@@ -235,9 +239,7 @@ end)
 
 addHook("MobjDeath", function(mobj)
 	if SRBZ.round_active and not SRBZ_game_ended and SRBZ.PlayerCount() > 1 then
-		local player = mobj.player
-		
-		player.zteam = 2
+		mobj.player.zteam = 2
 	end
 end,MT_PLAYER)
 
@@ -252,7 +254,7 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 		
 		if speed1 > speed2 and tmthing.player and tmthing.player.valid
 		and not tmthing.player.powers[pw_flashing] then
-			P_DamageMobj(thing, tmthing, nil, 15)
+			P_DamageMobj(thing, tmthing, tmthing, 15)
 		end
 	end
 end)
@@ -353,6 +355,15 @@ addHook("PreThinkFrame", function()
 			else
 				player["srbz_info"].pressednext = false	
 			end
+
+			--make keyboard weapon keys work for inventory selection
+			if (cmd.buttons & BT_WEAPONMASK >=1 and cmd.buttons & BT_WEAPONMASK<=5) and (not player.choosing) then
+				if not player["srbz_info"].pressedbtn then
+					player["srbz_info"].inventory_selection=cmd.buttons&BT_WEAPONMASK
+					S_StartSound(nil,sfx_mnu1a,player)
+				end
+				player["srbz_info"].pressedbtn = true
+			else player["srbz_info"].pressedbtn = false end
 			
 			-- TryShoot
 			
@@ -478,7 +489,7 @@ COM_AddCommand("z_sellinventory", function(player)
 			end
 			item_cost = ($*3)/4 -- Give only 75% back.
 			
-			local toprint = string.format("%s sold for \x85\%s Rubies. (75 percent given back)",item_name,tostring(item_cost))
+			local toprint = string.format("%s sold for \x85%s Rubies. (75 percent given back)",item_name,tostring(item_cost))
 			
 			CONS_Printf(player,toprint)
 			
@@ -491,7 +502,7 @@ COM_AddCommand("z_sellinventory", function(player)
 	player["srbz_info"].zombie_inventory = {
 		SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
 	}
-	CONS_Printf(player, "\x85\Cleared inventory!")
+	CONS_Printf(player, "\x85".."Cleared inventory!")
 end)
 
 COM_AddCommand("z_sellhand", function(player)

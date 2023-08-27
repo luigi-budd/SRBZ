@@ -13,12 +13,12 @@ freeslot(
 	"S_INSTABURST5B",
 	"S_INSTABURST6A",
 	"S_INSTABURST6B",
-	"SPR_ZMSH",
-	"SFX_ZISH1"
+	"SPR_ZMSH"
 )
 
 freeslot("MT_PROPWOOD","S_PROP1","S_PROP1_BREAK","SPR_WPRP")
 freeslot("MT_MIRRORCLONE", "sfx_mrr12")
+sfxinfo[sfx_mrr12].caption="W's Mirror"
 freeslot(
 "MT_SRBZ_THROWNSCATTER",
 "S_SRBZ_THROWNSCATTER1",
@@ -30,6 +30,7 @@ freeslot(
 "S_SRBZ_THROWNSCATTER7"
 )
 freeslot("sfx_shgn")
+sfxinfo[sfx_shgn].caption="Shotgun"
 -- RSNEO slap
 mobjinfo[MT_SRBZ_THROWNSCATTER] = { 
 	spawnstate = S_SRBZ_THROWNSCATTER1,
@@ -163,10 +164,16 @@ states[S_INSTABURST6B] = {SPR_NULL, 0, 1, A_CapeChase, 0, 0, S_NULL}
 SRBZ:CreateItem("Red Ring",  {
 	object = MT_REDRING,
 	icon = "RINGIND",
-	firerate = 19,
+	firerate = 17,
 	color = SKINCOLOR_RED,
-	knockback = 45*FRACUNIT,
-	damage = 17,
+	knockback = 55*FRACUNIT,
+	damage = 15,
+	onspawn = function(pmo, mo)
+		--1.5*FU = FU+FU/2 = (3*FU)/2 = 98304
+		mo.momx = FixedMul($,98304)
+		mo.momy = FixedMul($,98304)
+		mo.momz = FixedMul($,98304)
+	end,
 })
 
 SRBZ:CreateItem("Automatic Ring",  {
@@ -182,7 +189,7 @@ SRBZ:CreateItem("Automatic Ring",  {
 
 SRBZ:CreateItem("Apple", {
 	icon = "APPLEIND",
-	iconscale = FU/2,
+	iconscale = FU>>1,
 	firerate = 50,
 	sound = sfx_eatapl,
 	limited = true,
@@ -310,9 +317,9 @@ SRBZ:CreateItem("Negative Ring",  {
 		end
 	end,
 	onspawn = function(pmo, mo)
-		mo.momx = $/4
-		mo.momy = $/4
-		mo.momz = $/4
+		mo.momx = $>>2
+		mo.momy = $>>2
+		mo.momz = $>>2
 		mo.scale = $*2
 	end,
 	price = 650,
@@ -351,7 +358,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 	sound = sfx_shgn,
 	knockback = 13*FRACUNIT,
 	damage = 11,
-	fuse = TICRATE/2,
+	fuse = TICRATE>>1,
 	color = SKINCOLOR_PURPLE,
 	price = 250,
 	ontrigger = function(player)
@@ -391,7 +398,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 		if not P_IsObjectOnGround(mo)
 			local aim = max(-FRACUNIT, min(FRACUNIT, -player.aiming/13000))
 			if P_MobjFlip(mo) * aim > 0
-				aim = $ * 2/8
+				aim = ($ * 2)>>3
 			end
 			mo.momz = $ + FixedMul(mo.scale, aim)
 			P_Thrust(mo, mo.angle, -FRACUNIT*9)
@@ -439,7 +446,7 @@ SRBZ:CreateItem("Scatra",  {
 	sound = sfx_shgn,
 	knockback = 30*FRACUNIT,
 	damage = 9,
-	fuse = TICRATE/8,
+	fuse = TICRATE>>3,
 	color = SKINCOLOR_DUSK,
 	price = 850,
 	ontrigger = function(player)
@@ -481,7 +488,7 @@ SRBZ:CreateItem("Scatra",  {
 		if not P_IsObjectOnGround(mo)
 			local aim = max(-FRACUNIT, min(FRACUNIT, -player.aiming/13000))
 			if P_MobjFlip(mo) * aim > 0
-				aim = $ * 2/8
+				aim = ($ * 2)>>3
 			end
 			mo.momz = $ + FixedMul(mo.scale, aim)
 			P_Thrust(mo, mo.angle, -FRACUNIT*9)

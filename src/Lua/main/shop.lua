@@ -1,4 +1,5 @@
 freeslot("MT_SHOPKEEPER")
+freeslot("SPR_TAK1")
 
 mobjinfo[MT_SHOPKEEPER] = {
     doomednum = 861,
@@ -13,6 +14,119 @@ mobjinfo[MT_SHOPKEEPER].npc_name = "Shop Keeper"
 mobjinfo[MT_SHOPKEEPER].npc_spawnhealth = {100,100}
 mobjinfo[MT_SHOPKEEPER].disablehealthhud = true
 
+SRBZ.ShopkeeperList={
+    {
+        ["name"]="Sonic", --Shopkeeper's name, this string is also shown when you come close to him
+        ["skin"]="sonic", --mobj_t.skin
+        ["color"]=SKINCOLOR_BLUE, --mobj_t.color
+        ["phrases"]={ --phrases, these supposed to appear when you do shoping
+            "Escaping from Zombies, huh?",
+            "Hope these items will help", --I suck at making quotes
+            "Remember, never step back!"
+        }
+    },
+    {
+        ["name"]="Tail-less",
+        ["skin"]="tails",
+        ["color"]=SKINCOLOR_ORANGE,
+        ["phrases"]={
+            "Yes, I am the Tail-less fox",
+            "Awwww... I am afraid of Zomibes...",
+            "Let's look what I have..."
+        }
+    },
+    {
+        ["name"]="Knuckles",
+        ["skin"]="knuckles",
+        ["color"]=SKINCOLOR_RED,
+        ["phrases"]={
+            "I feel some strange energy around...",
+            "Take any of these, they will help you",
+            "Found these goodies on my treasure hunting..."
+        }
+    },
+    {
+        ["name"]="Amy",
+        ["skin"]="amy",
+        ["color"]=SKINCOLOR_ROSY,
+        ["phrases"]={
+            "Have no fear. Amy Rose is here!",
+            "These items will definetly help you",
+            "I wonder what happened to my darling Sonic..."
+        }
+    },
+    {
+        ["name"]="Fang",
+        ["skin"]="fang",
+        ["color"]=SKINCOLOR_LAVENDER,
+        ["phrases"]={
+            "Naghhhhh...! I hate these Zombies!",
+            "Good defence never hurts",
+            "Undeads will beg for mercy with these items"
+        }
+    },
+    {
+        ["name"]="Metal Sonic",
+        ["skin"]="metalsonic",
+        ["color"]=SKINCOLOR_COBALT,
+        ["phrases"]={
+            "*CLIENT DETECTED. ACTIVATING SHOP*",
+            "*ENTRING SELLING MODE*",
+            "*I AM THE REAL SONIC!*"
+        }
+    },
+    {
+        ["name"]="W",
+        ["skin"]="sonic",
+        ["color"]=SKINCOLOR_WHITE,
+        ["phrases"]={
+            "Hey! Welcome to my shop!",
+            "W?",
+            "Some idiot made phrases for me, they have to be replaced..."
+        }
+    },
+    {
+        ["name"]="Bob",
+        ["skin"]="fang",
+        ["color"]=SKINCOLOR_YELLOW,
+        ["phrases"]={
+            "Ahoy stranger!",
+            "Take any of these and get out of this place!",
+            "I hope you have enough rupies to take something with you..."
+        }
+    },
+	{
+        ["name"]="Takis",
+        ["skin"]="sonic",
+        ["color"]=SKINCOLOR_GREEN,
+        ["phrases"]={
+			"Cheap items for high prices.",
+			"I'm not gonna say the line, dork!",
+			"It's Sale Hour!",
+			"i want summa dat"
+        },
+		["forcesprite"] = SPR_TAK1,
+    }
+}
+
+SRBZ.AddShopkeeper = function(name, skin, color, phrases)
+    if (not name) then error("Shopkeeper needs a name!") end
+    if (not skin) then error("Shopkeeper's skin is not specified") end
+    if (not color) then error("Shopkeeper's SKINCOLOR_* color is not specified") end
+    if (type(name)!="string") then error("Name should be a string") end
+    if (type(skin)!="string") then error("Skin should be a string name of a skin") end
+    if (not skins[skin]) then error("Shopkeeper's specified skin does not exist!") end
+    if (type(color)!="number") then error("Color should be a SKINCOLOR_* value") end
+    if (phrases and type(phrases)!="table") error("phrases should be a table of strings") end
+    table.insert(SRBZ.ShopkeeperList, {
+        ["name"]=name,
+        ["skin"]=skin,
+        ["color"]=color,
+        ["phrases"]=phrases
+    })
+    print("Added \""..name.."\" ("..skincolors[color].name.." "..skin..") as a Shopkeeper to the SRBZ")
+end
+
 addHook("MobjCollide", function(mo,pmo)
     if not pmo.player then
         return
@@ -20,80 +134,54 @@ addHook("MobjCollide", function(mo,pmo)
 	if pmo.skin == "zzombie" then
         return
     end
-
     if not pmo.player.shop_open and not pmo.player.shop_delay then
         pmo.player.shop_open = true
+        mo.phrase=P_RandomKey(#mo.phrases)+1 --random phrase to be shown on the screen
         pmo.player.shop_person = mo
         pmo.player["srbz_info"].shop_selection = 1
     end
 end, MT_SHOPKEEPER)
 
+addHook("MobjThinker", function(mobj)
+	if mobj.shopid and SRBZ.ShopkeeperList[mobj.shopid]["forcesprite"] then
+		mobj.sprite = SRBZ.ShopkeeperList[mobj.shopid]["forcesprite"]
+		mobj.tics = 2500000 -- dont be cringe
+	end
+end, MT_SHOPKEEPER)
 
 addHook("MobjSpawn", function(mobj)
     mobj.state = S_PLAY_STND
 
-    local rand = P_RandomRange(1,8)
+    local rand = P_RandomRange(1,#SRBZ.ShopkeeperList)
 
-    -- due to srb2 limitations im just gonna elseif this
-    -- and this is pretty wip so im gonna just clean this up later
-    if rand == 1 then
-        mobj.skin = "sonic"
-        mobj.alias = "Sonic"
-        mobj.color = SKINCOLOR_BLUE
-    elseif rand == 2 then
-        mobj.skin = "tails"
-        mobj.alias = "Tail-less"
-        mobj.color = SKINCOLOR_ORANGE
-    elseif rand == 3 then
-        mobj.skin = "knuckles"
-        mobj.alias = "Knuckles"
-        mobj.color = SKINCOLOR_RED
-    elseif rand == 4 then
-        mobj.skin = "amy"
-        mobj.alias = "Amy"
-        mobj.color = SKINCOLOR_ROSY
-    elseif rand == 5 then
-        mobj.skin = "fang"
-        mobj.alias = "Fang"
-        mobj.color = SKINCOLOR_LAVENDER
-    elseif rand == 6 then
-        mobj.skin = "metalsonic"
-        mobj.alias = "Metal Sonic"
-        mobj.color = SKINCOLOR_COBALT
-    elseif rand == 7 then
-        mobj.skin = "sonic"
-        mobj.alias = "W"
-        mobj.color = SKINCOLOR_WHITE
-    elseif rand == 8 then
-        mobj.skin = "fang"
-        mobj.alias = "Bob"
-        mobj.color = SKINCOLOR_YELLOW
-    end
+	mobj.shopid = rand
+    mobj.alias=SRBZ.ShopkeeperList[rand]["name"]
+    mobj.skin=SRBZ.ShopkeeperList[rand]["skin"]
+    mobj.color=SRBZ.ShopkeeperList[rand]["color"]
+    mobj.phrases=SRBZ.ShopkeeperList[rand]["phrases"]
+
     mobj.shop = {}
-    local shopitemcount = P_RandomRange(3,4)
     local itemlist = {}
 	for i=1,#SRBZ.ItemPresets do
 		if SRBZ.ItemPresets[i] and SRBZ.ItemPresets[i].price then
 			table.insert(itemlist, i)
 		end
 	end
-    for i=1,shopitemcount do
+    for i=1,P_RandomRange(3,4) do
         local rng = P_RandomRange(1,#itemlist) 
         local choseitem = itemlist[rng]
         local item = SRBZ:CopyItemFromID(choseitem)
 
         table.remove(itemlist,rng) -- no repeating items
 
-        local offset = P_SignedRandom()/16
-        for tt=1,i do -- more rng?
-            offset = P_SignedRandom()/16
-        end
+        --local offset = P_SignedRandom()>>4 --unused idea I guess?
+        --for tt=1,i do -- more rng?
+        --    offset = P_SignedRandom()>>4
+        --end
         mobj.shop[i] = {}
         mobj.shop[i][1] = item.price 
-        mobj.shop[i][2] = item 
+        mobj.shop[i][2] = item
     end
-    
-
 end,MT_SHOPKEEPER)
 
 addHook("PlayerThink", function(player)
@@ -106,10 +194,10 @@ addHook("PlayerThink", function(player)
                 S_StartSound(nil, sfx_notadd, player)
             end
         end
-        if player.shop_open == nil then
+        if not player.shop_open then
             player.shop_open = false
         end
-        if player.shop_anim == nil then
+        if not player.shop_anim then
             player.shop_anim = 0
         end
 
@@ -142,16 +230,11 @@ addHook("PreThinkFrame", do
                 if cmd.sidemove < -40 and not player["srbz_info"].shop_confirmscreen then
                     if not player["srbz_info"].shop_leftpressed then
                         S_StartSound(nil, sfx_s3kb7, player)
-                        if player["srbz_info"].shop_selection - 1 <= 0 then
-                            player["srbz_info"].shop_selection = #player.shop_person.shop
-                        else
-                            player["srbz_info"].shop_selection = $ - 1
-                        end
+                        if (player["srbz_info"].shop_selection - 1 <= 0) then player["srbz_info"].shop_selection = #player.shop_person.shop
+                        else player["srbz_info"].shop_selection = $ - 1 end
                         player["srbz_info"].shop_leftpressed  = true
                     end
-                else
-                    player["srbz_info"].shop_leftpressed = false
-                end
+                else player["srbz_info"].shop_leftpressed = false end
                 
                 if cmd.sidemove > 40 and not player["srbz_info"].shop_confirmscreen then
                     if not player["srbz_info"].shop_rightpressed then
@@ -163,9 +246,7 @@ addHook("PreThinkFrame", do
                         end
                         player["srbz_info"].shop_rightpressed = true
                     end
-                else
-                    player["srbz_info"].shop_rightpressed = false
-                end
+                else player["srbz_info"].shop_rightpressed = false end
 
                 if (cmd.buttons & BT_SPIN) then
                     if not player["srbz_info"].shop_exitpressed then
@@ -180,9 +261,7 @@ addHook("PreThinkFrame", do
                         end
                         player["srbz_info"].shop_exitpressed  = true
                     end
-                else
-                    player["srbz_info"].shop_exitpressed = false
-                end
+                else player["srbz_info"].shop_exitpressed = false end
 
                 if (cmd.buttons & BT_JUMP) and player.shop_person.shop and player.shop_person.shop[player["srbz_info"].shop_selection][2] then
                     if not player["srbz_info"].shop_selectpressed then
@@ -206,21 +285,15 @@ addHook("PreThinkFrame", do
                                 else
                                     table.insert(player["srbz_info"].zombie_inventory, player.shop_person.shop[player["srbz_info"].shop_selection][2])
                                 end
-                            else
-                                error("Could not fetch inventory.",2)
-                            end
+                            else error("Could not fetch inventory.",2) end
                             S_StartSound(nil, sfx_s3kb8, player)
                             player["srbz_info"].shop_confirmscreen = false
                             player.shop_person.shop[player["srbz_info"].shop_selection][2] = nil
-                        else
-                            S_StartSound(nil, sfx_lose, player)
-                        end
+                        else S_StartSound(nil, sfx_lose, player) end
                         
                         player["srbz_info"].shop_selectpressed  = true
                     end
-                else
-                    player["srbz_info"].shop_selectpressed = false
-                end
+                else player["srbz_info"].shop_selectpressed = false end
 
                 cmd.buttons = 0
                 cmd.forwardmove = 0
@@ -234,7 +307,7 @@ addHook("PreThinkFrame", do
     end
 end)
 
-addHook("PlayerSpawn", function(player)
-    player.shop_open = false
-    player.shop_anim = 0
+addHook("PlayerSpawn", function(p)
+    p.shop_open = false
+    p.shop_anim = 0
 end)

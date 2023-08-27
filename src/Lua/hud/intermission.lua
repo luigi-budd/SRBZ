@@ -69,6 +69,8 @@ SRBZ.intermissionhud = function(v, player)
 			local selection = player["srbz_info"].vote_selection
 			local cursor_patch = v.cachePatch("SLCT1LVL")
 			local map_y = 75*FU
+
+			v.drawString(160*FU,42*FU,"\x82VOTE:\x80 JUMP    \x82 CANCEL:\x80 SPIN", V_SNAPTOTOP, "thin-fixed-center")
 			
 			for i=1,-1,-1 do
 				local numonlist = i+2
@@ -82,11 +84,11 @@ SRBZ.intermissionhud = function(v, player)
 				local map_x = 120*FU-(i*100*FU)
 				--SRBZ.MapVotes
 				
-				v.drawScaled(map_x,map_y,FU/2,map_patch)
+				v.drawScaled(map_x,map_y,FU>>1,map_patch)
 				v.drawString(map_x,map_y-(8*FU),levelname, nil, "thin-fixed")
 				v.drawString(map_x+(38*FU),map_y+(60*FU),map_votes, nil, "thin-fixed")
 			end
-			v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU/2,cursor_patch)
+			v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU>>1,cursor_patch)
 			
 			
 			v.drawString(160*FU,50*FU,"\x82"..((SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit) - SRBZ.win_tics)/TICRATE, (V_SNAPTOTOP), "fixed-center")
@@ -94,7 +96,7 @@ SRBZ.intermissionhud = function(v, player)
 	else
 		local map_patch = v.cachePatch(G_BuildMapName(SRBZ.NextMapVoted).."P")
 		local levelname = (mapheaderinfo[SRBZ.NextMapVoted].lvlttl)
-		v.drawScaled(120*FU,75*FU,FU/2,map_patch)
+		v.drawScaled(120*FU,75*FU,FU>>1,map_patch)
 		v.drawString(160*FU,50*FU,"\x82"..levelname.." Was picked as the next map!", (V_SNAPTOTOP), "fixed-center")
 	end
 	for i=-5,5

@@ -9,7 +9,7 @@ function A_RubyDrop(actor, var1)
 		P_SetObjectMomZ(the_ruby, P_RandomRange(5,7)<<16)
 
 		if var1 > 1 then
-			local angle = P_RandomByte() * 256 * 2^16
+			local angle = P_RandomFixed() * FU
 			P_InstaThrust(the_ruby, angle, 2*FU)
 		end
 	end
@@ -33,6 +33,8 @@ states[S_CRRUBY] = {
 	nextstate = S_CRRUBY,
 }
 
+sfxinfo[sfx_rbyhit].caption="Ruby"
+
 addHook("PlayerThink", function(player)
 	player.rubies = $ or 0
 	if player.rubies > SRBZ.RubyLimit then
@@ -41,8 +43,7 @@ addHook("PlayerThink", function(player)
 end)
 
 addHook("MobjDeath", function(mobj)
-
-	if gametype ~= GT_SRBZ then return end
+	if gametype ~= GT_SRBZ return end
 	
 	if mobj.rubiesholding then
 		A_RubyDrop(mobj,mobj.rubiesholding)
@@ -89,18 +90,21 @@ addHook("MobjThinker", function(mobj)
 	if mobj.fuse < 3*TICRATE then
 		mobj.flags2 = $^^MF2_DONTDRAW
 	end
+	local findrange = 255*FRACUNIT
+	searchBlockmap("objects", function(refmobj, foundmobj)
+		if foundmobj and abs(mobj.z-foundmobj.z) < 150*FU and foundmobj.valid and foundmobj.player then
+			P_FlyTo(mobj,foundmobj.x,foundmobj.y,foundmobj.z,2*FRACUNIT,true)
+		end
+	end,mobj,
+	mobj.x-findrange,mobj.x+findrange,
+	mobj.y-findrange,mobj.y+findrange)
 end, MT_CRRUBY)
 
 COM_AddCommand("z_sendrubies", function(player, player2, rubies)
 	local function giveinstructions()
 		CONS_Printf(player, "z_sendrubies <receivingplayernum> <rubies>: gives rubies to a player")
 	end
-	if not player2 or not rubies then
-		giveinstructions()
-		return
-	end
-	
-	if not tonumber(rubies) then
+	if (not player2) or (not rubies) or (not tonumber(rubies)) then
 		giveinstructions()
 		return
 	end
@@ -108,27 +112,27 @@ COM_AddCommand("z_sendrubies", function(player, player2, rubies)
 	rubies = tonumber($)
 	player2 = tonumber($)
 	if not players[player2] then
-		CONS_Printf(player, "\x85\This player does not exist.")
+		CONS_Printf(player, "\x85This player does not exist.")
 		return
 	end
 	
 	if rubies > player.rubies then
-		CONS_Printf(player, "\x85\You don't have enough rubies to do this.")
+		CONS_Printf(player, "\x85You don't have enough rubies to do this.")
 		return
 	end
 	
 	if rubies <= 0 then 
-		CONS_Printf(player, "\x85\Rubies must not be negative or zero.")
+		CONS_Printf(player, "\x85Rubies must be positive value.")
 		return
 	end
 	
 	player.rubies = $ - rubies 
 	players[player2].rubies = $ + rubies
 	
-	CONS_Printf(player, "\x82\You sent "..rubies.." rubies to "..players[player2].name)
+	CONS_Printf(player, "\x82You sent "..rubies.." rubies to "..players[player2].name)
 	CONS_Printf(
 	players[player2], 
-	string.format("\x82\%s\x82\ sent you %s rubies", players[player2].name, tostring(rubies))
+	string.format("\x82%s\x82 sent you %s rubies", players[player2].name, tostring(rubies))
 	)
 	
 	

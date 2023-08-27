@@ -1,6 +1,8 @@
 --Original script by wired-aunt
 --Heavily edited version by Jisk.
 
+--Nearly every division operation is replaced with bit shifting where it is possible
+
 local sorted_mobjs = {}
 
 
@@ -70,13 +72,13 @@ hud.add( function(v, player, camera)
 	local first_person = not camera.chase
 	local cam = first_person and player.realmo or camera
 	local spectator = player.spectator
-	local hudwidth = 320*FRACUNIT
-	local hudheight = (320*v.height()/v.width())*FRACUNIT
+	local hudwidth = 320*FU
+	local hudheight =(300*v.height()/v.width())*FU
 
 	local fov = (CV_FindVar("fov").value/FRACUNIT)*ANG1 --Can this be fetched live instead of assumed?
 	
 	--the "distance" the HUD plane is projected from the player
-	local hud_distance = FixedDiv(hudwidth / 2, tan(fov/2))
+	local hud_distance = FixedDiv(hudwidth>>1, tan(fov>>1))
 
 	for _, tmo in pairs(sorted_mobjs) do
 		if not tmo or not tmo.valid then continue end
@@ -99,7 +101,7 @@ hud.add( function(v, player, camera)
 		--converting to fixed just to normalise things
 		--e.g. this will convert 365° to 5° for us
 		local fhanlge = AngleFixed(hangle)
-		local fhfov = AngleFixed(fov/2)
+		local fhfov = AngleFixed(fov>>1)
 		local f360 = AngleFixed(ANGLE_MAX)
 		if fhanlge < f360 - fhfov and fhanlge > fhfov then
 			continue
@@ -134,8 +136,8 @@ hud.add( function(v, player, camera)
 		if (tmo.flags2 & MF2_DONTDRAW) then
 			continue
 		end
-		local hpos = hudwidth/2 - FixedMul(hud_distance, tan(hangle) * realwidth/width)
-		local vpos = hudheight/2 + FixedMul(hud_distance, tan(vangle) * realheight/height)
+		local hpos = hudwidth>>1 - FixedMul(hud_distance, tan(hangle) * realwidth/width)
+		local vpos = hudheight>>1 + FixedMul(hud_distance, tan(vangle) * realheight/height)
 
 		hpos = $ - 25*FU
 		local name
@@ -164,12 +166,12 @@ hud.add( function(v, player, camera)
 		local ringfont = "fixed-center"
 		local charwidth = 5
 		local lineheight = 8
-		if distance > 500*FRACUNIT then
+		--if distance > 500*FRACUNIT then
 			--namefont = "small-thin-fixed-center"
 			--ringfont = "small-thin-fixed-center"
 			--charwidth = 4
 			--lineheight = 4
-		end
+		--end
 		
 
 		local flash = (leveltime/(TICRATE/6))%2 == 0
@@ -178,12 +180,12 @@ hud.add( function(v, player, camera)
 		end
 	
 		--local nameflags = skincolors[tmo.skincolor].chatcolor
-		local distedit = max(0, distance - (distlimit*FRACUNIT/2)) * 2
-		local trans = min(9, (((distedit * 10) / FRACUNIT) / distlimit)) * V_10TRANS
+		local distedit = max(0, distance - ((distlimit*FU)>>1)) * 2
+		local trans = min(9, (((distedit * 10) >> 16) / distlimit)) * V_10TRANS
 		if name then
 			customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, namecolor)
 			if not tmo.dontshowhealth then
-				customhud.CustomFontString(v,hpos,vpos+(lineheight*FRACUNIT),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
+				customhud.CustomFontString(v,hpos,vpos+(lineheight*FU),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
 			end
 		end
 		--v.drawString(hpos, vpos, name, nameflags|trans|V_ALLOWLOWERCASE, namefont)
