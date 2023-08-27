@@ -212,9 +212,10 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 	end
 	
-
-	if ((mobjinfo[src.type].npc_name) and (mo.player)) or ((src.player) and mobjinfo[mo.type].npc_name) and (not (inf and inf.weaponinfo and inf.weaponinfo[SRBZ.ItemPresets[inf.weaponinfo.item_id]]))
-		dmg = P_RandomKey(9)+3
+	if (not inf) or (not inf.weaponinfo)
+		if ((mobjinfo[src.type].npc_name) and (mo.player)) or ((src.player) and mobjinfo[mo.type].npc_name)
+			dmg = P_RandomKey(9)+3
+		end
 	end
 	if dmg >= mo.health then
 		P_KillMobj(mo,inf)
@@ -253,7 +254,7 @@ addHook("MobjMoveCollide", function(thing,tmthing)
 		
 		if speed1 > speed2 and tmthing.player and tmthing.player.valid
 		and not tmthing.player.powers[pw_flashing] then
-			P_DamageMobj(thing, tmthing, nil, 15)
+			P_DamageMobj(thing, tmthing, tmthing, 15)
 		end
 	end
 end)
