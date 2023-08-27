@@ -178,11 +178,8 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 	end
 	
-	if inf.player then
-		P_AddPlayerScore(inf.player, dmg)
-	elseif src.player then
-		P_AddPlayerScore(src.player, dmg)
-	end
+	if (inf and inf.player) then P_AddPlayerScore(inf.player, dmg)
+	elseif (src and src.player) then P_AddPlayerScore(src.player, dmg) end
 
 	if mo.player then
 		if mo.player.zteam == 1 then
