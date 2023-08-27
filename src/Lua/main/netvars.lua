@@ -14,6 +14,9 @@ addHook("NetVars", function(net)
 	SRBZ.CurrentZombieCheckpoint = net($);
 	SRBZ.ZombieCheckpoints = net($);
 	
+	SRBZ.TWRITE_COUNT = net($);
+	SRBZ.TWRITE_MAPNAME_COUNT = net($);
+	
 	for i,v in ipairs(SRBZ.MapTimers) do
 		v.name = net($);
 		v.map = net($);
