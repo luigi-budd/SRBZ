@@ -1,3 +1,5 @@
+freeslot("sfx_zjump")
+
 SRBZ.giveplayerflags = function(player)
 	if gametype == GT_SRBZ then
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
@@ -42,3 +44,11 @@ addHook("PlayerThink", function(player) -- Limit for climbing characters.
         end
     end
 end)
+
+addHook("MobjThinker", function(mobj)
+	if gametype ~= GT_SRBZ then return end
+	if S_SoundPlaying(mobj, sfx_jump) then
+		S_StopSoundByID(mobj, sfx_jump)
+		S_StartSound(mobj, sfx_zjump)
+	end
+end, MT_PLAYER)
