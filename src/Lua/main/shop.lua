@@ -207,7 +207,7 @@ addHook("PlayerThink", function(player)
             player.shop_anim = $ - 1
         end
 
-        if SRBZ.game_ended then
+        if SRBZ.game_ended or player.zteam == 2 then
             player.shop_anim = 0
             player.shop_open = false
         end
