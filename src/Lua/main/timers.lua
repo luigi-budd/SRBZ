@@ -100,15 +100,13 @@ addHook("ThinkFrame", function()
 	if (SRBZ.round_active) and not (SRBZ.game_ended) then SRBZ.game_time = $ + 1 end
 end)
 
-/*
 addHook("MobjThinker", function(mobj)
-	if SRBZ.game_ended and leveltime then
+	if SRBZ.game_ended and leveltime and SRBZ.win_tics >= SRBZ.MapVoteStartFrame then
 
 		mobj.flags = $ | MF_NOTHINK
 		return true
 	end
 end)
-*/
 
 COM_AddCommand("z_forcewin", function(player, arg1)
 	local teamtowin = 1
