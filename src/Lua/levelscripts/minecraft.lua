@@ -21,15 +21,17 @@ states[S_MCTORCH] = {
 }
 
 mobjinfo[MT_CREEPER] = {
-	doomednum = 2308,
+	doomednum = 2309,
 	spawnstate = S_CREEPER,
 	spawnhealth = 100,
 	reactiontime = 8,
-	radius = 48*FRACUNIT,
+	radius = 20*FRACUNIT,
 	height = 85*FRACUNIT,
-	flags =	MF_NOBLOCKMAP|MF_NOGRAVITY|MF_SCENERY,
+	flags =	MF_ENEMY|MF_SPECIAL|MF_SHOOTABLE,
 	seestate = S_CREEPER,
 }
+mobjinfo[MT_CREEPER].npc_name = "Creeper"
+mobjinfo[MT_CREEPER].npc_spawnhealth = {80,80}
 
 states[S_CREEPER] = {
 	sprite = SPR_CRPR,
