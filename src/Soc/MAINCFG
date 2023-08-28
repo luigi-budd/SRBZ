@@ -72,6 +72,28 @@ NextLevel = J3
 NoZone = True
 SelectHeading = SRBZ Maps
 
+Level J4
+Levelname = Minecraft
+Subtitle = Watch for creepers!
+Act = 0
+Music = MC1
+TypeOfLevel = SRBZ
+NextLevel = J4
+SkyNum = 14
+NoZone = True
+SelectHeading = SRBZ Maps
+
+Level J5
+Levelname = Undertale
+Subtitle = You fell down. Survive.
+Act = 0
+Music = UTSTR1
+TypeOfLevel = SRBZ
+NextLevel = J5
+SkyNum = 10
+NoZone = True
+SelectHeading = SRBZ Maps
+
 Level N0
 Levelname = Ancient Catacombs
 Subtitle = Lost in the creepy catacombs

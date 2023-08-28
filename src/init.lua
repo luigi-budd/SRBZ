@@ -40,3 +40,4 @@ dofile "hooks/hud.lua"
 
 dofile "levelscripts/concealed_woodland.lua"
 dofile "levelscripts/thefarland.lua"
+dofile "levelscripts/minecraft.lua"
