@@ -82,6 +82,7 @@ NextLevel = J4
 SkyNum = 14
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 7
 
 Level J5
 Levelname = Undertale

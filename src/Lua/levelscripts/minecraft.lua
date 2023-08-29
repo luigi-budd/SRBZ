@@ -1,6 +1,6 @@
 freeslot("MT_MCTORCH","S_MCTORCH","SPR_MCTR")
 freeslot("MT_CREEPER","S_CREEPER","SPR_CRPR")
-
+local mcmapnum = 428
 
 mobjinfo[MT_MCTORCH] = {
 	doomednum = 2308,
@@ -40,29 +40,74 @@ states[S_CREEPER] = {
 	nextstate = S_CREEPER,
 }
 
-/*
-Object MT_MCTORCH
-MapThingNum = 2308
-SpawnState = S_MCTORCH
-SpawnHealth = 100
-ReactionTime = 8
-SeeState = S_NULL
-SeeSound = 0
-AttackSound = sfx_None
-PainState = S_NULL
-PainChance = 0
-PainSound = sfx_None
-Speed = 1
-MeleeState = S_NULL
-MissileState = S_NULL
-DeathState = S_NULL
-XDeathState = S_NULL
-DeathSound = sfx_None
-Radius = 8*FRACUNIT
-Height = 16*FRACUNIT
-Mass = 0
-Damage = 0
-ActiveSound = sfx_None
-Flags =	MF_NOBLOCKMAP|MF_NOGRAVITY|MF_SCENERY
-RaiseState = S_NULL
-*/
+
+
+
+
+local function Minecraft_Part1()
+	chatprint("\x8D\Wooden Platform \x80will leave in\x85 30 \x80seconds")
+	S_StartSound(nil, sfx_oldrad)
+	SRBZ.AddMapTimer(
+		"Act 1",
+		mcmapnum,
+		30*TICRATE,
+		function(timernum,timername)
+			chatprint("\x8D\Wooden Platform is now leaving!")
+			P_LinedefExecute(46)
+			P_LinedefExecute(48)
+			P_LinedefExecute(51)
+		end
+	)
+	--S_StartSound(player, sfx_radio)
+end
+
+local function Minecraft_Part2()
+	chatprint("\x8F\Obsidian Wall \x80will break in\x85 60 \x80seconds")
+	S_StartSound(nil, sfx_oldrad)
+	S_ChangeMusic("MC2", true)
+	mapmusname = "MC2"
+	SRBZ.AddMapTimer(
+		"Act 2",
+		mcmapnum,
+		60*TICRATE,
+		function(timernum,timername)
+			chatprint("\x8F\The Obsidian Wall has broken!")
+			P_LinedefExecute(56)
+		end
+	)
+end
+
+local function Minecraft_Part3()
+	chatprint("Iron Door will open in\x82 20 \x80seconds")
+	S_StartSound(nil, sfx_oldrad)
+	SRBZ.AddMapTimer(
+		"Act 3",
+		mcmapnum,
+		20*TICRATE,
+		function(timernum,timername)
+			chatprint("\x8F\The Iron Door has broken!")
+			P_LinedefExecute(61)
+		end
+	)
+end
+
+local function Minecraft_Part4()
+	chatprint("\x86\Stone Platform \x80will leave in\x85 60 \x80seconds")
+	S_StartSound(nil, sfx_oldrad)
+	S_ChangeMusic("MC3", true)
+	mapmusname = "MC3"
+	SRBZ.AddMapTimer(
+		"Act 4",
+		mcmapnum,
+		60*TICRATE,
+		function(timernum,timername)
+			chatprint("\x86\The Stone Platform is now leaving the area!")
+			P_LinedefExecute(63)
+		end
+	)
+end
+
+addHook("LinedefExecute", Minecraft_Part1, "47ACT1")
+addHook("LinedefExecute", Minecraft_Part2, "47ACT2")
+addHook("LinedefExecute", Minecraft_Part3, "47ACT3")
+addHook("LinedefExecute", Minecraft_Part4, "47ACT4")

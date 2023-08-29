@@ -12,6 +12,12 @@ SRBZ.AddMapTimer(
 )
 */
 
+SRBZ.maptimerdebug = CV_RegisterVar({
+	name = "z_maptimerdebug",
+	defaultvalue = "Off",
+	PossibleValue = CV_OnOff,
+})
+
 
 rawset(_G, "G_BuildMapNum", function(str)
   str = string.gsub($, "MAP", "") -- Remove "MAP" from the string
@@ -47,7 +53,7 @@ SRBZ.AddMapTimer = function(timer_name,map_number,map_time,onend)
 		name = timer_name,
 		map = map_number,
 		time = map_time,
-		active = false,
+		active = true,
 		originaltime = map_time,
 		on_end = onend,
 	})
@@ -65,14 +71,22 @@ end
 
 addHook("MapLoad", function()
 	for i,v in ipairs(SRBZ.MapTimers) do
+		table.remove(SRBZ.MapTimers,i)
+	end
+	/*
+	for i,v in ipairs(SRBZ.MapTimers) do
 		v.active = false
 		SRBZ.ResetMapTimer(i)
 	end
+	*/
 end)
 
 addHook("ThinkFrame",do
 	for i,timer in ipairs(SRBZ.MapTimers) do
 		if gamemap == timer.map and timer.active then
+			if SRBZ.maptimerdebug.value then
+				print(timer.name..": "..(timer.time/35))
+			end
 			timer.time = $ - 1
 			if timer.time <= 0 and timer.on_end then
 				timer.on_end(i, timer.name)
