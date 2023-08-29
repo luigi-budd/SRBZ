@@ -63,6 +63,7 @@ end
 
 local function Minecraft_Part2()
 	chatprint("\x8F\Obsidian Wall \x80will break in\x85 60 \x80seconds")
+	SRBZ.CurrentZombieCheckpoint = 1
 	S_StartSound(nil, sfx_oldrad)
 	S_ChangeMusic("MC2", true)
 	mapmusname = "MC2"
@@ -73,12 +74,14 @@ local function Minecraft_Part2()
 		function(timernum,timername)
 			chatprint("\x8F\The Obsidian Wall has broken!")
 			P_LinedefExecute(56)
+			SRBZ.CheckpointRally(1)
 		end
 	)
 end
 
 local function Minecraft_Part3()
 	chatprint("Iron Door will open in\x82 20 \x80seconds")
+	SRBZ.CurrentZombieCheckpoint = 2
 	S_StartSound(nil, sfx_oldrad)
 	SRBZ.AddMapTimer(
 		"Act 3",
@@ -87,12 +90,14 @@ local function Minecraft_Part3()
 		function(timernum,timername)
 			chatprint("\x8F\The Iron Door has broken!")
 			P_LinedefExecute(61)
+			SRBZ.CheckpointRally(2)
 		end
 	)
 end
 
 local function Minecraft_Part4()
 	chatprint("\x86\Stone Platform \x80will leave in\x85 60 \x80seconds")
+	SRBZ.CurrentZombieCheckpoint = 3
 	S_StartSound(nil, sfx_oldrad)
 	S_ChangeMusic("MC3", true)
 	mapmusname = "MC3"
@@ -103,6 +108,7 @@ local function Minecraft_Part4()
 		function(timernum,timername)
 			chatprint("\x86\The Stone Platform is now leaving the area!")
 			P_LinedefExecute(63)
+			SRBZ.CheckpointRally(3)
 		end
 	)
 end

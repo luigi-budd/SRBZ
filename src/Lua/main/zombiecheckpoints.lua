@@ -10,6 +10,18 @@ states[S_ZOMBIECHECKPOINT] = {SPR_NULL, A, 1, nil, 0, 0, S_ZOMBIECHECKPOINT}
 SRBZ.ZombieCheckpoints = {}
 SRBZ.CurrentZombieCheckpoint = 0
 
+SRBZ.CheckpointRally = function(checkpointnum)
+	if SRBZ.ZombieCheckpoints[checkpointnum] then
+		for player in players.iterate do
+			if player.mo and player.mo.valid and player.valid and player.zteam == 2 then
+				local destcheckpoint = SRBZ.ZombieCheckpoints[checkpointnum]
+				P_SetOrigin(player.mo, destcheckpoint.x*FU, destcheckpoint.y*FU, destcheckpoint.z*FU)
+				player.mo.angle = FixedAngle(destcheckpoint.angle*FRACUNIT)
+			end
+		end
+	end
+end
+
 addHook("MapLoad", function()
 	SRBZ.ZombieCheckpoints = {}
 	SRBZ.CurrentZombieCheckpoint = 0
