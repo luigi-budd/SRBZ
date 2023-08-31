@@ -95,6 +95,16 @@ SkyNum = 10
 NoZone = True
 SelectHeading = SRBZ Maps
 
+Level J6
+Levelname = Special Stage
+Subtitle = Chaos emeralds?
+Act = 0
+Music = SPEC8
+TypeOfLevel = SRBZ
+NextLevel = J6
+SkyNum = 1
+SelectHeading = SRBZ Maps
+
 Level N0
 Levelname = Ancient Catacombs
 Subtitle = Lost in the creepy catacombs

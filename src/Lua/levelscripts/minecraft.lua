@@ -1,6 +1,6 @@
 freeslot("MT_MCTORCH","S_MCTORCH","SPR_MCTR")
 freeslot("MT_CREEPER","S_CREEPER","SPR_CRPR")
-local mcmapnum = 428
+local mcmapnum = G_FindMapByNameOrCode("MAPJ4")
 
 mobjinfo[MT_MCTORCH] = {
 	doomednum = 2308,
