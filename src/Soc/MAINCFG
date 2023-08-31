@@ -71,6 +71,7 @@ TypeOfLevel = SRBZ
 NextLevel = J3
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 9
 
 Level J4
 Levelname = Minecraft
@@ -94,6 +95,7 @@ NextLevel = J5
 SkyNum = 10
 NoZone = True
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 10
 
 Level J6
 Levelname = Special Stage
@@ -104,6 +106,7 @@ TypeOfLevel = SRBZ
 NextLevel = J6
 SkyNum = 1
 SelectHeading = SRBZ Maps
+Lua.srbz_timelimit = 15
 
 Level N0
 Levelname = Ancient Catacombs
