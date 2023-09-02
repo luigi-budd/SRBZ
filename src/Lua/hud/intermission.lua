@@ -88,8 +88,12 @@ SRBZ.intermissionhud = function(v, player)
 				v.drawString(map_x,map_y-(8*FU),levelname, nil, "thin-fixed")
 				v.drawString(map_x+(38*FU),map_y+(60*FU),map_votes, nil, "thin-fixed")
 			end
-			v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU>>1,cursor_patch)
-			
+
+			if (player["srbz_info"].voted)
+				v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU>>1,cursor_patch)
+			else
+				if (leveltime%4) then v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU>>1,cursor_patch) end
+			end
 			
 			v.drawString(160*FU,50*FU,"\x82"..((SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit) - SRBZ.win_tics)/TICRATE, (V_SNAPTOTOP), "fixed-center")
 		end
