@@ -68,6 +68,8 @@ SRBZ.intermissionhud = function(v, player)
 		elseif SRBZ.MapsOnVote and #SRBZ.MapsOnVote >= 3 then
 			local selection = player["srbz_info"].vote_selection
 			local cursor_patch = v.cachePatch("SLCT1LVL")
+			local cursor_patch2 = v.cachePatch("SLCT2LVL")
+			local votepatchsize = FU>>1 -- both the cursor and level icon sizes
 			local map_y = 75*FU
 
 			v.drawString(160*FU,42*FU,"\x82VOTE:\x80 JUMP    \x82 CANCEL:\x80 SPIN", V_SNAPTOTOP, "thin-fixed-center")
@@ -84,15 +86,20 @@ SRBZ.intermissionhud = function(v, player)
 				local map_x = 120*FU-(i*100*FU)
 				--SRBZ.MapVotes
 				
-				v.drawScaled(map_x,map_y,FU>>1,map_patch)
+				v.drawScaled(map_x,map_y,votepatchsize,map_patch)
 				v.drawString(map_x,map_y-(8*FU),levelname, nil, "thin-fixed")
 				v.drawString(map_x+(38*FU),map_y+(60*FU),map_votes, nil, "thin-fixed")
 			end
 
+			-- Selection Flicker Code
 			if (player["srbz_info"].voted)
-				v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU>>1,cursor_patch)
+				v.drawScaled(-80*FU+((selection)*100*FU),map_y,votepatchsize,cursor_patch)
 			else
-				if (leveltime%4) then v.drawScaled(-80*FU+((selection)*100*FU),map_y,FU>>1,cursor_patch) end
+				if ((leveltime/2)%2 == 0) then 
+					v.drawScaled(-80*FU+((selection)*100*FU),map_y,votepatchsize,cursor_patch) 
+				else
+					v.drawScaled(-80*FU+((selection)*100*FU),map_y,votepatchsize,cursor_patch2) 
+				end
 			end
 			
 			v.drawString(160*FU,50*FU,"\x82"..((SRBZ.MapVoteStartFrame + SRBZ.VoteTimeLimit) - SRBZ.win_tics)/TICRATE, (V_SNAPTOTOP), "fixed-center")
@@ -100,7 +107,7 @@ SRBZ.intermissionhud = function(v, player)
 	else
 		local map_patch = v.cachePatch(G_BuildMapName(SRBZ.NextMapVoted).."P")
 		local levelname = (mapheaderinfo[SRBZ.NextMapVoted].lvlttl)
-		v.drawScaled(120*FU,75*FU,FU>>1,map_patch)
+		v.drawScaled(120*FU,75*FU,votepatchsize,map_patch)
 		v.drawString(160*FU,50*FU,"\x82"..levelname.." Was picked as the next map!", (V_SNAPTOTOP), "fixed-center")
 	end
 	for i=-5,5
