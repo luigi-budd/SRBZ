@@ -131,6 +131,24 @@ local function undertale_Prebattle2()
 	  undertale_timer4 = 20*TICRATE
 end
 
+addHook("MobjLineCollide", function(mobj,line)
+	if gamemap ~= ut_mapnum then return end 
+	if not mobj.valid or not mobj.player then return end
+	
+	if line.tag == 52 and mobj.player.zteam == 2 then
+		return true
+	end
+end, MT_PLAYER)
+
+/* next
+       if map48_timer2 == 5*TICRATE and gamemap == 8 then
+		  Map48_BattleTele1Surv()
+	end
+       if map48_timer2 == 0*TICRATE and gamemap == 8 then
+		  Map48_BattleTele1Zm()
+	end	
+*/
+
 addHook("LinedefExecute", undertale_floweytalk, "FWTLK1")
 addHook("LinedefExecute", undertale_floweytalk2, "FWTLK2")
 

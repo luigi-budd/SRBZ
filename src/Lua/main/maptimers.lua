@@ -18,18 +18,6 @@ SRBZ.maptimerdebug = CV_RegisterVar({
 	PossibleValue = CV_OnOff,
 })
 
-
-rawset(_G, "G_BuildMapNum", function(str)
-  str = string.gsub($, "MAP", "") -- Remove "MAP" from the string
-  local x = string.sub(str, 1, 1)
-  local y = string.sub(str, 2)
-
-  x = tonumber($) and tonumber($) or R_Char2Frame($)
-  y = tonumber($) and tonumber($) or R_Char2Frame($) + 10
-
-  return 36 * x + y + 100
-end)
-
 SRBZ.MapTimers = {}
 
 SRBZ.AddMapTimer = function(timer_name,map_number,map_time,onend)
