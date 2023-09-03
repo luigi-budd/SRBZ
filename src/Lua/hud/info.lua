@@ -83,11 +83,11 @@ SRBZ.infohud = function(v, player)
 			local event_name_string = ("# "..timer.name.." #") or "Event Name Error"
 			local event_time_string = ("* "..G_TicsToMTIME(timer.time).." *") or "Failed To Get Event Time"
 			
-			customhud.CustomFontString(v, 160, 10+(i*16), (event_name_string), "STCFC", 
+			customhud.CustomFontString(v, 160, 10+((i-1)*16), (event_name_string), "STCFC", 
 			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_TEAL)
 			
 			-- Time
-			customhud.CustomFontString(v, 160, 18+(i*16), (event_time_string), "STCFC", 
+			customhud.CustomFontString(v, 160, 18+((i-1)*16), (event_time_string), "STCFC", 
 			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_TEAL)
 		end
 	else

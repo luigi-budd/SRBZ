@@ -117,11 +117,3 @@ addHook("ThinkFrame",do
 		end
 	end
 end)
-
-COM_AddCommand("testevent", function()
-	SRBZ.AddMapTimer(
-		"ohyeah",
-		gamemap,
-		5*TICRATE
-	)
-end)
