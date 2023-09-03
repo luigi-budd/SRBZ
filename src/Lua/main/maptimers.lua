@@ -58,20 +58,11 @@ SRBZ.AddMapTimer = function(timer_name,map_number,map_time,onend,extra)
 		map = map_number,
 		time = map_time,
 		active = true,
-		originaltime = map_time,
+		originaltime = map_time, -- find a use for this i guess
 		on_end = onend,
 		extrainfo = extra,
 	})
 	return #SRBZ.MapTimers
-end
-SRBZ.ResetMapTimer = function(timernum)
-	if timernum == nil then 
-		error("Timer number is not specified")
-	end
-	if type(timernum) ~= "string" then
-		error("Name of the timer should be a string")
-	end
-	SRBZ.MapTimers[timernum].time = SRBZ.MapTimers[timernum].originaltime
 end
 
 addHook("MapLoad", function()
