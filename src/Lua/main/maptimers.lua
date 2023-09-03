@@ -112,7 +112,16 @@ addHook("ThinkFrame",do
 			end
 		end
 		if timer.time <= 0 then
-			timer.active = false
+			timer.active = false -- i have no idea
+			table.remove(SRBZ.MapTimers,i)
 		end
 	end
+end)
+
+COM_AddCommand("testevent", function()
+	SRBZ.AddMapTimer(
+		"ohyeah",
+		gamemap,
+		5*TICRATE
+	)
 end)

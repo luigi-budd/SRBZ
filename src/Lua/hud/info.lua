@@ -69,17 +69,34 @@ SRBZ.infohud = function(v, player)
 		
 		-- [Timer] --
 		if the_time ~= nil then
+			-- Time
 			customhud.CustomFontString(v, 150, 1, the_time, "STCFC", 
 			(V_SNAPTOTOP), nil , nil, SKINCOLOR_BEIGE)
 			
+			-- Clock Icon
 			v.drawScaled(138*FRACUNIT, 0, FRACUNIT,
 			timeemb, (V_SNAPTOTOP))
 		end
+		-- [Event Timer HUD] --
+		
+		for i,timer in ipairs(SRBZ.MapTimers) do 
+			local event_name_string = ("# "..timer.name.." #") or "Event Name Error"
+			local event_time_string = ("* "..G_TicsToMTIME(timer.time).." *") or "Failed To Get Event Time"
+			
+			customhud.CustomFontString(v, 160, 10+(i*16), (event_name_string), "STCFC", 
+			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_TEAL)
+			
+			-- Time
+			customhud.CustomFontString(v, 160, 18+(i*16), (event_time_string), "STCFC", 
+			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_TEAL)
+		end
 	else
 		if the_time ~= nil then
+			-- Time
 			customhud.CustomFontString(v, 300, 6, the_time, "STCFC", 
 			(V_SNAPTOTOP|V_SNAPTORIGHT), "right" , nil, SKINCOLOR_BEIGE)
 			
+			-- Clock Icon
 			v.drawScaled(300*FRACUNIT, 5*FRACUNIT, FRACUNIT,
 			timeemb, (V_SNAPTOTOP|V_SNAPTORIGHT))
 		end
