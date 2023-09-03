@@ -171,4 +171,4 @@ SkyNum = 127
 SkyboxScaleX = -2
 SkyboxScaleY = -2
 lua.takis_iscoldarea = 1
-Lua.srbz_timelimit = 7
+Lua.srbz_timelimit = 6
