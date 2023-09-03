@@ -28,7 +28,7 @@ end
 
 local function undertale_BattleTele1Surv()
 	for player in players.iterate
-		if (player.zteam == 1) then
+		if player.mo and player.mo.valid and (player.zteam == 1) then
 			P_SetOrigin(player.mo, -7168*FRACUNIT, -6272*FRACUNIT, 0*FRACUNIT)
 		end
 	end
@@ -36,15 +36,15 @@ end
 
 local function undertale_BattleTele1Zm()
 	for player in players.iterate
-		if (player.zteam == 2) then
-		  P_SetOrigin(player.mo, -7168*FRACUNIT, -6272*FRACUNIT, 0*FRACUNIT)
+		if player.mo and player.mo.valid and (player.zteam == 2) then
+			P_SetOrigin(player.mo, -7168*FRACUNIT, -6272*FRACUNIT, 0*FRACUNIT)
 		end
 	end
 end
 
 local function undertale_BattleTele2Surv()
 	for player in players.iterate
-		if (player.zteam == 1) then
+		if player.mo and player.mo.valid and (player.zteam == 1) then
 			P_SetOrigin(player.mo, 6976*FRACUNIT, 3008*FRACUNIT, 0*FRACUNIT)
 		end
 	end
@@ -52,7 +52,7 @@ end
 
 local function undertale_BattleTele2Zm()
       for player in players.iterate
-	   if (player.zteam == 2) then
+	   if player.mo and player.mo.valid and (player.zteam == 2) then
 	      P_SetOrigin(player.mo, 5056*FRACUNIT, -2880*FRACUNIT, 0*FRACUNIT)
        end
 	end
@@ -60,7 +60,7 @@ end
 
 local function undertale_BattleTele3Surv()
 	for player in players.iterate
-		if (player.zteam == 1) then
+		if player.mo and player.mo.valid and (player.zteam == 1) then
 			P_SetOrigin(player.mo, -2368*FRACUNIT, -5504*FRACUNIT, 0*FRACUNIT)
 		end
 	end
@@ -68,15 +68,15 @@ end
 
 local function undertale_BattleTele3Zm()
 	for player in players.iterate
-		if (player.zteam == 2) then
-		P_SetOrigin(player.mo, -1088*FRACUNIT, -4736*FRACUNIT, 0*FRACUNIT)
+		if player.mo and player.mo.valid and (player.zteam == 2) then
+			P_SetOrigin(player.mo, -1088*FRACUNIT, -4736*FRACUNIT, 0*FRACUNIT)
 		end
 	end
 end
 
 local function undertale_BattleTele4Surv()
 	for player in players.iterate
-		if (player.zteam == 1) then
+		if player.mo and player.mo.valid and (player.zteam == 1) then
 			P_SetOrigin(player.mo, 17280*FRACUNIT, 7104*FRACUNIT, 0*FRACUNIT)
 		end
 	end
@@ -84,7 +84,7 @@ end
 
 local function undertale_BattleTele4Zm()
 	for player in players.iterate
-		if (player.zteam == 2) then
+		if player.mo and player.mo.valid and (player.zteam == 2) then
 			P_SetOrigin(player.mo, 5056*FRACUNIT, -2880*FRACUNIT, 0*FRACUNIT)
 		end
 	end
