@@ -55,6 +55,7 @@ SRBZ.intermissionhud = function(v, player)
 	bl.ese = ease.outquart(FixedDiv(SRBZ.win_tics*FU, animlength*FU),bl.start*FU,bl.stop*FU)
 	bu.ese = ease.outquart(FixedDiv(SRBZ.win_tics*FU, animlength*FU),bu.start*FU,bu.stop*FU)
 	
+	local votepatchsize = FU>>1 -- both the cursor and level icon sizes
 	
 	if bg.ese > 5 then
 		v.drawScaled(-500*FU,-500*FU, FU*1000, z_bg, bg.ese<<V_ALPHASHIFT)
@@ -69,7 +70,7 @@ SRBZ.intermissionhud = function(v, player)
 			local selection = player["srbz_info"].vote_selection
 			local cursor_patch = v.cachePatch("SLCT1LVL")
 			local cursor_patch2 = v.cachePatch("SLCT2LVL")
-			local votepatchsize = FU>>1 -- both the cursor and level icon sizes
+			
 			local map_y = 75*FU
 
 			v.drawString(160*FU,42*FU,"\x82VOTE:\x80 JUMP    \x82 CANCEL:\x80 SPIN", V_SNAPTOTOP, "thin-fixed-center")

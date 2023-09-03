@@ -96,6 +96,7 @@ SkyNum = 10
 NoZone = True
 SelectHeading = SRBZ Maps
 Lua.srbz_timelimit = 10
+Lua.srbz_solofail = true
 
 Level J6
 Levelname = Special Stage

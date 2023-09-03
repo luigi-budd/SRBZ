@@ -238,7 +238,8 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 end)
 
 addHook("MobjDeath", function(mobj)
-	if SRBZ.round_active and not SRBZ_game_ended and SRBZ.PlayerCount() > 1 then
+	if SRBZ.round_active and not SRBZ_game_ended and 
+	((SRBZ.PlayerCount() > 1) or (mapheaderinfo[gamemap].srbz_solofail)) then
 		mobj.player.zteam = 2
 	end
 end,MT_PLAYER)
