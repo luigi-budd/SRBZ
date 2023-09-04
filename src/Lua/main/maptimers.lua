@@ -1,30 +1,49 @@
 -- Custom timers for maps
 -- Code by LeonardoTheMutant and Jisk
--- Example
 
-/*
-AddMapTimer Function Parameters:
+--AddMapTimer Function Parameters:
+--
+--	SRBZ.AddMapTimer(
+--		name string, --name of the timer
+--		map number, --map ID where it is meant to run
+--		time number*TICRATE, --time
+--		on_end function(timerID number, TimerName string), --function that executes at the end of the timer
+--		extrainfo={ --allows for several events during runtime
+--			color skincolor_t --optional, used for HUD to represent timer
+--			[1]={
+--				event_time = number*TICRATE, --time
+--				event_func = function(timerID number, TimerName string) --something that should happen
+--					chatprint("Hello world!")
+--				end
+--			}
+--      }
+--	)
 
-	SRBZ.AddMapTimer(
-		Timer Name,
-		Map Number,
-		Time Until Timer Ends,
-		OnEnd Event,
-		Extra Info
-	)
-
-*/
-
-/*
-SRBZ.AddMapTimer(
-	"Stonewood Timer1",
-	424, -- "MAPJ0"
-	5*TICRATE,
-	function(timernum,timername)
-		print("Timer done: "..timername.." [".. timernum .. "]")
-	end
-)
-*/
+-- Example:
+--
+--	SRBZ.AddMapTimer(
+--		"Stonewood Timer1",
+--		424, -- "MAPJ0"
+--		5*TICRATE,
+--		function(timernum,timername)
+--			print("Timer done: "..timername.." [".. timernum .. "]")
+--		end,
+--		{
+--			color = SKINCOLOR_BLUE
+--			[1]={
+--				event_time = 3*TICRATE
+--				event_func = function(timerID, timerName)
+--					chatprint(timerName.." with ID "..timerID.." has 3 seconds left!")
+--				end
+--			}
+--			[2]={
+--				event_time = 1*TICRATE
+--				event_func = function(timerID, timerName)
+--					chatprint("Timer with ID"..timerID.." ("..timerName..") has one second remaining!")
+--				end
+--			}
+--		}
+--  )
 
 SRBZ.maptimerdebug = CV_RegisterVar({
 	name = "z_maptimerdebug",
@@ -35,18 +54,18 @@ SRBZ.maptimerdebug = CV_RegisterVar({
 SRBZ.MapTimers = {}
 
 SRBZ.AddMapTimer = function(timer_name,map_number,map_time,onend,extra)
-	if timer_name == nil then 
+	if (not timer_name) then 
 		error("Name of the Timer is not specified") end
-	if map_number == nil then 
+	if (not map_number) then 
 		error("Map Number is not specified") end
-	if map_time == nil then 
+	if (not map_time) then 
 		error("Time is not specified") end
 
-	if timer_name and type(timer_name) ~= "string" then 
+	if type(timer_name) ~= "string" then 
 		error("Timer Name should be string") end
-	if map_number and type(map_number) ~= "number" then 
-		error("Map Number should be number") end
-	if map_time and type(map_time) ~= "number" then 
+	if type(map_number) ~= "number" then 
+		error("Map Number should be number (mapID)") end
+	if type(map_time) ~= "number" then 
 		error("Time should be number in ticks") end
 	if onend and type(onend) ~= "function" then
 		error("Onend should be a function") end
@@ -57,8 +76,6 @@ SRBZ.AddMapTimer = function(timer_name,map_number,map_time,onend,extra)
 		name = timer_name,
 		map = map_number,
 		time = map_time,
-		active = true,
-		originaltime = map_time, -- find a use for this i guess
 		on_end = onend,
 		extrainfo = extra,
 	})
@@ -73,15 +90,16 @@ end)
 
 addHook("ThinkFrame",do
 	for i,timer in ipairs(SRBZ.MapTimers) do
-		if gamemap == timer.map and timer.active then
-			if SRBZ.maptimerdebug.value then
-				print(timer.name..": "..(timer.time/35))
-			end
+		if (gamemap == timer.map)
+			if (SRBZ.maptimerdebug.value) then
+				print(timer.name..": "..(timer.time/35)) end
+
 			timer.time = $ - 1
+
 			if timer.extrainfo then
 				for _,info in ipairs(timer.extrainfo) do
-					if info.event_time and info.event_func then
-						if timer.time == info.event_time then
+					if (info.event_time) and (info.event_func)
+						if (timer.time == info.event_time)
 							info.event_func(i, timer.name)
 						end
 					end
@@ -101,12 +119,9 @@ addHook("ThinkFrame",do
 				*/
 				
 			end
-			if timer.time <= 0 and timer.on_end then
-				timer.on_end(i, timer.name)
-			end
+			if ((timer.time <= 0) and (timer.on_end)) then timer.on_end(i, timer.name) end
 		end
 		if timer.time <= 0 then
-			timer.active = false -- i have no idea
 			table.remove(SRBZ.MapTimers,i)
 		end
 	end
