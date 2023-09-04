@@ -107,7 +107,7 @@ TypeOfLevel = SRBZ
 NextLevel = J6
 SkyNum = 1
 SelectHeading = SRBZ Maps
-Lua.srbz_timelimit = 15
+Lua.srbz_timelimit = 9
 
 Level N0
 Levelname = Ancient Catacombs

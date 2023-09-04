@@ -56,7 +56,8 @@ local function Minecraft_Part1()
 			P_LinedefExecute(46)
 			P_LinedefExecute(48)
 			P_LinedefExecute(51)
-		end
+		end,
+		{color = SKINCOLOR_BROWN}
 	)
 	--S_StartSound(player, sfx_radio)
 end
@@ -75,7 +76,8 @@ local function Minecraft_Part2()
 			chatprint("\x8F\The Obsidian Wall has broken!")
 			P_LinedefExecute(56)
 			SRBZ.CheckpointRally(1)
-		end
+		end,
+		{color = SKINCOLOR_BLACK}
 	)
 end
 
@@ -91,7 +93,8 @@ local function Minecraft_Part3()
 			chatprint("\x8F\The Iron Door has broken!")
 			P_LinedefExecute(61)
 			SRBZ.CheckpointRally(2)
-		end
+		end,
+		{color = SKINCOLOR_WHITE}
 	)
 end
 
@@ -109,7 +112,8 @@ local function Minecraft_Part4()
 			chatprint("\x86\The Stone Platform is now leaving the area!")
 			P_LinedefExecute(63)
 			SRBZ.CheckpointRally(3)
-		end
+		end,
+		{color = SKINCOLOR_GREY}
 	)
 end
 

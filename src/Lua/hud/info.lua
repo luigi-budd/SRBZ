@@ -82,13 +82,19 @@ SRBZ.infohud = function(v, player)
 		for i,timer in ipairs(SRBZ.MapTimers) do 
 			local event_name_string = ("# "..timer.name.." #") or "Event Name Error"
 			local event_time_string = ("* "..G_TicsToMTIME(timer.time).." *") or "Failed To Get Event Time"
+			local event_color
+			if timer.extrainfo then
+				event_color = timer.extrainfo.color or SKINCOLOR_TEAL
+			else
+				event_color = SKINCOLOR_TEAL
+			end
 			
 			customhud.CustomFontString(v, 160, 10+((i-1)*16), (event_name_string), "STCFC", 
-			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_TEAL)
+			(V_SNAPTOTOP), "center" , nil, event_color)
 			
 			-- Time
 			customhud.CustomFontString(v, 160, 18+((i-1)*16), (event_time_string), "STCFC", 
-			(V_SNAPTOTOP), "center" , nil, SKINCOLOR_TEAL)
+			(V_SNAPTOTOP), "center" , nil, event_color)
 		end
 	else
 		if the_time ~= nil then

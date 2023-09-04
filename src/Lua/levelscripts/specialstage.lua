@@ -36,14 +36,15 @@ local function SS_Objection1()
 	chatprint("\x83\Multiplayer Special Stage 1")
 	chatprint("Survive for\x83 60 \x80seconds")
 	SRBZ.AddMapTimer(
-		"Objection 1",
+		"Special Stage 1",
 		ss_mapnum,
 		60*TICRATE,
 		function(timernum,timername)
 			SS_Tele1()
 			P_LinedefExecute(43)
 			P_LinedefExecute(49)
-		end
+		end,
+		{color = SKINCOLOR_MINT}
 	)
 end
 
@@ -51,14 +52,15 @@ local function SS_Objection2()
 	chatprint("\x81\Multiplayer Special Stage 2")
 	chatprint("Survive for\x83 60 \x80seconds")
 	SRBZ.AddMapTimer(
-		"Objection 2",
+		"Special Stage 2",
 		ss_mapnum,
 		60*TICRATE,
 		function(timernum,timername)
 			SS_Tele2()
 			P_LinedefExecute(52)
 			P_LinedefExecute(44)
-		end
+		end,
+		{color = SKINCOLOR_BUBBLEGUM}
 	)
 end
 
@@ -66,14 +68,15 @@ local function SS_Objection3()
 	chatprint("\x84\Multiplayer Special Stage 3")
 	chatprint("Survive for\x85 120 \x80seconds")
 	SRBZ.AddMapTimer(
-		"Objection 3",
+		"Special Stage 3",
 		ss_mapnum,
 		120*TICRATE,
 		function(timernum,timername)
 			SS_Tele3()
 			P_LinedefExecute(53)
 			P_LinedefExecute(46)
-		end
+		end,
+		{color = SKINCOLOR_SKY}
 	)
 end
 

@@ -116,6 +116,7 @@ local function undertale_Prebattle1()
 			undertale_BattleTele1Zm()
 		end,
 		{
+			color = SKINCOLOR_FOREST,
 			[1] = {
 				event_time = 5*TICRATE,
 				event_func = do
@@ -142,6 +143,7 @@ local function undertale_Startbattle1()
 		60*TICRATE,
 		nil, 
 		{
+			color = SKINCOLOR_FOREST,
 			[1] = {
 				event_time = 1*TICRATE,
 				event_func = do
@@ -186,6 +188,7 @@ local function undertale_Prebattle2()
 			undertale_BattleTele3Zm()
 		end,
 		{
+			color = SKINCOLOR_WHITE,
 			-- Presidential Speech
 			[1] = {
 				event_time = 19*TICRATE,

@@ -69,12 +69,6 @@ addHook("MapLoad", function()
 	for i,v in ipairs(SRBZ.MapTimers) do
 		table.remove(SRBZ.MapTimers,i)
 	end
-	/*
-	for i,v in ipairs(SRBZ.MapTimers) do
-		v.active = false
-		SRBZ.ResetMapTimer(i)
-	end
-	*/
 end)
 
 addHook("ThinkFrame",do
