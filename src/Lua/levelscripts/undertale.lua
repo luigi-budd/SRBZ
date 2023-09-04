@@ -12,7 +12,7 @@ freeslot(
 
 freeslot("MT_TORIEL") -- fuck you SOC
 
-mobjinfo[MT_TORIEL].npc_name = "Goat Mom"
+mobjinfo[MT_TORIEL].npc_name = "Toriel"
 mobjinfo[MT_TORIEL].npc_name_color = SKINCOLOR_WHITE
 mobjinfo[MT_TORIEL].npc_spawnhealth = {1400,2000}
 
