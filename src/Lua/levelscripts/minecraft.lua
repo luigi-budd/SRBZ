@@ -48,7 +48,7 @@ local function Minecraft_Part1()
 	chatprint("\x8D\Wooden Platform \x80will leave in\x85 30 \x80seconds")
 	S_StartSound(nil, sfx_oldrad)
 	SRBZ.AddMapTimer(
-		"Act 1",
+		"Wooden Platform",
 		mcmapnum,
 		30*TICRATE,
 		function(timernum,timername)
@@ -69,7 +69,7 @@ local function Minecraft_Part2()
 	S_ChangeMusic("MC2", true)
 	mapmusname = "MC2"
 	SRBZ.AddMapTimer(
-		"Act 2",
+		"Obsidian Wall",
 		mcmapnum,
 		60*TICRATE,
 		function(timernum,timername)
@@ -86,7 +86,7 @@ local function Minecraft_Part3()
 	SRBZ.CurrentZombieCheckpoint = 2
 	S_StartSound(nil, sfx_oldrad)
 	SRBZ.AddMapTimer(
-		"Act 3",
+		"Iron Door",
 		mcmapnum,
 		20*TICRATE,
 		function(timernum,timername)
@@ -105,7 +105,7 @@ local function Minecraft_Part4()
 	S_ChangeMusic("MC3", true)
 	mapmusname = "MC3"
 	SRBZ.AddMapTimer(
-		"Act 4",
+		"Stone Platform",
 		mcmapnum,
 		60*TICRATE,
 		function(timernum,timername)
