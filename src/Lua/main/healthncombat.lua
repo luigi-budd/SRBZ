@@ -358,6 +358,7 @@ addHook("PreThinkFrame", function()
 			end
 
 			--make keyboard weapon keys work for inventory selection
+			/*
 			if (cmd.buttons & BT_WEAPONMASK >=1 and cmd.buttons & BT_WEAPONMASK<=5) and (not player.choosing) then
 				if not player["srbz_info"].pressedbtn then
 					player["srbz_info"].inventory_selection=cmd.buttons&BT_WEAPONMASK
@@ -365,6 +366,7 @@ addHook("PreThinkFrame", function()
 				end
 				player["srbz_info"].pressedbtn = true
 			else player["srbz_info"].pressedbtn = false end
+			*/
 			
 			-- TryShoot
 			
