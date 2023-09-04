@@ -12,6 +12,20 @@ SRBZ.choosenotice = CV_RegisterVar({
 	flags = CV_NETVAR,
 })
 
+SRBZ.killenemiesonwin = CV_RegisterVar({
+	name = "z_killenemiessonwin",
+	defaultvalue = "Off",
+	PossibleValue = CV_OnOff,
+	flags = CV_NETVAR,
+})
+
+SRBZ.killzombiesonwin = CV_RegisterVar({
+	name = "z_killzombiesonwin",
+	defaultvalue = "On",
+	PossibleValue = CV_OnOff,
+	flags = CV_NETVAR,
+})
+
 function SRBZ:StartWin(team)
 	self.game_ended = true
 	self.team_won = team
@@ -25,8 +39,16 @@ function SRBZ:StartWin(team)
 	end
 	
 	for mobj in mobjs.iterate() do
-		if (mobj.flags & MF_ENEMY) then
-			P_KillMobj(mobj)
+		if mobj.valid then
+			if (mobj.player and mobj.player.valid and mobj.player.zteam and 
+			mobj.player.zteam == 2 and SRBZ.killzombiesonwin.value) then
+				P_KillMobj(mobj)
+				continue
+			end
+			if (mobj.flags & MF_ENEMY) and (SRBZ.killenemiesonwin.value) then
+				P_KillMobj(mobj)
+				continue
+			end
 		end
 	end
 	
