@@ -78,6 +78,7 @@ SRBZ.CharacterConfig = {
 
 SRBZ.AddConfig = function(charname, table)
 	SRBZ.CharacterConfig[charname] = table
+	print("Added chararacter config: ".. charname)
 end
 
 SRBZ.AddConfig("zzombie", {
