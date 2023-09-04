@@ -29,6 +29,8 @@ function SRBZ:StartWin(team)
 			P_KillMobj(mobj)
 		end
 	end
+	
+	P_StartQuake(24*FRACUNIT, 3*TICRATE)
 end
 
 addHook("PlayerThink", function(player)
