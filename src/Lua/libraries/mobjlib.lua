@@ -33,9 +33,7 @@ end)
 
 rawset(_G,'L_SpeedCap', function(mo,limit,factor)
 	local spd_xy = R_PointToDist2(0,0,mo.momx,mo.momy)
-	local spd, ang =
-		R_PointToDist2(0,0,spd_xy,mo.momz),
-		R_PointToAngle2(0,0,mo.momx,mo.momy)
+	local spd = R_PointToDist2(0,0,spd_xy,mo.momz)
 	if spd > limit
 		if factor == nil
 			factor = FixedDiv(limit,spd)
