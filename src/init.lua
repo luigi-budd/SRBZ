@@ -1,5 +1,6 @@
 dofile "init/gametype.lua"
 
+dofile "libraries/mobjlib.lua"
 dofile "libraries/customhudlib.lua"
 dofile "libraries/countingplayers.lua"
 dofile "libraries/getcharacterlist.lua"
