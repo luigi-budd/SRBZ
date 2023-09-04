@@ -128,10 +128,7 @@ SRBZ.AddShopkeeper = function(name, skin, color, phrases)
 end
 
 addHook("MobjCollide", function(mo,pmo)
-    if not pmo.player then
-        return
-    end
-	if pmo.skin == "zzombie" then
+	if not pmo.player or pmo.skin == "zzombie" or not L_ZCollide(mo,pmo) then
         return
     end
     if not pmo.player.shop_open and not pmo.player.shop_delay then
