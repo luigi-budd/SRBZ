@@ -6,21 +6,41 @@ SRBZ.SetCCtoplayer = function(player)
 	local cc = SRBZ.CharacterConfig
 	
 	if pmo and cc[pmo.skin] then
-		if cc[pmo.skin].normalspeed then player.normalspeed = cc[pmo.skin].normalspeed
-		else player.normalspeed = cc["default"].normalspeed end
+		if cc[pmo.skin].normalspeed then 
+			player.normalspeed = cc[pmo.skin].normalspeed
+		else 
+			player.normalspeed = cc["default"].normalspeed 
+		end
 		
-		if (cc[pmo.skin].charability) then player.charability = cc[pmo.skin].charability
-		else player.charability = cc["default"].charability end
+		if (cc[pmo.skin].charability) then
+			player.charability = cc[pmo.skin].charability
+		else 
+			player.charability = cc["default"].charability 
+		end
 		
-		if (cc[pmo.skin].charability2) then player.charability2 = cc[pmo.skin].charability2
-		else player.charability2 = cc["default"].charability2 end
+		if (cc[pmo.skin].charability2) then 
+			player.charability2 = cc[pmo.skin].charability2
+		else 
+			player.charability2 = cc["default"].charability2
+		end
 		
-		if (cc[pmo.skin].jumpfactor) then player.jumpfactor = cc[pmo.skin].jumpfactor
-		else player.jumpfactor = cc["default"].jumpfactor end
+		if (cc[pmo.skin].jumpfactor) then 
+			player.jumpfactor = cc[pmo.skin].jumpfactor
+		else 
+			player.jumpfactor = cc["default"].jumpfactor 
+		end
 		
-		if (cc[pmo.skin].actionspd) then player.actionspd = cc[pmo.skin].actionspd end
+		if (cc[pmo.skin].actionspd) then 
+			player.actionspd = cc[pmo.skin].actionspd 
+		end
 
-		if (cc[pmo.skin].charflags) then player.charflags = $|cc[pmo.skin].charflags end
+		if (cc[pmo.skin].charflags) then 
+			player.charflags = $|cc[pmo.skin].charflags 
+		end
+		
+		if (cc[pmo.skin].speedcap) then 
+			L_SpeedCap(pmo,cc[pmo.skin].speedcap)
+		end
 	end
 end
 
@@ -58,6 +78,7 @@ SRBZ.CharacterConfig = {
 
 SRBZ.AddConfig = function(charname, table)
 	SRBZ.CharacterConfig[charname] = table
+	print("Added chararacter config: ".. charname)
 end
 
 SRBZ.AddConfig("zzombie", {
