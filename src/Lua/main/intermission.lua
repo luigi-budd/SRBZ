@@ -135,7 +135,7 @@ addHook("PreThinkFrame", function()
 			
 			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map with a three way tie!")
 			SRBZ.NextMapVoted = sorted_votes[chosenmap][2]
-		elseif sorted_votes[1] == sorted_votes[2] then
+		elseif sorted_votes[1][1] == sorted_votes[2][1] then
 			local chosenmap = P_RandomRange(1,2)
 			
 			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map with a two way tie!")
