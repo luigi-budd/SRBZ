@@ -8,6 +8,7 @@ local function allequals(...)
 		for ii,vv in ipairs(args)
 			if v ~= vv then
 				success = false
+				break 2
 			end
 		end
 	end
