@@ -111,7 +111,6 @@ local function Minecraft_Part4()
 		function(timernum,timername)
 			chatprint("\x86\The Stone Platform is now leaving the area!")
 			P_LinedefExecute(63)
-			SRBZ.CheckpointRally(3)
 		end,
 		{color = SKINCOLOR_GREY}
 	)
