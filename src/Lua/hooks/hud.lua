@@ -1,4 +1,5 @@
 customhud.SetupFont("STCFC", -1, 4);
+customhud.SetupFont("TNYFC", -1, 4);
 
 customhud.SetupItem("srbz_characterselect", srbz_modname, SRBZ.characterselecthud, "game", 0)
 

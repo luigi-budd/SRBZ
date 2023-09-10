@@ -5,6 +5,13 @@ SRBZ.giveplayerflags = function(player)
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
 		player.pflags = $ & ~PF_DIRECTIONCHAR
 		player.pflags = $ & ~PF_ANALOGMODE 
+		if player.sprintmeter == nil then
+			player.sprintmeter = 100*FRACUNIT
+		end
+		if player.sprintmeter < 0 then
+			player.sprintmeter = 0
+		end
+		player.isSprinting = $ or false
 		SRBZ.SetCCtoplayer(player)
 		if mapheaderinfo[gamemap].srbz_noabilities then
 			player.pflags = $ & ~PF_GLIDING
@@ -14,6 +21,30 @@ SRBZ.giveplayerflags = function(player)
 	else 
 		if leveltime < 2 then
 			SRBZ.RevertChars(player) 
+		end
+	end
+end
+
+SRBZ.sprint_thinker = function(player)
+	if player.valid then
+		local cmd = player.cmd
+		local increment = FRACUNIT/4
+		local decrement = FRACUNIT/2
+		if (player.speed > 5*FRACUNIT) and (cmd.buttons & BT_CUSTOM1) then
+			
+			player.sprintmeter = $ - decrement
+			if player.sprintmeter - decrement < 0 then
+				player.sprintmeter = 0
+			end
+			player.isSprinting = true
+		else
+			
+			player.sprintmeter = $ + increment
+			if player.sprintmeter > 100*FRACUNIT or player.sprintmeter + increment > 100*FRACUNIT then
+				player.sprintmeter = 100*FRACUNIT
+			end
+			
+			player.isSprinting = false
 		end
 	end
 end

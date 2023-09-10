@@ -40,6 +40,13 @@ SRBZ.infohud = function(v, player)
 				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RED)
 			end
 			
+			-- [Sprint Meter] --
+			if player.sprintmeter ~= nil then
+				local sprintmeter = L_FixedDecimal(player.sprintmeter,1).."%"
+				customhud.CustomFontString(v, 0, 168, "Run: "..sprintmeter, "TNYFC", 
+				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_SKY)
+			end
+			
 			-- [Health] --
 			local healthstring = "+ "..health.."/"..maxhealth
 			customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 

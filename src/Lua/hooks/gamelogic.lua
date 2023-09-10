@@ -3,6 +3,8 @@ addHook("PlayerSpawn", SRBZ.playerfunc)
 
 addHook("TouchSpecial", SRBZ.HitMegaHP, MT_MEGAHP)
 
+addHook("PlayerThink", SRBZ.sprint_thinker)
+
 addHook("PlayerThink", SRBZ.giveplayerflags)
 
 addHook("MobjThinker", SRBZ.LimitMobjHealth)

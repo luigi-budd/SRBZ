@@ -7,27 +7,29 @@ SRBZ.SetCCtoplayer = function(player)
 	
 	if pmo and cc[pmo.skin] then
 		if cc[pmo.skin].normalspeed then 
-			player.normalspeed = cc[pmo.skin].normalspeed
-		else 
-			player.normalspeed = cc["default"].normalspeed 
+			player.normalspeed = cc[pmo.skin].normalspeed or cc["default"].normalspeed
+			local sprintboost = cc[pmo.skin].sprintboost or cc["default"].sprintboost
+			if (sprintboost) and (player.isSprinting and player.sprintmeter > 0) and (player.zteam == 1) then
+				player.normalspeed = $ + sprintboost
+			end
 		end
 		
 		if (cc[pmo.skin].charability) then
 			player.charability = cc[pmo.skin].charability
-		else 
+		else
 			player.charability = cc["default"].charability 
 		end
 		
 		if (cc[pmo.skin].charability2) then 
 			player.charability2 = cc[pmo.skin].charability2
-		else 
+		else
 			player.charability2 = cc["default"].charability2
 		end
 		
 		if (cc[pmo.skin].jumpfactor) then 
 			player.jumpfactor = cc[pmo.skin].jumpfactor
-		else 
-			player.jumpfactor = cc["default"].jumpfactor 
+		else
+			player.jumpfactor = cc["default"].jumpfactor
 		end
 		
 		if (cc[pmo.skin].actionspd) then 
@@ -55,9 +57,6 @@ SRBZ.SetCChealth = function(player)
 			pmo.health = cc["default"].health
 			pmo.maxhealth = pmo.health
 		end
-		
-		--if (cc[pmo.skin].maxhealth) then pmo.maxhealth = cc[pmo.skin].maxhealth 
-		--else pmo.maxhealth = cc["default"].maxhealth end
 	else
 		pmo.health = cc["default"].health
 		pmo.maxhealth = pmo.health
@@ -73,6 +72,7 @@ SRBZ.CharacterConfig = {
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
 		jumpfactor = 17 * FRACUNIT / 19,
+		sprintboost = 6 * FRACUNIT,
 	},
 }
 
