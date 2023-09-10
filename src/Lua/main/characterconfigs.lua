@@ -1,6 +1,15 @@
 -- health and maxhealth are identical values, I see no sense in declaring two of them
 -- (perhaps players starting with lower hp?)
 
+SRBZ.MobjTouchingPolyObj = function(mobj)
+	for polyobj in polyobjects.iterate do
+		if polyobj:mobjTouching(mobj) or polyobj:pointInside(mobj.x, mobj.y) then
+			return true
+		end
+	end
+	return false
+end
+
 SRBZ.SetCCtoplayer = function(player)
 	local pmo = player.mo
 	local cc = SRBZ.CharacterConfig
@@ -40,7 +49,7 @@ SRBZ.SetCCtoplayer = function(player)
 			player.charflags = $|cc[pmo.skin].charflags 
 		end
 		
-		if (cc[pmo.skin].speedcap) then 
+		if (cc[pmo.skin].speedcap) and not SRBZ.MobjTouchingPolyObj(pmo) then 
 			local sprintboost = cc[pmo.skin].sprintboost or cc["default"].sprintboost
 			if (sprintboost) and (player.isSprinting and player.sprintmeter > 0) and (player.zteam == 1) then
 				L_SpeedCap(pmo,cc[pmo.skin].speedcap + sprintboost)
