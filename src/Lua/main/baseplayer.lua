@@ -26,10 +26,16 @@ SRBZ.giveplayerflags = function(player)
 end
 
 SRBZ.sprint_thinker = function(player)
-	if player.valid then
-		local cmd = player.cmd
-		local increment = FRACUNIT/4
-		local decrement = FRACUNIT/2
+	if not (player.mo and player.mo.valid) return end
+		
+	local cmd = player.cmd
+	
+	local pmo = player.mo
+	local cc = SRBZ.CharacterConfig
+	
+	local increment = FRACUNIT/4
+	local decrement = FRACUNIT/2
+	if player.zteam == 1 then
 		if (player.speed > 5*FRACUNIT) and (cmd.buttons & BT_CUSTOM1) then
 			
 			player.sprintmeter = $ - decrement
@@ -46,6 +52,8 @@ SRBZ.sprint_thinker = function(player)
 			
 			player.isSprinting = false
 		end
+	else
+		player.isSprinting = false
 	end
 end
 

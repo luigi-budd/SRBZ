@@ -41,7 +41,7 @@ SRBZ.infohud = function(v, player)
 			end
 			
 			-- [Sprint Meter] --
-			if player.sprintmeter ~= nil then
+			if player.sprintmeter ~= nil and player.zteam == 1 then
 				local sprintmeter = L_FixedDecimal(player.sprintmeter,1).."%"
 				customhud.CustomFontString(v, 0, 168, "Run: "..sprintmeter, "TNYFC", 
 				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_SKY)

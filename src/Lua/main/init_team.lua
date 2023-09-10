@@ -13,7 +13,7 @@ addHook("PlayerSpawn", function(player)
 		R_SetPlayerSkin(player, "zzombie") 
 	end
 	
-	player.sprintmeter = 100
+	player.sprintmeter = 100*FRACUNIT
 end)
 
 addHook("ViewpointSwitch", function(player, nextplayer)
