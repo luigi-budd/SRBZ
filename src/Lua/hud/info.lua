@@ -31,12 +31,12 @@ SRBZ.infohud = function(v, player)
 			skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
 			-- [Player Name] --
 			customhud.CustomFontString(v, 24, 192, 
-			skins[player.mo.skin].realname, "STCFC", 
+			skins[player.mo.skin].realname, "TNYFC", 
 			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
 			
 			-- [Rubies] --
 			if player.rubies ~= nil then
-				customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "STCFC", 
+				customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "TNYFC", 
 				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RED)
 			end
 			
@@ -49,7 +49,7 @@ SRBZ.infohud = function(v, player)
 			
 			-- [Health] --
 			local healthstring = "+ "..health.."/"..maxhealth
-			customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 
+			customhud.CustomFontString(v, 24, 176, healthstring, "TNYFC", 
 			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
 			
 						

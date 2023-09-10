@@ -183,9 +183,9 @@ hud.add( function(v, player, camera)
 		local distedit = max(0, distance - ((distlimit*FU)>>1)) * 2
 		local trans = min(9, (((distedit * 10) >> 16) / distlimit)) * V_10TRANS
 		if name then
-			customhud.CustomFontString(v,hpos,vpos,name, "STCFC", trans, namefont , FRACUNIT, namecolor)
+			customhud.CustomFontString(v,hpos,vpos,name, "TNYFC", trans, namefont , FRACUNIT, namecolor)
 			if not tmo.dontshowhealth then
-				customhud.CustomFontString(v,hpos,vpos+(lineheight*FU),health, "STCFC",trans, ringfont , FRACUNIT, textcolor)
+				customhud.CustomFontString(v,hpos,vpos+(lineheight*FU),health, "TNYFC",trans, ringfont , FRACUNIT, textcolor)
 			end
 		end
 		--v.drawString(hpos, vpos, name, nameflags|trans|V_ALLOWLOWERCASE, namefont)
