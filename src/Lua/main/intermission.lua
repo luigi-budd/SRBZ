@@ -133,15 +133,15 @@ addHook("PreThinkFrame", function()
 		if allequals(sorted_votes[1][1],sorted_votes[2][1],sorted_votes[3][1])
 			local chosenmap = P_RandomRange(1,3)
 			
-			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map with a three way tie!")
+			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " was picked as the next map with a three way tie!")
 			SRBZ.NextMapVoted = sorted_votes[chosenmap][2]
 		elseif sorted_votes[1][1] == sorted_votes[2][1] then
 			local chosenmap = P_RandomRange(1,2)
 			
-			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " Was picked as the next map with a two way tie!")
+			print("\x82"..mapheaderinfo[sorted_votes[chosenmap][2]].lvlttl.. " was picked as the next map with a two way tie!")
 			SRBZ.NextMapVoted = sorted_votes[chosenmap][2]
 		else
-			print("\x82"..mapheaderinfo[sorted_votes[1][2]].lvlttl.. " Was picked as the next map!")
+			print("\x82"..mapheaderinfo[sorted_votes[1][2]].lvlttl.. " was picked as the next map!")
 			SRBZ.NextMapVoted = sorted_votes[1][2]
 		end
 		
