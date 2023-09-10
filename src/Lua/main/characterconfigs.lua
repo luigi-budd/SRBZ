@@ -47,7 +47,6 @@ SRBZ.SetCCtoplayer = function(player)
 			else
 				L_SpeedCap(pmo,cc[pmo.skin].speedcap)
 			end
-			
 		end
 	end
 end
