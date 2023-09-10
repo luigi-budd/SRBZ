@@ -41,7 +41,13 @@ SRBZ.SetCCtoplayer = function(player)
 		end
 		
 		if (cc[pmo.skin].speedcap) then 
-			L_SpeedCap(pmo,cc[pmo.skin].speedcap)
+			local sprintboost = cc[pmo.skin].sprintboost or cc["default"].sprintboost
+			if (sprintboost) and (player.isSprinting and player.sprintmeter > 0) and (player.zteam == 1) then
+				L_SpeedCap(pmo,cc[pmo.skin].speedcap + sprintboost)
+			else
+				L_SpeedCap(pmo,cc[pmo.skin].speedcap)
+			end
+			
 		end
 	end
 end
