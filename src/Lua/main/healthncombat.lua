@@ -204,7 +204,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			mo.target = src
 			mo.state=mo.info.seestate
 		end
-		--print(mobjinfo[mo.type].npc_name)
+
 		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
 			S_StartSound(mo,mobjinfo[mo.type].painsound)
 		end
@@ -227,12 +227,6 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		 mo.rubiesholding = $ - mo.rubiesholding/3
 	end
 	mo.health = $ - dmg -- fake damage i guess
-
-	
-	--sfx_dmpain
-	--local speed1 = FixedHypot(FixedHypot(inf.momx, inf.momy), inf.momz)
-	--P_SetObjectMomZ(mo, 5*FRACUNIT)
-	--P_Thrust(mo, inf.angle, speed1*5)
 	
 	return true
 end)
@@ -549,5 +543,11 @@ end)
 addHook("SeenPlayer", function(player)
 	if gametype == GT_SRBZ then
 		return false
+	end
+end)
+
+addHook("MobjSpawn", function(mobj)
+	if mobjinfo[mobj.type].disablehealthhud then
+		mobj.dontshowhealth = true
 	end
 end)

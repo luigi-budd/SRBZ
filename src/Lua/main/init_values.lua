@@ -15,9 +15,3 @@ addHook("PlayerSpawn", function(player)
 		S_StartSound(player.mo,spawnsounds[soundrng])
 	end
 end)
-
-addHook("MobjSpawn", function(mobj)
-	if mobjinfo[mobj.type].disablehealthhud then
-		mobj.dontshowhealth = true
-	end
-end)

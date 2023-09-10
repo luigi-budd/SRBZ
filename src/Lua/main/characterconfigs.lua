@@ -1,33 +1,44 @@
 -- health and maxhealth are identical values, I see no sense in declaring two of them
 -- (perhaps players starting with lower hp?)
 
+SRBZ.MobjTouchingPolyObj = function(mobj)
+	for polyobj in polyobjects.iterate do
+		if polyobj:mobjTouching(mobj) or polyobj:pointInside(mobj.x, mobj.y) then
+			return true
+		end
+	end
+	return false
+end
+
 SRBZ.SetCCtoplayer = function(player)
 	local pmo = player.mo
 	local cc = SRBZ.CharacterConfig
 	
 	if pmo and cc[pmo.skin] then
 		if cc[pmo.skin].normalspeed then 
-			player.normalspeed = cc[pmo.skin].normalspeed
-		else 
-			player.normalspeed = cc["default"].normalspeed 
+			player.normalspeed = cc[pmo.skin].normalspeed or cc["default"].normalspeed
+			local sprintboost = cc[pmo.skin].sprintboost or cc["default"].sprintboost
+			if (sprintboost) and (player.isSprinting and player.sprintmeter > 0) and (player.zteam == 1) then
+				player.normalspeed = $ + sprintboost
+			end
 		end
 		
 		if (cc[pmo.skin].charability) then
 			player.charability = cc[pmo.skin].charability
-		else 
+		else
 			player.charability = cc["default"].charability 
 		end
 		
 		if (cc[pmo.skin].charability2) then 
 			player.charability2 = cc[pmo.skin].charability2
-		else 
+		else
 			player.charability2 = cc["default"].charability2
 		end
 		
 		if (cc[pmo.skin].jumpfactor) then 
 			player.jumpfactor = cc[pmo.skin].jumpfactor
-		else 
-			player.jumpfactor = cc["default"].jumpfactor 
+		else
+			player.jumpfactor = cc["default"].jumpfactor
 		end
 		
 		if (cc[pmo.skin].actionspd) then 
@@ -38,8 +49,13 @@ SRBZ.SetCCtoplayer = function(player)
 			player.charflags = $|cc[pmo.skin].charflags 
 		end
 		
-		if (cc[pmo.skin].speedcap) then 
-			L_SpeedCap(pmo,cc[pmo.skin].speedcap)
+		if (cc[pmo.skin].speedcap) and not SRBZ.MobjTouchingPolyObj(pmo) then 
+			local sprintboost = cc[pmo.skin].sprintboost or cc["default"].sprintboost
+			if (sprintboost) and (player.isSprinting and player.sprintmeter > 0) and (player.zteam == 1) then
+				L_SpeedCap(pmo,cc[pmo.skin].speedcap + sprintboost)
+			else
+				L_SpeedCap(pmo,cc[pmo.skin].speedcap)
+			end
 		end
 	end
 end
@@ -55,9 +71,6 @@ SRBZ.SetCChealth = function(player)
 			pmo.health = cc["default"].health
 			pmo.maxhealth = pmo.health
 		end
-		
-		--if (cc[pmo.skin].maxhealth) then pmo.maxhealth = cc[pmo.skin].maxhealth 
-		--else pmo.maxhealth = cc["default"].maxhealth end
 	else
 		pmo.health = cc["default"].health
 		pmo.maxhealth = pmo.health
@@ -73,6 +86,7 @@ SRBZ.CharacterConfig = {
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
 		jumpfactor = 17 * FRACUNIT / 19,
+		sprintboost = 13 * FRACUNIT,
 	},
 }
 
@@ -83,7 +97,6 @@ end
 
 SRBZ.AddConfig("zzombie", {
 	normalspeed = 20 * FRACUNIT,
-	sprintspeed = 20 * FRACUNIT,
 	health = 90,
 	--maxhealth = 90,
 	charability = CA_NONE,
@@ -93,9 +106,8 @@ SRBZ.AddConfig("zzombie", {
 })
 
 SRBZ.AddConfig("sonic", {
-	normalspeed = 22 * FRACUNIT,
-	sprintspeed = 29 * FRACUNIT,
-	health = 80,
+	normalspeed = 19 * FRACUNIT,
+	health = 65,
 	--maxhealth = 80,
 	charability = CA_JUMPTHOK,
 	charability2 = CA2_NONE,
@@ -104,8 +116,7 @@ SRBZ.AddConfig("sonic", {
 })
 
 SRBZ.AddConfig("tails", {
-	normalspeed = 21 * FRACUNIT,
-	sprintspeed = 27 * FRACUNIT,
+	normalspeed = 15 * FRACUNIT,
 	health = 95,
 	--maxhealth = 95,
 	charability = CA_FLY,
@@ -115,9 +126,8 @@ SRBZ.AddConfig("tails", {
 })
 
 SRBZ.AddConfig("knuckles", {
-	normalspeed = 17 * FRACUNIT,
-	sprintspeed = 24 * FRACUNIT,
-	health = 120,
+	normalspeed = 13 * FRACUNIT,
+	health = 130,
 	--maxhealth = 120,
 	charability = CA_GLIDEANDCLIMB,
 	charability2 = CA2_NONE,
@@ -126,8 +136,7 @@ SRBZ.AddConfig("knuckles", {
 })
 
 SRBZ.AddConfig("amy", {
-	normalspeed = 20 * FRACUNIT,
-	sprintspeed = 27 * FRACUNIT,
+	normalspeed = 17 * FRACUNIT,
 	health = 75,
 	--maxhealth = 75,
 	charability = CA_TWINSPIN,
@@ -136,8 +145,7 @@ SRBZ.AddConfig("amy", {
 })
 
 SRBZ.AddConfig("fang", {
-	normalspeed = 18 * FRACUNIT,
-	sprintspeed = 24 * FRACUNIT,
+	normalspeed = 16 * FRACUNIT,
 	health = 85,
 	--maxhealth = 85,
 	charability = CA_BOUNCE,
@@ -146,8 +154,7 @@ SRBZ.AddConfig("fang", {
 })
 
 SRBZ.AddConfig("metalsonic", {
-	normalspeed = 17 * FRACUNIT,
-	sprintspeed = 24 * FRACUNIT,
+	normalspeed = 14 * FRACUNIT,
 	health = 105,
 	--maxhealth = 105,
 	charability = CA_JUMPBOOST,

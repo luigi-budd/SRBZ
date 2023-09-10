@@ -1,10 +1,19 @@
-addHook("PlayerSpawn", function(p)
-	if gametype!=GT_SRBZ return end
+addHook("PlayerSpawn", function(player)
+	if gametype ~= GT_SRBZ then
+		return 
+	end
 	
-	if (SRBZ.round_active and SRBZ.PlayerCount() > 1) then p.zteam = 2
-	else p.zteam = 1 end
+	if (SRBZ.round_active and SRBZ.PlayerCount() > 1) then 
+		player.zteam = 2
+	else 
+		player.zteam = 1
+	end
 	
-	if p.zteam == 2 then R_SetPlayerSkin(p, "zzombie") end
+	if player.zteam == 2 then 
+		R_SetPlayerSkin(player, "zzombie") 
+	end
+	
+	player.sprintmeter = 100*FRACUNIT
 end)
 
 addHook("ViewpointSwitch", function(player, nextplayer)

@@ -30,19 +30,26 @@ SRBZ.infohud = function(v, player)
 			v.drawScaled(0, 176*FRACUNIT, FixedDiv(3*FRACUNIT, 4*FRACUNIT),
 			skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
 			-- [Player Name] --
-			customhud.CustomFontString(v, 24, 192, 
-			skins[player.mo.skin].realname, "STCFC", 
+			customhud.CustomFontString(v, 25, 192, 
+			skins[player.mo.skin].realname, "TNYFC", 
 			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
 			
 			-- [Rubies] --
 			if player.rubies ~= nil then
-				customhud.CustomFontString(v, 24, 184, "Rubies: "..player.rubies, "STCFC", 
+				customhud.CustomFontString(v, 25, 184, "Rubies: "..player.rubies, "TNYFC", 
 				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_RED)
+			end
+			
+			-- [Sprint Meter] --
+			if player.sprintmeter ~= nil and player.zteam == 1 then
+				local sprintmeter = L_FixedDecimal(player.sprintmeter,1).."%"
+				customhud.CustomFontString(v, 0, 168, "Run: "..sprintmeter, "TNYFC", 
+				(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_SKY)
 			end
 			
 			-- [Health] --
 			local healthstring = "+ "..health.."/"..maxhealth
-			customhud.CustomFontString(v, 24, 176, healthstring, "STCFC", 
+			customhud.CustomFontString(v, 25, 176, healthstring, "TNYFC", 
 			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, SKINCOLOR_GREEN)
 			
 						
