@@ -42,7 +42,13 @@ SRBZ.sprint_thinker = function(player)
 			if player.sprintmeter - decrement < 0 then
 				player.sprintmeter = 0
 			end
+			
 			player.isSprinting = true
+			if player.sprintmeter == 0 then
+				player.runspeed = 32000*FRACUNIT
+			else
+				player.runspeed = 5*FRACUNIT
+			end
 		else
 			
 			player.sprintmeter = $ + increment
@@ -51,6 +57,7 @@ SRBZ.sprint_thinker = function(player)
 			end
 			
 			player.isSprinting = false
+			player.runspeed = 32000*FRACUNIT
 		end
 	else
 		player.isSprinting = false
