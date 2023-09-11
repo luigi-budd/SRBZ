@@ -24,3 +24,10 @@ addHook("ViewpointSwitch", function(player, nextplayer)
 		return false
 	end
 end)
+
+addHook("MobjDeath", function(mobj)
+	if SRBZ.round_active and not SRBZ_game_ended and 
+	((SRBZ.PlayerCount() > 1) or (mapheaderinfo[gamemap].srbz_solofail)) then
+		mobj.player.zteam = 2
+	end
+end,MT_PLAYER)

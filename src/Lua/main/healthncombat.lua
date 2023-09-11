@@ -231,13 +231,6 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	return true
 end)
 
-addHook("MobjDeath", function(mobj)
-	if SRBZ.round_active and not SRBZ_game_ended and 
-	((SRBZ.PlayerCount() > 1) or (mapheaderinfo[gamemap].srbz_solofail)) then
-		mobj.player.zteam = 2
-	end
-end,MT_PLAYER)
-
 --ram into players as zombie
 addHook("MobjMoveCollide", function(thing,tmthing)
 	if (gametype ~= GT_SRBZ) return end
