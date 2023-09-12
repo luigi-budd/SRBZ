@@ -56,7 +56,12 @@ addHook("ThinkFrame", do
 			print(mapheaderinfo[temp_selected_maplist[i]].lvlttl)
 		end
 		
+		for player in players.iterate do
+			player["srbz_info"].vote_selection = P_RandomRange(1,3)
+		end
+		
 		S_StartSound(nil,sfx_s3kb3)
+		
 		if SRBZ.server_intermissionmusic.value then
 			S_ChangeMusic("_VOTE", true)
 			mapmusname = "_VOTE"
