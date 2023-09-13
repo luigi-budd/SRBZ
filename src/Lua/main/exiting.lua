@@ -31,7 +31,10 @@ addHook("TouchSpecial", function(special,toucher)
 		local player = toucher.player
 		
 		if not player["srbz_info"].ghostmode and not SRBZ.game_ended and SRBZ.round_active then
+			local ruby_award = SRBZ.SurvivorCount()*8
 			player["srbz_info"].ghostmode = true
+			P_GivePlayerRubies(player, ruby_award)
+			CONS_Printf(player,"\x85+"..ruby_award.." goal ring ruby bonus!")
 			for d=0,16 do
 				P_SpawnParaloop(toucher.x, toucher.y, toucher.z+toucher.height, FixedMul(192*FRACUNIT, toucher.scale), 16, MT_NIGHTSPARKLE, i*ANGLE_22h, S_NULL, true)
 			end

@@ -24,8 +24,11 @@ sfxinfo[sfx_maxhp].caption="Max HP increased"
 
 SRBZ.HitMegaHP = function(special, toucher)
 	if toucher and toucher.valid and toucher.player and toucher.player.zteam and toucher.player.zteam == 1 then
+		local rubies_given = 45
 		toucher.maxhealth = $ + 60
 		toucher.health = toucher.maxhealth
+		P_GivePlayerRubies(toucher.player, rubies_given)
+		CONS_Printf(toucher.player,"\x85+"..rubies_given.." ruby bonus!")
 	else
 		return true
 	end
