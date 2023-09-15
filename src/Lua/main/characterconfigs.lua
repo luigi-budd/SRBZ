@@ -143,7 +143,6 @@ SRBZ.AddConfig("amy", {
 SRBZ.AddConfig("fang", {
 	normalspeed = 16 * FRACUNIT,
 	health = 85,
-	--maxhealth = 85,
 	charability = CA_BOUNCE,
 	charability2 = CA2_GUNSLINGER,
 	jumpfactor = 20 * FRACUNIT / 19,
@@ -152,7 +151,6 @@ SRBZ.AddConfig("fang", {
 SRBZ.AddConfig("metalsonic", {
 	normalspeed = 14 * FRACUNIT,
 	health = 105,
-	--maxhealth = 105,
 	charability = CA_JUMPBOOST,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
