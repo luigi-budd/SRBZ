@@ -78,7 +78,7 @@ function SRBZ:ChangeHealth(mobj, amount)
 end
 
 function SRBZ:ChangeStamina(player, amount)
-	if amount > 100*FRACUNIT then
+	if amount + player.sprintmeter > 100*FRACUNIT then
 		player.sprintmeter = 100*FRACUNIT
 	else
 		player.sprintmeter = $ + amount
