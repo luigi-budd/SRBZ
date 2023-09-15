@@ -101,18 +101,18 @@ SRBZ.AddConfig("zzombie", {
 	--maxhealth = 90,
 	charability = CA_NONE,
 	charability2 = CA2_NONE,
-	jumpfactor = 22 * FRACUNIT / 19,
+	jumpfactor = 24 * FRACUNIT / 19,
 	actionspd = 9*FRACUNIT,
 })
 
 SRBZ.AddConfig("sonic", {
 	normalspeed = 19 * FRACUNIT,
-	health = 65,
+	health = 50,
 	--maxhealth = 80,
 	charability = CA_JUMPTHOK,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
-	actionspd = 9*FRACUNIT,
+	actionspd = 12*FRACUNIT,
 })
 
 SRBZ.AddConfig("tails", {
