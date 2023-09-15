@@ -77,6 +77,14 @@ function SRBZ:ChangeHealth(mobj, amount)
 	end
 end
 
+function SRBZ:ChangeStamina(player, amount)
+	if amount > 100*FRACUNIT then
+		player.sprintmeter = 100*FRACUNIT
+	else
+		player.sprintmeter = $ + amount
+	end
+end
+
 function SRBZ:IsInventoryFull(player)
 	if player and player.valid then
 		if player["srbz_info"] and SRBZ:FetchInventory(player) then

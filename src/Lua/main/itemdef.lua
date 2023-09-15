@@ -1,3 +1,5 @@
+freeslot("sfx_gulpy")
+
 freeslot(
 	"MT_INSTABURST",
 	"S_INSTABURST",
@@ -195,12 +197,23 @@ SRBZ:CreateItem("Apple", {
 	limited = true,
 	count = 5,
 	ontrigger = function(player)
-		if player.mo.health == player.mo.maxhealth then
-			return true
-		end
-		SRBZ:ChangeHealth(player.mo, 8)
+		SRBZ:ChangeHealth(player.mo, 16)
 	end,
-	price = 40,
+	price = 60,
+})
+
+SRBZ:CreateItem("Milk", {
+	icon = "MILKIND",
+	iconscale = FU>>1,
+	firerate = 32,
+	sound = sfx_gulpy,
+	limited = true,
+	count = 12,
+	ontrigger = function(player)
+		SRBZ:ChangeStamina(player, 25*FRACUNIT)
+		SRBZ:ChangeHealth(player.mo, 4)
+	end,
+	price = 110,
 })
 
 SRBZ:CreateItem("I want summa that", {
