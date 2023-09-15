@@ -108,7 +108,6 @@ SRBZ.AddConfig("zzombie", {
 SRBZ.AddConfig("sonic", {
 	normalspeed = 19 * FRACUNIT,
 	health = 50,
-	--maxhealth = 80,
 	charability = CA_JUMPTHOK,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
@@ -118,7 +117,6 @@ SRBZ.AddConfig("sonic", {
 SRBZ.AddConfig("tails", {
 	normalspeed = 15 * FRACUNIT,
 	health = 95,
-	--maxhealth = 95,
 	charability = CA_FLY,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
@@ -128,7 +126,6 @@ SRBZ.AddConfig("tails", {
 SRBZ.AddConfig("knuckles", {
 	normalspeed = 13 * FRACUNIT,
 	health = 130,
-	--maxhealth = 120,
 	charability = CA_GLIDEANDCLIMB,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
@@ -138,7 +135,6 @@ SRBZ.AddConfig("knuckles", {
 SRBZ.AddConfig("amy", {
 	normalspeed = 17 * FRACUNIT,
 	health = 75,
-	--maxhealth = 75,
 	charability = CA_TWINSPIN,
 	charability2 = CA2_MELEE,
 	jumpfactor = 20 * FRACUNIT / 19,
