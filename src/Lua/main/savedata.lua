@@ -45,6 +45,7 @@ end
 local function usernameLoggedIn(username)
 	for player in players.iterate do
 		if player.registered_user == username then
+			print(player.name)
 			return true
 		end
 	end
@@ -52,10 +53,25 @@ local function usernameLoggedIn(username)
 	return false
 end
 
-COM_AddCommand("z_registeraccount", function(player)
-    if (player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
-        if not (player.registered) then
-            local gen_username = genRNGUsername(player.name):gsub(" ","_")
+COM_AddCommand("z_registeraccount", function(player, tplayer)
+	if player ~= server and tplayer then
+		if player == consoleplayer then
+			print("illegal parameter")
+		end
+		return 
+	end	
+	
+	local target_player = player
+	
+	if tplayer and players[tonumber(tplayer)] and players[tonumber(tplayer)].valid then
+		target_player = players[tonumber(tplayer)] 
+	end
+	
+    if (target_player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
+        if not (target_player.registered) then
+		
+			
+            local gen_username = genRNGUsername(target_player.name):gsub(" ","_")
             local gen_password = genRNGPassword()
             if (isserver) or (isdedicatedserver) then -- Server
                 print("Doing server functions.")
@@ -70,11 +86,11 @@ COM_AddCommand("z_registeraccount", function(player)
                 passfile:write(gen_password)
                 passfile:close()
 
-                statfile:write(tostring(player.rubies))
+                statfile:write(tostring(target_player.rubies))
                 statfile:close()
             end
 
-            if (player == consoleplayer) then -- Client
+            if (target_player == consoleplayer) then -- Client
                 print("Doing client functions.")
 
                 local clientpath = "client/SRBZ/account.sav2"
@@ -86,40 +102,41 @@ COM_AddCommand("z_registeraccount", function(player)
                 file:close()
             end
 
-            player.registered_user = gen_username
-            player.registered = true
-			print(player.name.." created an account ("..gen_username..")")
+            target_player.registered_user = gen_username
+            target_player.registered = true
+			print(target_player.name.." created an account ("..gen_username..")")
         end
     end
 end)
 
 COM_AddCommand("z_loginaccount", function(player, username, password)
     if (player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
-        if (not (player.registered) and not (player.registered_user)) and (username and password) then
-			if usernameLoggedIn(username) and player == consoleplayer then
-				print("Someone is already logged in this account. Try again.")
+        if (not (player.registered) or not (player.registered_user)) and (username and password) then
+			if usernameLoggedIn(username) then
+				if player == consoleplayer then
+					print("Someone is already logged in this account. Try again. ".."("..username..")")
+				end
 				return
 			end
+			
             if (isserver) or (isdedicatedserver) then
 			
 				local passpath = "SRBZDATA/"..username.."/password.sav2"
-				local passfile = io.openlocal(passpath, "r")
+				local passfile = io.openlocal(passpath)
 				
 				if passfile then
 					local passcontent = passfile:read("*a")
 					if passcontent and (passcontent == password) then
-						print(player.name.." logged in as "..username)
 						COM_BufInsertText(server, "z_importdata "..#player.." "..username.." "..commandtoken)
 					end
 					passfile:close()
 				else
-					COM_BufInsertText(player, "z_registeraccount")
+					print(player.name.." tried to login as an invalid account. Registering the user.")
+					COM_BufInsertText(server, "z_registeraccount "..#player)
 				end
 
 			end
 			
-			player.registered_user = username
-            player.registered = true
         end
     end
 end)
@@ -149,6 +166,14 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
 			--print("invalid token")
         end
     end
+	
+	if playernum and username and player == server then
+		local target_player = players[tonumber(playernum)]
+		
+		target_player.registered_user = username
+		target_player.registered = true
+		print(player.name.." logged in as "..username)
+	end
 end, 1)
 
 COM_AddCommand("z_forcerubies", function(player, playernum, rubies, token)
