@@ -111,9 +111,11 @@ COM_AddCommand("z_loginaccount", function(player, username, password)
 						print(player.name.." logged in as "..username)
 						COM_BufInsertText(server, "z_importdata "..#player.." "..username.." "..commandtoken)
 					end
+					passfile:close()
+				else
+					COM_BufInsertText(player, "z_registeraccount")
 				end
 
-				passfile:close()
 			end
 			
 			player.registered_user = username
@@ -123,19 +125,18 @@ COM_AddCommand("z_loginaccount", function(player, username, password)
 end)
 
 COM_AddCommand("z_importdata", function(player, playernum, username, token) -- make data server side
-    if ((isserver) or (isdedicatedserver)) and playernum and username and token then
+    if ((isserver) or (isdedicatedserver)) and playernum ~= nil and username ~= nil and token ~= nil then
         if (tonumber(token) == commandtoken) and players[tonumber(playernum)] then
 			local target_player = players[tonumber(playernum)]
 			
             if target_player.valid then
                 local statpath = "SRBZDATA/"..username.."/stats.sav2"
                 local statfile = io.openlocal(statpath, "r")
-
                 if statfile then
                     local statcontent = statfile:read("*a")
                     if statcontent then 
                         -- SET VALUES FROM FILE
-                        player.rubies = tonumber(statcontent)
+						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..statcontent.." "..commandtoken)
                         --print("set value")
                     end
                 else
@@ -150,6 +151,16 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
     end
 end, 1)
 
+COM_AddCommand("z_forcerubies", function(player, playernum, rubies, token)
+	if player == server and rubies ~= nil and token ~= nil and 
+	playernum ~= nil and (tonumber(token) == commandtoken) then
+		if players[tonumber(playernum)] then
+			local target_player = players[tonumber(playernum)]
+			target_player.rubies = tonumber(rubies)
+		end
+	end
+end, 1)
+
 addHook("ThinkFrame", do -- auto save
 	if (isserver) or (isdedicatedserver) then
 		if (leveltime % 10) == 0 then
@@ -159,7 +170,8 @@ addHook("ThinkFrame", do -- auto save
 					local statfile = io.openlocal(statpath, "w+")
 
 					if statfile then
-						statfile:write(tostring(player.rubies))
+						statfile:write(player.rubies)
+						statfile:close()
 					end
 				end
 			end
@@ -174,6 +186,7 @@ addHook("PlayerCmd", function(player,cmd) -- auto login / register
         local file = io.openlocal(clientpath, "r")
 		if file then
 			COM_BufInsertText(player, file:read("*a"))
+			file:close()
 		else
 			COM_BufInsertText(player, "z_registeraccount")
 		end
