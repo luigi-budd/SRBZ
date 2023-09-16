@@ -80,12 +80,15 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
                 local passfile = io.openlocal(server_passpath, "w+")
                 local statfile = io.openlocal(server_statspath, "w+")
 				
-
-                passfile:write(gen_password)
-                passfile:close()
-
-                statfile:write(tostring(target_player.rubies))
-                statfile:close()
+				if passfile then
+					passfile:write(gen_password)
+					passfile:close()
+				end
+				
+				if statfile then
+					statfile:write(tostring(target_player.rubies))
+					statfile:close()
+				end
             end
 
             if (target_player == consoleplayer) then -- Client
@@ -93,9 +96,10 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
                 local file = io.openlocal(clientpath, "w+")
 
                 local clientpath_content = ('z_loginaccount '.. '"'.. gen_username ..'" '.. '"'.. gen_password ..'"')
-
-                file:write(clientpath_content)
-                file:close()
+				if file then
+					file:write(clientpath_content)
+					file:close()
+				end
             end
 
             target_player.registered_user = gen_username
@@ -152,11 +156,10 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
 						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..statcontent.." "..commandtoken)
                         --print("set value")
                     end
+					statfile:close()
                 else
                     --print("no stat file buddy")
                 end
-
-                statfile:close()
             end
         else
 			--print("invalid token")
