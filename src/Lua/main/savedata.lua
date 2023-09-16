@@ -53,8 +53,6 @@ local function usernameLoggedIn(username)
 	return false
 end
 
-
-
 COM_AddCommand("z_registeraccount", function(player)
     if (player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
         if not (player.registered) then
@@ -91,6 +89,7 @@ COM_AddCommand("z_registeraccount", function(player)
 
             player.registered_user = gen_username
             player.registered = true
+			print(player.name.." created an account ("..gen_username..")")
         end
     end
 end)
@@ -127,7 +126,6 @@ end)
 
 COM_AddCommand("z_importdata", function(player, playernum, username, token) -- make data server side
     if ((isserver) or (isdedicatedserver)) and playernum and username and token then
-
         if (tonumber(token) == commandtoken) and players[tonumber(playernum)] then
 			local target_player = players[tonumber(playernum)]
 			
@@ -153,6 +151,24 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
         end
     end
 end, 1)
+
+addHook("ThinkFrame", do -- auto save
+	if (isserver) or (isdedicatedserver) then
+		if (leveltime % 10) == 0 then
+			for player in players.iterate do
+				if player.registered_user and player.registered then
+					local statpath = "SRBZDATA/"..player.registered_user.."/stats.sav2"
+					local statfile = io.openlocal(statpath, "w+")
+
+					if statfile then
+						statfile:write(tostring(player.rubies))
+					end
+				end
+			end
+		end
+	end
+end)
+
 
 addHook("PlayerCmd", function(player,cmd) -- auto login / register
 	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) and not (player.registered_user)) and not triedlogin then
