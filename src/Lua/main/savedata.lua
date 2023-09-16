@@ -56,7 +56,7 @@ end
 COM_AddCommand("z_registeraccount", function(player)
     if (player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
         if not (player.registered) then
-            local gen_username = genRNGUsername(player.name)
+            local gen_username = genRNGUsername(player.name):gsub(" ","_")
             local gen_password = genRNGPassword()
             if (isserver) or (isdedicatedserver) then -- Server
                 print("Doing server functions.")
