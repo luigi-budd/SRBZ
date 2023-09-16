@@ -74,8 +74,6 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
             local gen_username = genRNGUsername(target_player.name):gsub(" ","_")
             local gen_password = genRNGPassword()
             if (isserver) or (isdedicatedserver) then -- Server
-                print("Doing server functions.")
-
                 local server_passpath = "SRBZDATA/"..gen_username.."/password.sav2"
                 local server_statspath = "SRBZDATA/"..gen_username.."/stats.sav2"
 
@@ -91,8 +89,6 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
             end
 
             if (target_player == consoleplayer) then -- Client
-                print("Doing client functions.")
-
                 local clientpath = "client/SRBZ/account.sav2"
                 local file = io.openlocal(clientpath, "w+")
 
@@ -172,7 +168,7 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
 		
 		target_player.registered_user = username
 		target_player.registered = true
-		print(player.name.." logged in as "..username)
+		print(target_player.name.." logged in as "..username)
 	end
 end, 1)
 
