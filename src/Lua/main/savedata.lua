@@ -8,7 +8,6 @@
 ]]--
 local _rchars_ = "abcdefghijklmnopqrstuvwxyz1234567890"
 local commandtoken = P_RandomKey(FRACUNIT)
-local triedlogin = false
 
 addHook("NetVars", function(net)
     commandtoken = net($)
@@ -99,7 +98,6 @@ COM_AddCommand("z_loginaccount", function(player, username, password)
         if (not (player.registered) and not (player.registered_user)) and (username and password) then
 			if usernameLoggedIn(username) and player == consoleplayer then
 				print("Someone is already logged in this account. Try again.")
-				triedlogin = false
 				return
 			end
             if (isserver) or (isdedicatedserver) then
@@ -171,7 +169,7 @@ end)
 
 
 addHook("PlayerCmd", function(player,cmd) -- auto login / register
-	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) and not (player.registered_user)) and not triedlogin then
+	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) and not (player.registered_user)) then
 		local clientpath = "client/SRBZ/account.sav2"
         local file = io.openlocal(clientpath, "r")
 		if file then
@@ -179,6 +177,5 @@ addHook("PlayerCmd", function(player,cmd) -- auto login / register
 		else
 			COM_BufInsertText(player, "z_registeraccount")
 		end
-		triedlogin = true
 	end
 end)
