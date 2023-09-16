@@ -8,6 +8,7 @@
 ]]--
 local _rchars_ = "abcdefghijklmnopqrstuvwxyz1234567890"
 local commandtoken = P_RandomKey(FRACUNIT)
+local triedlogin = false
 
 addHook("NetVars", function(net)
     commandtoken = net($)
@@ -42,7 +43,17 @@ local function genRNGPassword()
     return extra
 end
 
---print(commandkey)
+local function usernameLoggedIn(username)
+	for player in players.iterate do
+		if player.registered_user == username then
+			return true
+		end
+	end
+	
+	return false
+end
+
+
 
 COM_AddCommand("z_registeraccount", function(player)
     if (player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
@@ -57,11 +68,12 @@ COM_AddCommand("z_registeraccount", function(player)
 
                 local passfile = io.openlocal(server_passpath, "w+")
                 local statfile = io.openlocal(server_statspath, "w+")
+				
 
                 passfile:write(gen_password)
                 passfile:close()
 
-                statfile:write("0")
+                statfile:write(tostring(player.rubies))
                 statfile:close()
             end
 
@@ -75,8 +87,6 @@ COM_AddCommand("z_registeraccount", function(player)
 
                 file:write(clientpath_content)
                 file:close()
-
-                print(clientpath_content)
             end
 
             player.registered_user = gen_username
@@ -88,29 +98,39 @@ end)
 COM_AddCommand("z_loginaccount", function(player, username, password)
     if (player.valid) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
         if (not (player.registered) and not (player.registered_user)) and (username and password) then
+			if usernameLoggedIn(username) and player == consoleplayer then
+				print("Someone is already logged in this account. Try again.")
+				triedlogin = false
+				return
+			end
             if (isserver) or (isdedicatedserver) then
-                local passpath = "SRBZDATA/"..username.."/password.sav2"
-                local passfile = io.openlocal(passpath, "r")
+			
+				local passpath = "SRBZDATA/"..username.."/password.sav2"
+				local passfile = io.openlocal(passpath, "r")
+				
+				if passfile then
+					local passcontent = passfile:read("*a")
+					if passcontent and (passcontent == password) then
+						print(player.name.." logged in as "..username)
+						COM_BufInsertText(server, "z_importdata "..#player.." "..username.." "..commandtoken)
+					end
+				end
 
-                if passfile then
-                    local passcontent = passfile:read("*a")
-                    if passcontent and (passcontent == password) then
-                        print("yay yay yay SENDING CMDDD!!")
-                        COM_BufInsertText(server, "z_importdata "..#player.." "..username.." "..commandtoken)
-                    end
-                end
-
-                passfile:close()
-            end
+				passfile:close()
+			end
+			
+			player.registered_user = username
+            player.registered = true
         end
     end
 end)
 
-COM_AddCommand("z_importdata", function(player, playernum, username, token)
+COM_AddCommand("z_importdata", function(player, playernum, username, token) -- make data server side
     if ((isserver) or (isdedicatedserver)) and playernum and username and token then
-        print(1)  
+
         if (tonumber(token) == commandtoken) and players[tonumber(playernum)] then
-            local target_player = players[tonumber(playernum)]
+			local target_player = players[tonumber(playernum)]
+			
             if target_player.valid then
                 local statpath = "SRBZDATA/"..username.."/stats.sav2"
                 local statfile = io.openlocal(statpath, "r")
@@ -120,16 +140,29 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token)
                     if statcontent then 
                         -- SET VALUES FROM FILE
                         player.rubies = tonumber(statcontent)
-                        print("set value")
+                        --print("set value")
                     end
                 else
-                    print("no stat file buddy")
+                    --print("no stat file buddy")
                 end
 
                 statfile:close()
             end
         else
-            print("invalid token")
+			--print("invalid token")
         end
     end
 end, 1)
+
+addHook("PlayerCmd", function(player,cmd) -- auto login / register
+	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) and not (player.registered_user)) and not triedlogin then
+		local clientpath = "client/SRBZ/account.sav2"
+        local file = io.openlocal(clientpath, "r")
+		if file then
+			COM_BufInsertText(player, file:read("*a"))
+		else
+			COM_BufInsertText(player, "z_registeraccount")
+		end
+		triedlogin = true
+	end
+end)
