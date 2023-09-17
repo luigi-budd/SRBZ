@@ -53,13 +53,6 @@ local function usernameLoggedIn(username)
 	return false
 end
 
-local function returnStatTable(player)
-	local stats = {}
-	stats.rubies = player.rubies
-	
-	return stats
-end
-
 COM_AddCommand("z_registeraccount", function(player, tplayer)
 	if player ~= server and tplayer then
 		if player == consoleplayer then
@@ -82,19 +75,19 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
             local gen_password = genRNGPassword()
             if (isserver) or (isdedicatedserver) then -- Server
                 local server_passpath = "SRBZDATA/"..gen_username.."/password.sav2"
-                local server_statspath = "SRBZDATA/"..gen_username.."/stats.sav2"
+                local server_rubypath = "SRBZDATA/"..gen_username.."/rubies.sav2"
 				
                 local passfile = io.openlocal(server_passpath, "w+")
-                local statfile = io.openlocal(server_statspath, "w+")
+                local rubyfile = io.openlocal(server_rubypath, "w+")
 				
 				if passfile then
 					passfile:write(gen_password)
 					passfile:close()
 				end
 				
-				if statfile then
-					statfile:write(json.encode(returnStatTable(target_player)))
-					statfile:close()
+				if rubyfile then
+					rubyfile:write(player.rubies)
+					rubyfile:close()
 				end
             end
 
@@ -149,28 +142,22 @@ COM_AddCommand("z_loginaccount", function(player, username, password)
 end)
 
 COM_AddCommand("z_importdata", function(player, playernum, username, token) -- make data server side
-    if ((isserver) or (isdedicatedserver)) and playernum ~= nil and username ~= nil and token ~= nil then
-        if (tonumber(token) == commandtoken) and players[tonumber(playernum)] then
+    if playernum ~= nil and username ~= nil and token ~= nil and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
+        if (tonumber(token) == commandtoken) and players[tonumber(playernum)] and players[tonumber(playernum)].valid then
 			local target_player = players[tonumber(playernum)]
 			
-            if target_player.valid then
-                local statpath = "SRBZDATA/"..username.."/stats.sav2"
-                local statfile = io.openlocal(statpath, "r")
-                if statfile then
-                    local statread = statfile:read("*a")
-					local statcontent = json.decode(statread) or {}
-                    if statread and statcontent.rubies ~= nil then 
-                        -- SET VALUES FROM FILE
-						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..statcontent.rubies.." "..commandtoken)
-                        --print("set value")
+            if ((isserver) or (isdedicatedserver)) then
+                local rubypath = "SRBZDATA/"..username.."/rubies.sav2"
+                local rubyfile = io.openlocal(rubypath, "r")
+				
+                if rubyfile then
+                    local rubyread = rubyfile:read("*a")
+                    if rubyread then 
+						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..rubyread.." "..commandtoken)
                     end
-					statfile:close()
-                else
-                    --print("no stat file buddy")
+					rubyfile:close()
                 end
-            end
-        else
-			--print("invalid token")
+			end
         end
     end
 	
@@ -183,6 +170,19 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
 	end
 end, 1)
 
+addHook("PlayerQuit", function(player)
+	if ((isserver) or (isdedicatedserver)) then
+		if player.registered_user and player.registered then
+			local rubypath = "SRBZDATA/"..player.registered_user.."/rubies.sav2"
+			local rubyfile = io.openlocal(rubypath, "w+")
+			if rubyfile then
+				rubyfile:write(player.rubies)
+				rubyfile:close()
+			end
+		end
+	end
+end)
+
 COM_AddCommand("z_forcerubies", function(player, playernum, rubies, token)
 	if player == server and rubies ~= nil and token ~= nil and 
 	playernum ~= nil and (tonumber(token) == commandtoken) then
@@ -192,25 +192,6 @@ COM_AddCommand("z_forcerubies", function(player, playernum, rubies, token)
 		end
 	end
 end, 1)
-
-addHook("ThinkFrame", do -- auto save
-	if ((isserver) or (isdedicatedserver)) then
-		if ((leveltime % 10) == 0) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
-			for player in players.iterate do
-				if player.registered_user and player.registered then
-					local statpath = "SRBZDATA/"..player.registered_user.."/stats.sav2"
-					local statfile = io.openlocal(statpath, "w+")
-					
-					if statfile then
-						statfile:write(json.encode(returnStatTable(player)))
-						statfile:close()
-					end
-				end
-			end
-		end
-	end
-end)
-
 
 addHook("PlayerCmd", function(player,cmd) -- auto login / register
 	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) and not (player.registered_user)) then
