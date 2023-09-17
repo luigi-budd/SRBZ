@@ -53,6 +53,13 @@ local function usernameLoggedIn(username)
 	return false
 end
 
+local function returnStatTable(player)
+	local stats = {}
+	stats.rubies = player.rubies
+	
+	return stats
+end
+
 COM_AddCommand("z_registeraccount", function(player, tplayer)
 	if player ~= server and tplayer then
 		if player == consoleplayer then
@@ -76,7 +83,7 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
             if (isserver) or (isdedicatedserver) then -- Server
                 local server_passpath = "SRBZDATA/"..gen_username.."/password.sav2"
                 local server_statspath = "SRBZDATA/"..gen_username.."/stats.sav2"
-
+				
                 local passfile = io.openlocal(server_passpath, "w+")
                 local statfile = io.openlocal(server_statspath, "w+")
 				
@@ -86,7 +93,7 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
 				end
 				
 				if statfile then
-					statfile:write(tostring(target_player.rubies))
+					statfile:write(json.encode(returnStatTable(target_player)))
 					statfile:close()
 				end
             end
@@ -150,10 +157,11 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
                 local statpath = "SRBZDATA/"..username.."/stats.sav2"
                 local statfile = io.openlocal(statpath, "r")
                 if statfile then
-                    local statcontent = statfile:read("*a")
-                    if statcontent then 
+                    local statread = statfile:read("*a")
+					local statcontent = json.decode(statread) or {}
+                    if statread and statcontent.rubies then 
                         -- SET VALUES FROM FILE
-						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..statcontent.." "..commandtoken)
+						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..statcontent.rubies.." "..commandtoken)
                         --print("set value")
                     end
 					statfile:close()
@@ -192,9 +200,9 @@ addHook("ThinkFrame", do -- auto save
 				if player.registered_user and player.registered then
 					local statpath = "SRBZDATA/"..player.registered_user.."/stats.sav2"
 					local statfile = io.openlocal(statpath, "w+")
-
+					
 					if statfile then
-						statfile:write(player.rubies)
+						statfile:write(json.encode(returnStatTable(player)))
 						statfile:close()
 					end
 				end
