@@ -471,30 +471,6 @@ COM_AddCommand("z_giveitem", function(player, item_id, count, slot)
 	end
 end, COM_ADMIN)
 
-COM_AddCommand("z_giveitemto", function(player, playernum, item_id, count, slot)
-	if player["srbz_info"] and SRBZ:FetchInventory(player) 
-	and players[tonumber(playernum)] and players[tonumber(playernum)].valid and player == server then
-		local target_player = players[tonumber(playernum)]
-		
-		if item_id then
-			item_id = tonumber($)
-		else
-			CONS_Printf(player, "z_giveitemto <playernum> <item_id> <count> <slot>: gives an item to yourself.")
-			return
-		end
-
-		if count then
-			count = tonumber($)
-		end
-
-		if slot then 
-			slot = tonumber($)
-		end
-
-		target_player["srbz_info"].survivor_inventory[slot] = SRBZ:CopyItemFromID(item_id)
-	end
-end, COM_ADMIN)
-
 COM_AddCommand("z_sellinventory", function(player)
 	for i=1,player["srbz_info"].survivor_inventory_limit do
 		if player["srbz_info"].survivor_inventory[i] and player["srbz_info"].survivor_inventory[i].price then
