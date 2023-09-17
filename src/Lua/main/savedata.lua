@@ -159,7 +159,7 @@ COM_AddCommand("z_importdata", function(player, playernum, username, token) -- m
                 if statfile then
                     local statread = statfile:read("*a")
 					local statcontent = json.decode(statread) or {}
-                    if statread and statcontent.rubies then 
+                    if statread and statcontent.rubies ~= nil then 
                         -- SET VALUES FROM FILE
 						COM_BufInsertText(server, "z_forcerubies "..#target_player.." "..statcontent.rubies.." "..commandtoken)
                         --print("set value")
@@ -194,8 +194,8 @@ COM_AddCommand("z_forcerubies", function(player, playernum, rubies, token)
 end, 1)
 
 addHook("ThinkFrame", do -- auto save
-	if (isserver) or (isdedicatedserver) then
-		if (leveltime % 10) == 0 then
+	if ((isserver) or (isdedicatedserver)) then
+		if ((leveltime % 10) == 0) and ((gamestate == GS_LEVEL) or (gamestate == GS_INTERMISSION)) then
 			for player in players.iterate do
 				if player.registered_user and player.registered then
 					local statpath = "SRBZDATA/"..player.registered_user.."/stats.sav2"
