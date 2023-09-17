@@ -147,6 +147,17 @@ NoZone = True
 SelectHeading = SRBZ Maps
 Lua.srbz_timelimit = 7
 
+Level N3
+Levelname = Roblox Obby 2
+Subtitle = Medium parkour
+Act = 0
+Music = RBXO
+TypeOfLevel = SRBZ
+NextLevel = N3
+SkyNum = 53
+NoZone = True
+SelectHeading = SRBZ Maps
+
 Level W1
 LevelName = Concealed Woodland
 Act = 0
