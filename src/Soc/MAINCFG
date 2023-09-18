@@ -18,7 +18,7 @@ TypeOfLevel = SRBZ
 NextLevel = C0
 SkyNum = 1
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 1
 Lua.hidefromvote = true
 
@@ -32,7 +32,7 @@ NextLevel = J0
 SkyNum = 11
 Weather = 1
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 5
 
 Level J1
@@ -44,7 +44,7 @@ TypeOfLevel = SRBZ
 NextLevel = J1
 SkyNum = 15
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 7
 
 Level J2
@@ -56,7 +56,7 @@ Music = RBXO
 TypeOfLevel = SRBZ
 NextLevel = J2
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 7
 Lua.srbz_noabilities = true
 
@@ -70,7 +70,7 @@ Music = MP_ICE
 TypeOfLevel = SRBZ
 NextLevel = J3
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 9
 
 Level J4
@@ -82,7 +82,7 @@ TypeOfLevel = SRBZ
 NextLevel = J4
 SkyNum = 14
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 7
 
 Level J5
@@ -94,7 +94,7 @@ TypeOfLevel = SRBZ
 NextLevel = J5
 SkyNum = 10
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 10
 Lua.srbz_solofail = true
 
@@ -106,7 +106,7 @@ Music = SPEC8
 TypeOfLevel = SRBZ
 NextLevel = J6
 SkyNum = 1
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 9
 
 Level N0
@@ -119,7 +119,7 @@ NextLevel = N0
 SkyNum = 11
 Weather = 1
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 6
 
 Level N1
@@ -131,7 +131,7 @@ TypeOfLevel = SRBZ
 NextLevel = N1
 SkyNum = 11
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Weather = 2
 Lua.srbz_timelimit = 7
 
@@ -144,7 +144,7 @@ TypeOfLevel = SRBZ
 NextLevel = N2
 SkyNum = 1
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 7
 
 Level N3
@@ -156,14 +156,14 @@ TypeOfLevel = SRBZ
 NextLevel = N3
 SkyNum = 53
 NoZone = True
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 
 Level W1
 LevelName = Concealed Woodland
 Act = 0
 Subtitle = By Joiver
 TypeOfLevel = SRBZ
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 Music = MP_DOM
 NoZone = True
 Weather = PRECIP_STORM
@@ -176,10 +176,25 @@ Act = 0
 Subtitle = By Joiver
 Music = MP_FOR
 TypeOfLevel = SRBZ
-SelectHeading = SRBZ Maps
+SelectHeading = SRBZ Survival Maps
 NoZone = True
 SkyNum = 127
 SkyboxScaleX = -2
 SkyboxScaleY = -2
 lua.takis_iscoldarea = 1
 Lua.srbz_timelimit = 6
+
+Level V0
+Levelname = South Snow
+Subtitle = Very snowy.
+Act = 0
+Music = ZE_RRZ
+TypeOfLevel = SRBZ
+NextLevel = V0
+SkyNum = 17
+Palette = 5
+weather = 2
+NoZone = True
+SelectHeading = SRBZ Swarm Maps
+Lua.srbz_timelimit = 6
+Lua.hidefromvote = true
