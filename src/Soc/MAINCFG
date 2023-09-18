@@ -188,7 +188,7 @@ Level V0
 Levelname = South Snow
 Subtitle = Very snowy.
 Act = 0
-Music = ZE_RRZ
+Music = MP_ICE
 TypeOfLevel = SRBZ
 NextLevel = V0
 SkyNum = 17
