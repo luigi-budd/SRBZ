@@ -178,7 +178,6 @@ addHook("PlayerThink", function(player)
 	
 	if player.zteam == 2 and player.mo.skin ~= "zzombie" then
 		R_SetPlayerSkin(player, "zzombie")
-		player.mo.color = SKINCOLOR_MOSS
 	elseif player.zteam == 1 and player.mo.skin == "zzombie" then
 		R_SetPlayerSkin(player, "sonic")
 		player.mo.color = player.skincolor
