@@ -20,7 +20,12 @@ rawset(_G, "P_GivePlayerRubies", function(player, amount)
 	if player.rubies == nil then
 		player.rubies = 0
 	end
-	player.rubies = $ + amount
+	
+	if amount > SRBZ.RubyLimit then
+		player.rubies = SRBZ.RubyLimit
+	else
+		player.rubies = $ + amount
+	end
 end)
 
 SRBZ.wait_time = 25*TICRATE;
