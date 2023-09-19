@@ -197,4 +197,5 @@ weather = 2
 NoZone = True
 SelectHeading = SRBZ Swarm Maps
 Lua.srbz_timelimit = 6
+Lua.srbz_zombieswarm = true
 Lua.hidefromvote = true
