@@ -1,5 +1,6 @@
 freeslot("sfx_zjump")
 
+-- some stuff that player needs
 SRBZ.giveplayerflags = function(player)
 	if gametype == GT_SRBZ then
 		player.charflags = SF_NOJUMPSPIN|SF_NOJUMPDAMAGE|SF_NOSKID
@@ -33,6 +34,7 @@ SRBZ.giveplayerflags = function(player)
 	end
 end
 
+-- sprint code
 SRBZ.sprint_thinker = function(player)
 	if not (player.mo and player.mo.valid) return end
 		
@@ -76,6 +78,7 @@ SRBZ.sprint_thinker = function(player)
 	end
 end
 
+-- we hate griefers
 addHook("LinedefExecute", function(line, mobj, sector)
 	if mobj and mobj.valid and mobj.player and mobj.player.valid then
 		local player = mobj.player
@@ -86,7 +89,8 @@ addHook("LinedefExecute", function(line, mobj, sector)
 	end
 end, "NOABILITY")
 
-addHook("PlayerThink", function(player) -- Limit for climbing characters.
+-- Limit for climbing characters.
+addHook("PlayerThink", function(player) 
 	if gametype ~= GT_SRBZ then return end
     if player.mo and player.mo.valid then
         player.x_climbtime = $ or 0 
