@@ -41,7 +41,7 @@ function SRBZ:StartWin(team)
 	for mobj in mobjs.iterate() do
 		if mobj.valid then
 			if (mobj.player and mobj.player.valid and mobj.player.zteam and 
-			mobj.player.zteam == 2 and SRBZ.killzombiesonwin.value) then
+			mobj.player.zteam == 2 and SRBZ.killzombiesonwin.value and team == 1) then
 				P_KillMobj(mobj)
 				continue
 			end
