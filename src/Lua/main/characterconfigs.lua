@@ -14,7 +14,7 @@ SRBZ.SetCCtoplayer = function(player)
 	local pmo = player.mo
 	local cc = SRBZ.CharacterConfig
 	
-	if pmo and cc[pmo.skin] then
+	if pmo and pmo.valid and cc[pmo.skin] then
 		if cc[pmo.skin].normalspeed then 
 			player.normalspeed = cc[pmo.skin].normalspeed or cc["default"].normalspeed
 			local sprintboost = cc[pmo.skin].sprintboost or cc["default"].sprintboost
@@ -77,12 +77,93 @@ SRBZ.SetCChealth = function(player)
 	end
 end
 
+SRBZ.SetZCtoplayer = function(player)
+	local pmo = player.mo
+	local zc = SRBZ.ZombieConfig
+	local cc = SRBZ.CharacterConfig
+	local ztype = player.ztype
+	
+	if pmo and pmo.valid then
+		if zc[ztype] then
+			if (zc[ztype].charability) then
+				player.charability = zc[ztype].charability
+			else
+				player.charability = cc["default"].charability -- cc isnt a typo
+			end
+			
+			if (zc[ztype].charability2) then 
+				player.charability2 = zc[ztype].charability2
+			else
+				player.charability2 = cc["default"].charability2
+			end
+			
+			if (zc[ztype].jumpfactor) then 
+				player.jumpfactor = zc[ztype].jumpfactor
+			else
+				player.jumpfactor = cc["default"].jumpfactor
+			end
+			
+			if (zc[ztype].actionspd) then 
+				player.actionspd = zc[ztype].actionspd 
+			end
+
+			if (zc[ztype].charflags) then 
+				player.charflags = $|zc[ztype].charflags 
+			end
+		else
+			player.ztype = "normal"
+		end
+	end
+end
+
+SRBZ.SetZChealth = function(player)
+	local pmo = player.mo
+	local zc = SRBZ.ZombieConfig
+	local cc = SRBZ.CharacterConfig
+	local ztype = player.ztype
+	
+	if pmo and pmo.valid then
+		if zc[ztype] then
+			if (zc[ztype].health) then
+				pmo.health = zc[ztype].health
+				pmo.maxhealth = pmo.health
+			else
+				pmo.health = cc["default"].health -- cc still isnt a typo
+				pmo.maxhealth = pmo.health
+			end
+		else
+			pmo.health = cc["default"].health
+			pmo.maxhealth = pmo.health
+		end
+	end
+end
+
+SRBZ.ZombieConfig = {
+	["normal"] = {
+		skincolor = SKINCOLOR_MOSS,
+		normalspeed = 22 * FRACUNIT,
+		health = 90,
+		charability = CA_NONE,
+		charability2 = CA2_NONE,
+		jumpfactor = 25 * FRACUNIT / 19,
+		actionspd = 9*FRACUNIT,
+	},
+	["alpha"] = {
+		skincolor = SKINCOLOR_PEPPER,
+		normalspeed = 25 * FRACUNIT,
+		health = 150,
+		charability = CA_NONE,
+		charability2 = CA2_NONE,
+		jumpfactor = 26 * FRACUNIT / 19,
+		actionspd = 9*FRACUNIT,
+		killaward = 10,
+	},
+}
+
 SRBZ.CharacterConfig = {
 	["default"] = {
 		normalspeed = 19 * FRACUNIT,
-		sprintspeed = 23 * FRACUNIT,
 		health = 80,
-		--maxhealth = 80,
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
 		jumpfactor = 17 * FRACUNIT / 19,
@@ -98,7 +179,6 @@ end
 SRBZ.AddConfig("zzombie", {
 	normalspeed = 20 * FRACUNIT,
 	health = 90,
-	--maxhealth = 90,
 	charability = CA_NONE,
 	charability2 = CA2_NONE,
 	jumpfactor = 24 * FRACUNIT / 19,

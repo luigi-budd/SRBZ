@@ -1,5 +1,5 @@
 
-addHook("PlayerSpawn", SRBZ.playerfunc)
+addHook("PlayerSpawn", SRBZ.init_player)
 
 addHook("TouchSpecial", SRBZ.HitMegaHP, MT_MEGAHP)
 
