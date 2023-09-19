@@ -59,11 +59,6 @@ SRBZ.sprint_thinker = function(player)
 				player.runspeed = 5*FRACUNIT
 				if player.speed >= 5*FRACUNIT and P_IsObjectOnGround(pmo) then
 					P_SpawnSkidDust(player, 20*FRACUNIT)
-					/*
-					if (leveltime % 5) == 0 and not (pmo.eflags & MFE_UNDERWATER) then
-						S_StartSound(pmo,sfx_s3kcel)
-					end
-					*/
 				end
 			end
 		else
