@@ -2,7 +2,7 @@
 
 ::--------------------------------------------------------------------------
 set "name=ZCL_SRBZ"
-set "version=beta3.1"
+set "version=beta5"
 
 set /A "delump=0"
 
