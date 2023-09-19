@@ -168,3 +168,27 @@ addHook("MobjDeath", function(mobj)
 		mobj.player.zteam = 2
 	end
 end,MT_PLAYER)
+
+-- lock zombies color and prevent survivors from being zombie skin and vice versa
+addHook("PlayerThink", function(player)	
+	if gametype ~= GT_SRBZ or not player.mo return end
+	
+	local ztype = player.ztype
+	local zc = SRBZ.ZombieConfig
+	
+	if player.zteam == 2 and player.mo.skin ~= "zzombie" then
+		R_SetPlayerSkin(player, "zzombie")
+		player.mo.color = SKINCOLOR_MOSS
+	elseif player.zteam == 1 and player.mo.skin == "zzombie" then
+		R_SetPlayerSkin(player, "sonic")
+		player.mo.color = player.skincolor
+	end
+		
+	if (player.zteam == 2 and ztype and zc[ztype]) then 
+		if (zc[ztype].skincolor and player.mo.color ~= zc[ztype].skincolor) then
+			player.mo.color = zc[ztype].skincolor
+		else
+			player.mo.color = SKINCOLOR_MOSS
+		end
+	end
+end)
