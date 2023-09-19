@@ -9,6 +9,13 @@
 local _rchars_ = "abcdefghijklmnopqrstuvwxyz1234567890"
 local commandtoken = P_RandomKey(FRACUNIT)
 
+SRBZ.autologin = CV_RegisterVar({
+	name = "z_autologin",
+	defaultvalue = "On",
+	PossibleValue = CV_OnOff,
+	flags = CV_NETVAR,
+})
+
 addHook("NetVars", function(net)
     commandtoken = net($)
 end)
@@ -194,7 +201,8 @@ COM_AddCommand("z_forcerubies", function(player, playernum, rubies, token)
 end, 1)
 
 addHook("PlayerCmd", function(player,cmd) -- auto login / register
-	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) and not (player.registered_user)) then
+	if (cmd.buttons or cmd.forwardmove) and (not (player.registered) 
+	and not (player.registered_user)) and SRBZ.autologin.value then
 		local clientpath = "client/SRBZ/account.sav2"
         local file = io.openlocal(clientpath, "r")
 		if file then
