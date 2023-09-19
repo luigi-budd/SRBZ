@@ -184,10 +184,6 @@ addHook("PlayerThink", function(player)
 	end
 		
 	if (player.zteam == 2 and ztype and zc[ztype]) then 
-		if (zc[ztype].skincolor and player.mo.color ~= zc[ztype].skincolor) then
-			player.mo.color = zc[ztype].skincolor
-		else
-			player.mo.color = SKINCOLOR_MOSS
-		end
+		player.mo.color = zc[ztype].skincolor or SKINCOLOR_MOSS
 	end
 end)
