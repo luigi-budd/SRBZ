@@ -224,7 +224,6 @@ Act = 0
 Music = MP_MED
 TypeOfLevel = SRBZ
 SelectHeading = SRBZ Swarm Maps
-Subtitle = By Neonius|Next
 NextLevel = N4
 SkyNum = 40
 NoZone = true
