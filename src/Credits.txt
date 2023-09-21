@@ -13,8 +13,8 @@ Spriters:
 "W"
 
 Mappers:
-"Tuxe" - Person not available.
-"Hammito" - Person not available.
+"Tuxe" - N/A (Different intrests, problematic community member)
+"Hammito" - N/A (Left the community)
 "Neonius|Next"
 "jovier"
 
