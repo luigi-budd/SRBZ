@@ -9,6 +9,8 @@ Unlockable 3
 
 Unlockable 23
 
+## SURVIVAL MAP START
+
 Level C0
 Levelname = Test Map
 Subtitle = SRBZ
@@ -184,6 +186,8 @@ SkyboxScaleY = -2
 lua.takis_iscoldarea = 1
 Lua.srbz_timelimit = 6
 
+## SWARM MAP START
+
 Level V0
 Levelname = South Snow
 Subtitle = Very snowy.
@@ -213,6 +217,18 @@ Lua.srbz_timelimit = 6
 Lua.srbz_zombieswarm = true
 Lua.hidefromvote = true
 #Lua.Author = LeoTM, Rare
+
+Level N6
+Levelname = Summer Forest
+Act = 0
+Music = MP_MED
+TypeOfLevel = SRBZ
+SelectHeading = SRBZ Swarm Maps
+Subtitle = By Neonius|Next
+NextLevel = N4
+SkyNum = 40
+NoZone = true
+Subtitle = It's a Forest!
 
 Freeslot
 SFX_DAMFLL
