@@ -199,3 +199,20 @@ SelectHeading = SRBZ Swarm Maps
 Lua.srbz_timelimit = 6
 Lua.srbz_zombieswarm = true
 Lua.hidefromvote = true
+
+Level K5
+LevelName = The Dam
+SelectHeading = SRBZ Swarm Maps
+Subtitle = By, LeoTM, Rare
+Act = 0
+SkyNum = 30
+TypeOfLevel = SRBZ
+NextLevel = K5
+Lua.hidefromvote = true
+Lua.srbz_timelimit = 6
+Lua.srbz_zombieswarm = true
+Lua.hidefromvote = true
+#Lua.Author = LeoTM, Rare
+
+Freeslot
+SFX_DAMFLL
