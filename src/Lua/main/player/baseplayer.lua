@@ -114,10 +114,11 @@ SRBZ.init_player = function(player)
 	
 	if player and pmo and pmo.valid then
 		if (SRBZ.round_active and SRBZ.PlayerCount() > 1) then
-			player.ztype = "normal"
+			player.ztype = "alpha"
 			player.zteam = 2
 			SRBZ.SetZCtoplayer(player)
 			SRBZ.SetZChealth(player)
+			SRBZ.SetZCscale(player)
 		else
 			player.ztype = nil
 			player.zteam = 1

@@ -138,6 +138,19 @@ SRBZ.SetZChealth = function(player)
 	end
 end
 
+SRBZ.SetZCscale = function(player)
+	local pmo = player.mo
+	local zc = SRBZ.ZombieConfig
+	local ztype = player.ztype
+	
+	if pmo and pmo.valid then
+		if ztype and zc[ztype] then
+			pmo.scale = zc[ztype].scale or FRACUNIT
+		end
+	end
+end
+
+
 SRBZ.ZombieConfig = {
 	["normal"] = {
 		skincolor = SKINCOLOR_MOSS,
@@ -156,6 +169,7 @@ SRBZ.ZombieConfig = {
 		charability2 = CA2_NONE,
 		jumpfactor = 26 * FRACUNIT / 19,
 		actionspd = 9*FRACUNIT,
+		scale = 13*FRACUNIT/10,
 		killaward = 10,
 	},
 }

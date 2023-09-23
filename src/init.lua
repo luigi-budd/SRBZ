@@ -9,13 +9,18 @@ dofile "libraries/mtimeconv.lua"
 dofile "libraries/basexx.lua" -- https://github.com/aiq/basexx
 
 dofile "main/netvars.lua"
-dofile "main/characterconfigs.lua"
+
+dofile "main/player/characterselect_logic.lua"
+dofile "main/player/baseplayer.lua"
+dofile "main/player/characterconfigs.lua"
+
+dofile "main/zombie/zombie_checkpoints.lua"
+dofile "main/zombie/zombie_visuals.lua"
+
 dofile "main/enemies.lua"
 dofile "main/intermission.lua"
 dofile "main/capitalism.lua"
-dofile "main/characterselect_logic.lua"
 dofile "main/megahp.lua"
-dofile "main/baseplayer.lua"
 dofile "main/exiting.lua"
 dofile "main/healthncombat.lua"
 dofile "main/itemdef.lua"
@@ -25,7 +30,7 @@ dofile "main/shop.lua"
 dofile "main/savedata.lua"
 dofile "main/name_tags.lua"
 dofile "main/maptimers.lua"
-dofile "main/zombiecheckpoints.lua"
+
 
 dofile "hud/characterselect.lua"
 dofile "hud/info.lua"
