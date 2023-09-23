@@ -191,3 +191,27 @@ addHook("PlayerThink", function(player)
 		player.mo.color = zc[ztype].skincolor or SKINCOLOR_MOSS
 	end
 end)
+
+COM_AddCommand("z_changeztype", function(player, new_ztype)
+	if not (player.mo and player.mo.valid) then return end
+	if player.zteam ~= 2 then
+		print("You must be a zombie to run this command.")
+		return
+	end
+	
+	if not new_ztype then
+		print("z_changeztype <ztype>: changes your zombie type.")
+		return
+	end
+	
+	local zc = SRBZ.ZombieConfig
+	
+	if zc[new_ztype] then
+		player.ztype = new_ztype
+		SRBZ.SetZCtoplayer(player)
+		SRBZ.SetZChealth(player)
+		SRBZ.SetZCscale(player)
+	else
+		print("Invalid ztype. "..'"'..new_ztype..'"')
+	end
+end, 1)
