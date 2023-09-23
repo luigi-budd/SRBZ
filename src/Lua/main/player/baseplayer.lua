@@ -114,7 +114,10 @@ SRBZ.init_player = function(player)
 	
 	if player and pmo and pmo.valid then
 		if (SRBZ.round_active and SRBZ.PlayerCount() > 1) then
-			player.ztype = "alpha"
+			player.ztype = "normal"
+			if P_RandomChance(FRACUNIT/8) then
+				player.ztype = "alpha"
+			end
 			player.zteam = 2
 			SRBZ.SetZCtoplayer(player)
 			SRBZ.SetZChealth(player)
