@@ -11,7 +11,7 @@ local commandtoken = P_RandomKey(FRACUNIT)
 
 SRBZ.autologin = CV_RegisterVar({
 	name = "z_autologin",
-	defaultvalue = "On",
+	defaultvalue = "Off",
 	PossibleValue = CV_OnOff,
 	flags = CV_NETVAR,
 })
