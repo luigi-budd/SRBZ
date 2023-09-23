@@ -74,9 +74,11 @@ SRBZ.characterselecthud = function(v, player, c)
 	local the_name = skins[SRBZ.getSkinNames(player, true)[player.selection]].realname
 	customhud.CustomFontString(v, 160*FRACUNIT, 0, the_name, "STCFC", (V_SNAPTOTOP), "center" , 2*FRACUNIT, the_color )
 	if leveltime > SRBZ.charselect_waittime	then
-		local x = 160
-		local y = 50
+		local offset = sin(ANG1*(leveltime*3))*3 
+		local offset2 = cos(ANG1*(leveltime*3))*3
+		local x = (160*FRACUNIT) + offset
+		local y = (50*FRACUNIT) + offset2
 		local text = "Press FORWARD to continue."
-		customhud.CustomFontString(v,x,y,text, "STCFC", (V_SNAPTOTOP|V_TRANSLUCENT), "center" , nil, SKINCOLOR_GREY)
+		customhud.CustomFontString(v,x,y,text, "STCFC", (V_SNAPTOTOP|V_TRANSLUCENT), "center" , FRACUNIT, SKINCOLOR_GREY)
 	end
 end
