@@ -2,6 +2,13 @@ freeslot("MT_CRRUBY","S_CRRUBY","SPR_RBY1", "sfx_rbyhit") -- idk what CR means b
 
 SRBZ.RubyLimit = 500000;
 
+SRBZ.rubypickupdelay = CV_RegisterVar({
+	name = "z_rubypickupdelay",
+	defaultvalue = "0",
+	PossibleValue = {MIN = 0, MAX = 12},
+	flags = CV_NETVAR,
+})
+
 function A_RubyDrop(actor, var1)
 	for i=1,var1 do
 		local the_ruby = P_SpawnMobjFromMobj(actor,0,0,10*FU,MT_CRRUBY)
@@ -40,6 +47,10 @@ addHook("PlayerThink", function(player)
 	if player.rubies > SRBZ.RubyLimit then
 		player.rubies = SRBZ.RubyLimit
 	end
+	
+	if player.rubypickupdelay then
+		player.rubypickupdelay = $ - 1
+	end
 end)
 
 addHook("MobjDeath", function(mobj)
@@ -66,8 +77,14 @@ addHook("TouchSpecial", function(special, toucher)
 	if toucher and toucher.valid and toucher.player then
 		if toucher.player.rubies + 1 > SRBZ.RubyLimit then
 			return true
+		elseif toucher.player.rubypickupdelay then
+			return true
 		end
+		
 		P_GivePlayerRubies(toucher.player, 1)
+		if SRBZ.rubypickupdelay.value then
+			toucher.player.rubypickupdelay = SRBZ.rubypickupdelay.value
+		end
 	end
 end, MT_CRRUBY)
 
