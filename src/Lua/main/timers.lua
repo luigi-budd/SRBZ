@@ -90,8 +90,7 @@ addHook("ThinkFrame", function()
 				if SRBZ.killwhenchosen.value then
 					P_KillMobj(player.mo,nil,nil,DMG_INSTAKILL)
 				else
-					SRBZ.SetCChealth(player)
-					SRBZ.SetCCtoplayer(player)
+					SRBZ.ResetPlayer(player)
 				end
 				if SRBZ.choosenotice.value then
 					print(string.format("\x83\%s\x83\ has risen from the dead!",player.name))

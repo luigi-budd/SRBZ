@@ -107,6 +107,18 @@ addHook("PlayerThink", function(player)
     end
 end)
 
+SRBZ.ResetPlayer = function(player)
+	if player.zteam == 1 then
+		SRBZ.SetCCtoplayer(player)
+		SRBZ.SetCChealth(player)
+	elseif player.zteam == 2 then
+		SRBZ.SetZCtoplayer(player)
+		SRBZ.SetZChealth(player)
+		SRBZ.SetZCscale(player)
+		SRBZ.SetZCinventory(player)
+	end
+end
+
 SRBZ.init_player = function(player)
 	if gametype ~= GT_SRBZ and leveltime then return end
 	
@@ -119,15 +131,12 @@ SRBZ.init_player = function(player)
 				player.ztype = "alpha"
 			end
 			player.zteam = 2
-			SRBZ.SetZCtoplayer(player)
-			SRBZ.SetZChealth(player)
-			SRBZ.SetZCscale(player)
 		else
 			player.ztype = nil
 			player.zteam = 1
-			SRBZ.SetCCtoplayer(player)
-			SRBZ.SetCChealth(player)
 		end
+		
+		SRBZ.ResetPlayer(player)
 
 		if player.zteam == 2 then 
 			R_SetPlayerSkin(player, "zzombie") 
@@ -208,9 +217,7 @@ COM_AddCommand("z_changeztype", function(player, new_ztype)
 	
 	if zc[new_ztype] then
 		player.ztype = new_ztype
-		SRBZ.SetZCtoplayer(player)
-		SRBZ.SetZChealth(player)
-		SRBZ.SetZCscale(player)
+		SRBZ.ResetPlayer(player)
 	else
 		print("Invalid ztype. "..'"'..new_ztype..'"')
 	end

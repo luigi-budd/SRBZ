@@ -150,6 +150,18 @@ SRBZ.SetZCscale = function(player)
 	end
 end
 
+SRBZ.SetZCinventory = function(player)
+	local pmo = player.mo
+	local zc = SRBZ.ZombieConfig
+	local ztype = player.ztype
+	
+	if pmo and pmo.valid then
+		if ztype and zc[ztype] and player["srbz_info"] then
+			player["srbz_info"].zombie_inventory = zc[ztype].inventory or {}
+			player["srbz_info"].zombie_inventory_limit = zc[ztype].inventory_limit or 2
+		end
+	end
+end
 
 SRBZ.ZombieConfig = {
 	["normal"] = {
@@ -160,9 +172,14 @@ SRBZ.ZombieConfig = {
 		charability2 = CA2_NONE,
 		jumpfactor = 25 * FRACUNIT / 19,
 		actionspd = 9*FRACUNIT,
+		inventory_limit = 1,
+		inventory = {
+			SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
+		},
+		
 	},
 	["alpha"] = {
-		skincolor = SKINCOLOR_PEPPER,
+		skincolor = SKINCOLOR_MOSS,
 		normalspeed = 25 * FRACUNIT,
 		health = 150,
 		charability = CA_NONE,
@@ -171,6 +188,8 @@ SRBZ.ZombieConfig = {
 		actionspd = 9*FRACUNIT,
 		scale = 13*FRACUNIT/10,
 		killaward = 10,
+		inventory_limit = 2,
+		inventory = {},
 	},
 }
 

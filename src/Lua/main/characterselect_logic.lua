@@ -9,8 +9,7 @@ SRBZ.pickcharinselect = function(player, skinname)
 		R_SetPlayerSkin(player, "sonic")	
 	end
 	
-	SRBZ.SetCCtoplayer(player)
-	SRBZ.SetCChealth(player)
+	SRBZ.ResetPlayer(player)
 	S_StartSound(nil, sfx_strpst, player)
 end
 
