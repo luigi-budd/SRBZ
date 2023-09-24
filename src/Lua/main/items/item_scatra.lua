@@ -1,3 +1,5 @@
+-- Ported From RSNEO
+
 SRBZ:CreateItem("Scatra",  {
 	icon = "SCATRAIND",
 	firerate = TICRATE/3,
