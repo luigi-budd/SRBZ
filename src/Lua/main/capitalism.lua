@@ -82,9 +82,7 @@ addHook("TouchSpecial", function(special, toucher)
 		end
 		
 		P_GivePlayerRubies(toucher.player, 1)
-		if SRBZ.rubypickupdelay.value then
-			toucher.player.rubypickupdelay = SRBZ.rubypickupdelay.value
-		end
+		toucher.player.rubypickupdelay = SRBZ.rubypickupdelay.value
 	end
 end, MT_CRRUBY)
 
