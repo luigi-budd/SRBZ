@@ -7,6 +7,7 @@ addHook("PlayerThink", function(player)
 			alpha_effect.blendmode = AST_ADD
 			alpha_effect.frame = $|FF_ADD
 			alpha_effect.scale = 15*FRACUNIT/10
+			alpha_effect.fuse = 12*TICRATE
 			player.mo.alpha_thing = alpha_effect
 			if alpha_effect.tracer
 				alpha_effect.tracer.fuse = alpha_effect.fuse
@@ -16,12 +17,12 @@ addHook("PlayerThink", function(player)
 			player.mo.x + player.mo.momx,
 			player.mo.y + player.mo.momy, 
 			player.mo.z + player.mo.momz - 4*FRACUNIT)
+			player.mo.alpha_thing.sprite = player.mo.sprite
+			player.mo.alpha_thing.state = player.mo.state
+			player.mo.alpha_thing.frame = player.mo.frame
+			player.mo.alpha_thing.angle = player.drawangle
+			player.mo.alpha_thing.dispoffset = 5
 		end
-		
-
-		
-
-
 	end
 end)
 
