@@ -26,6 +26,7 @@ dofile "main/items/item_green_shell.lua"
 dofile "main/items/item_red_shell.lua"
 dofile "main/items/item_scatra.lua"
 dofile "main/items/item_flash_ring.lua"
+dofile "main/items/item_rail_ring.lua"
 // ITEMS END
 
 dofile "main/netvars.lua"

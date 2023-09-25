@@ -39,8 +39,6 @@ function SRBZ:FetchInventory(player)
 				return player["srbz_info"].survivor_inventory
 			elseif player["srbz_info"].zombie_inventory and player.zteam == 2 then
 				return player["srbz_info"].zombie_inventory
-			else
-				error("Could not fetch inventory.",2)
 			end
 		end
 	end
@@ -53,8 +51,6 @@ function SRBZ:FetchInventoryLimit(player)
 				return player["srbz_info"].survivor_inventory_limit
 			elseif player.zteam == 2 then
 				return player["srbz_info"].zombie_inventory_limit
-			else
-				error("Could not fetch inventory limit.",2)
 			end
 		end
 	end

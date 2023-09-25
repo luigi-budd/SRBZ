@@ -1,4 +1,7 @@
 -- Ported From RSNEO
+
+local flashdmg = 30
+
 freeslot("MT_SRBZ_FLASHSHOT", "S_SRBZ_FLASHBURST", "sfx_wp_vol")
 
 freeslot("S_NEWBOOM")
@@ -58,6 +61,8 @@ function A_FlashBurst(mo)
 	P_RemoveMobj(thok)
 end
 
+
+
 mobjinfo[MT_SRBZ_FLASHSHOT] = {
 	spawnstate = S_RRNG1,
 	deathstate = S_SRBZ_FLASHBURST,
@@ -73,12 +78,14 @@ states[S_SRBZ_FLASHBURST] = {
 	action = A_FlashBurst
 }
 
+mobjinfo[MT_SRBZ_FLASHSHOT].forcedamage = flashdmg
+
 SRBZ:CreateItem("Flash Ring", {
 	shake = 5,
 	icon = "BLININD",
 	firerate = 40,
 	knockback = 70*FRACUNIT,
-	damage = 30,
+	damage = flashdmg,
 	price = 1250,
 	ontrigger = function(player)
 		local mo = player.mo

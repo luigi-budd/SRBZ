@@ -68,7 +68,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	elseif mobjinfo[mo.type].npc_name
 		if (not mo.target) and (inf or src.player) then --enemies wake up if you hit them from behind
 			mo.target = src
-			mo.state=mo.info.seestate
+			mo.state = mo.info.seestate
 		end
 
 		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
@@ -78,9 +78,13 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 	end
 	
-	if (not inf) or (not inf.weaponinfo)
-		if ((mobjinfo[src.type].npc_name) and (mo.player)) or ((src.player) and mobjinfo[mo.type].npc_name)
+	if (not inf) or (not inf.weaponinfo) then
+		if ((mobjinfo[src.type].npc_name) and (mo.player)) 
+		or ((src.player) and mobjinfo[mo.type].npc_name) then
 			dmg = P_RandomKey(9)+3
+			if inf and inf.info.forcedamage then
+				dmg = inf.info.forcedamage
+			end
 		end
 	end
 	if dmg >= mo.health then
