@@ -42,7 +42,7 @@ SRBZ:CreateItem("Rail Ring", {
 		local mo = player.mo
 		mo.momx = $ / 3
 		mo.momy = $ / 3
-		P_SetObjectMomZ(mo, 8*FRACUNIT, false)
+		P_SetObjectMomZ(mo, 2*FRACUNIT, false)
 		mo.state = S_PLAY_SPRING
 		mo.player.pflags = $ & ~(PF_JUMPED | PF_SPINNING)
 		S_StartSound(mo, sfx_rail1)
