@@ -228,6 +228,7 @@ NextLevel = N4
 SkyNum = 40
 NoZone = true
 Subtitle = It's a Forest!
+Lua.hidefromvote = true
 
 Freeslot
 SFX_DAMFLL
