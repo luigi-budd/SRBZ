@@ -2,17 +2,17 @@
 
 SRBZ:CreateItem("Scatra",  {
 	icon = "SCATRAIND",
-	firerate = TICRATE/3,
+	firerate = 20,
 	sound = sfx_shgn,
 	knockback = 30*FRACUNIT,
 	damage = 9,
 	fuse = TICRATE>>3,
 	color = SKINCOLOR_DUSK,
-	price = 850,
+	price = 2350,
 	ontrigger = function(player)
 		local mt = MT_SRBZ_THROWNSCATTER
 		local mo = player.mo
-		local spread = 4
+		local spread = 3
 		--S_StartSound(mo, sfx_shgn)
 		for i = -1, 1
 			local shot = P_SPMAngle(mo, mt, mo.angle + i * ANG1*spread, 1, 0)
