@@ -224,8 +224,8 @@ end
 local function undertale_Startbattle2()
 	SRBZ.ZombieCheckpoints = {
 		[1] = {
-			x = -1088*FRACUNIT,
-			y = -4736*FRACUNIT,
+			x = -1088,
+			y = -4736,
 			z = 0,
 			angle = ANGLE_180,
 		}
