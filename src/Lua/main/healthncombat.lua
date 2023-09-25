@@ -233,6 +233,10 @@ addHook("PreThinkFrame", function()
 				local weaponinfo = SRBZ:FetchInventorySlot(player)
 				local ring
 				
+				if not SRBZ.ItemPresets[weaponinfo.item_id] then
+					continue
+				end
+				
 				if SRBZ.game_ended or player.choosing then 
 					continue
 				end
@@ -244,6 +248,13 @@ addHook("PreThinkFrame", function()
 				if SRBZ.ItemPresets[weaponinfo.item_id].ontrigger and SRBZ.ItemPresets[weaponinfo.item_id].ontrigger(player,weaponinfo) == true then
 					continue
 				end
+				
+				if SRBZ.ItemPresets[weaponinfo.item_id].shake then
+					P_StartQuake(SRBZ.ItemPresets[weaponinfo.item_id].shake*FRACUNIT, 
+					5,
+					{player.mo.x, player.mo.y, player.mo.z})
+				end
+				
 				
 				player["srbz_info"].weapondelay = weaponinfo.firerate
 				
