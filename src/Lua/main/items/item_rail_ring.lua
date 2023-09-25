@@ -1,4 +1,4 @@
-local raildmg = 90
+local raildmg = 85
 
 freeslot("MT_SRBZ_RAILSHOT")
 
@@ -32,12 +32,12 @@ local ring = function(x,y,z,scale,angle)
 end
 
 SRBZ:CreateItem("Rail Ring", {
-	shake = 5,
+	shake = 20,
 	icon = "RAILIND",
 	firerate = 50,
-	knockback = 100*FRACUNIT,
+	knockback = 160*FRACUNIT,
 	damage = raildmg,
-	price = 1350,
+	price = 1460,
 	ontrigger = function(player, wpinfo)
 		local mo = player.mo
 		mo.momx = $ / 3

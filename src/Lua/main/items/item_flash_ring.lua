@@ -81,7 +81,7 @@ states[S_SRBZ_FLASHBURST] = {
 mobjinfo[MT_SRBZ_FLASHSHOT].forcedamage = flashdmg
 
 SRBZ:CreateItem("Flash Ring", {
-	shake = 5,
+	shake = 15,
 	icon = "BLININD",
 	firerate = 40,
 	knockback = 70*FRACUNIT,
