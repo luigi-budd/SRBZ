@@ -1,6 +1,7 @@
 -- Ported From RSNEO
 
 local flashdmg = 30
+local flashkb = 70*FRACUNIT
 
 freeslot("MT_SRBZ_FLASHSHOT", "S_SRBZ_FLASHBURST", "sfx_wp_vol")
 
@@ -79,12 +80,14 @@ states[S_SRBZ_FLASHBURST] = {
 }
 
 mobjinfo[MT_SRBZ_FLASHSHOT].forcedamage = flashdmg
+mobjinfo[MT_SRBZ_FLASHSHOT].forceknockback = flashkb
+
 
 SRBZ:CreateItem("Flash Ring", {
 	shake = 15,
 	icon = "BLININD",
 	firerate = 40,
-	knockback = 70*FRACUNIT,
+	knockback = flashkb,
 	damage = flashdmg,
 	price = 1250,
 	ontrigger = function(player)

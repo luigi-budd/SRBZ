@@ -46,7 +46,11 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 	if (inf and inf.player) then P_AddPlayerScore(inf.player, dmg)
 	elseif (src and src.player) then P_AddPlayerScore(src.player, dmg) end
-
+	
+	if inf and inf.info.forceknockback then
+		knockback = inf.info.forceknockback
+	end
+	
 	if mo.player then
 		if mo.player.zteam == 1 then
 			mo.player.powers[pw_flashing] = 35
@@ -91,6 +95,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		P_KillMobj(mo,inf)
 		return true
 	end
+
 
 	if mo.rubiesholding and (mo.rubiesholding - (mo.rubiesholding/3)) > 0 then
 		 A_RubyDrop(mo, mo.rubiesholding/3)

@@ -1,4 +1,5 @@
 local raildmg = 85
+local railkb = 160*FRACUNIT
 
 freeslot("MT_SRBZ_RAILSHOT")
 
@@ -13,6 +14,7 @@ mobjinfo[MT_SRBZ_RAILSHOT] = {
 }
 
 mobjinfo[MT_SRBZ_RAILSHOT].forcedamage = raildmg
+mobjinfo[MT_SRBZ_RAILSHOT].forceknockback = railkb
 
 local ring = function(x,y,z,scale,angle)
 	local th = P_SpawnMobj(x, y, z, MT_THOK)
@@ -35,7 +37,7 @@ SRBZ:CreateItem("Rail Ring", {
 	shake = 20,
 	icon = "RAILIND",
 	firerate = 50,
-	knockback = 160*FRACUNIT,
+	knockback = railkb,
 	damage = raildmg,
 	price = 1460,
 	ontrigger = function(player, wpinfo)
