@@ -147,7 +147,7 @@ COM_AddCommand("z_sendrubies", function(player, player2, rubies)
 	CONS_Printf(player, 
 	"\x82You sent "..rubies.." rubies to "..players[player2].name)
 	CONS_Printf(players[player2], 
-	string.format("\x82%s\x82 sent you %s rubies", player, tostring(rubies))
+	string.format("\x82%s\x82 sent you %s rubies", player.name, tostring(rubies))
 	)
 	
 	
