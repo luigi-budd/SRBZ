@@ -1,4 +1,5 @@
 freeslot("sfx_zjump")
+sfxinfo[sfx_zjump].caption = "Jump"
 
 -- some stuff that player needs
 SRBZ.giveplayerflags = function(player)
