@@ -70,11 +70,13 @@ addHook("ThinkFrame", function()
 		
 		-- simpler than ze's rng for sure.
 		for player in players.iterate do
+			if player.spectator then continue end
+			
 			if player.choosing == true and player.chosecharacter == false then -- get tf out of character select
 				local selection_name = SRBZ.getSkinNames(player, true)[player.selection]
 				SRBZ.pickcharinselect(player,selection_name) 
 			end
-			if not player.waszombie and not player.spectator then
+			if not player.waszombie then
 				table.insert(choosingnums, #player)
 			end
 		end
