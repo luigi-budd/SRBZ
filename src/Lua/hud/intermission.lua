@@ -75,16 +75,16 @@ SRBZ.intermissionhud = function(v, player)
 
 			v.drawString(160*FU,42*FU,"\x82VOTE:\x80 JUMP    \x82 CANCEL:\x80 SPIN", V_SNAPTOTOP, "thin-fixed-center")
 			
-			for i=1,-1,-1 do
+			for i=-1,1 do
 				local numonlist = i+2
-				local map_patch = v.cachePatch(G_BuildMapName(SRBZ.MapsOnVote[4-numonlist][2]).."P")
-				local levelname = (mapheaderinfo[SRBZ.MapsOnVote[4-numonlist][2]].lvlttl)
-				local map_votes = SRBZ.MapsOnVote[4-numonlist][1]
+				local map_patch = v.cachePatch(G_BuildMapName(SRBZ.MapsOnVote[numonlist][2]).."P")
+				local levelname = (mapheaderinfo[SRBZ.MapsOnVote[numonlist][2]].lvlttl)
+				local map_votes = SRBZ.MapsOnVote[numonlist][1]
 				
 				if levelname:len() > 16 then
 					levelname = $:sub(1,16)..".."
 				end
-				local map_x = 120*FU-(i*100*FU)
+				local map_x = 120*FU+(i*100*FU)
 				--SRBZ.MapVotes
 				
 				v.drawScaled(map_x,map_y,votepatchsize,map_patch)
