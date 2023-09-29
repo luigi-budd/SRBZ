@@ -98,12 +98,12 @@ SRBZ.ShopkeeperList={
 	{
         ["name"]="Takis",
         ["skin"]="sonic",
-        ["color"]=SKINCOLOR_GREEN,
+        ["color"]=SKINCOLOR_FOREST,
         ["phrases"]={
 			"Cheap items for high prices.",
-			"I'm not gonna say the line, dork!",
+			"I'm not gonna say the line!",
 			"It's Sale Hour!",
-			"i want summa dat"
+			"The zombies will be back!??!"
         },
 		["forcesprite"] = SPR_TAK1,
     }
