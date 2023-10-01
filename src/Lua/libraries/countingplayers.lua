@@ -21,7 +21,9 @@ end
 SRBZ.PlayerCount = function()
 	local c = 0
 	for player in players.iterate do 
-		c = $ + 1 
+		if not player.spectator then
+			c = $ + 1
+		end
 	end
 	return c
 end
