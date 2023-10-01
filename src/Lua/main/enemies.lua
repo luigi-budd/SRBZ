@@ -80,29 +80,6 @@ local function GoldCrawlaRNG(mobj)
 		return true
 	end
 end
+
 addHook("MobjSpawn", GoldCrawlaRNG, MT_BLUECRAWLA)
 addHook("MobjSpawn", GoldCrawlaRNG, MT_REDCRAWLA)
-
-SRBZ.AddEnemy=function(mobjtype, name, nametagcolor, spawnhealth, rubydrop)
-	if (not mobjtype) error("Missing MT_* value for an enemy") end
-	if (not name) error("Enemy must have a name") end
-	if (not nametagcolor)
-		print("\x82WARNING!\x80 nametagcolor value is missing! Defaulting to white...")
-		nametagcolor=SKINCOLOR_WHITE
-	end
-	if (not spawnhealth) error("spawnhealth range is missing") end
-	if (not rubydrop) error("rubydrop range is missing") end
-
-	if (type(mobjtype)!="number") error("mobjtype should be MT_* value") end
-	if (not mobjinfo[mobjtype]) error("mobjtype specified does not exist!") end
-	if (type(name)!="string") error("name should be string") end
-	if (type(nametagcolor)!="number") error("nametagcolor should be SKINCOLOR_* value") end
-	if (type(spawnhealth)!="table") error("spawnhealth should be two-element table") end
-	if (type(rubydrop)!="table") error("rubydrop should be two-element table") end
-
-	mobjinfo[mobjtype].npc_name=name
-	mobjinfo[mobjtype].npc_name_color=nametagcolor
-	mobjinfo[mobjtype].npc_spawnhealth=spawnhealth
-	mobjinfo[mobjtype].rubydrop=rubydrop
-	print("Added "..name.." as an NPC enemy to SRBZ")
-end
