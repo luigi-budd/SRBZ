@@ -103,34 +103,6 @@ COM_AddCommand("z_emote", function(player, emotenum)
 	end
 end)
 
-COM_AddCommand("z_emotetime", function(player, emotetime)
-	if player.mo and player.mo.valid 
-	and player.playerstate ~= PST_DEAD and
-	netgame and multiplayer then
-		if player.choosing then
-			return
-		end
-		if emotetime == nil and tonumber(emotetime) == nil then
-			CONS_Printf(player,"z_emotetime <emotetime>: How long your emote stays up")
-			return
-		end
-		if tonumber(emotetime) < 1 or tonumber(emotetime) > 5 then
-			CONS_Printf(player,"\x88\Emote Time must be valid. And more than 1 and less than 5.")
-			return
-		end
-		if (player.mo.emotebubble) then
-			CONS_Printf(player,"\x88\You must not be emoting to use this command.")
-			return
-		end
-		
-		if (player.emotetime) then
-			player.emotetime = tonumber(emotetime)*TICRATE
-			local printemotetime = tonumber(emotetime)
-			CONS_Printf(player,"\x88\Set emote time to \$printemotetime\.")
-		end
-	end
-end,1)--admin for now
-
 COM_AddCommand("z_emotelist", function(player)
 	for i,v in ipairs(SRBZ.Emotes) do
 		CONS_Printf(player,"\x82\+ (\$i\): \$v.Name\")
@@ -177,19 +149,12 @@ addHook("PlayerThink", function(player)
 		COM_BufInsertText(player, "z_emote 3")
 	end
 end)
+
 addHook("MobjThinker", function(mobj)
 	if mobj.isemotebubble ~= true then return end
 	mobj.em_inc = $ or 0
 	mobj.em_inc = $ + 1
 	if mobj.target and mobj.target.valid and mobj.target.player then
-		/*
-		if mobj.target.player.speed > 0 then
-			mobj.em_inc = $ + 3
-			if not (mobj.target.player.lastemotepress - 3 < 0) then
-				mobj.target.player.lastemotepress = $ - 3
-			end
-		end
-		*/
 		P_MoveOrigin(mobj, mobj.target.x, mobj.target.y, mobj.target.z+mobj.target.height)
 	end
 	if mobj.target and mobj.target.player.emotetime then
