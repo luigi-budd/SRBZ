@@ -277,15 +277,15 @@ SRBZ.AddConfig("metalsonic", {
 
 SRBZ.RevertChars = function(p)
 	if not p.realmo then return end
-	local s = p.realmo.skin
-	p.charability=skins[s].ability
-	p.charability2=skins[s].ability2
-	p.actionspd=skins[s].actionspd
-	p.charflags=skins[s].flags
-	p.actionspd=skins[s].actionspd
-	p.normalspeed=skins[s].normalspeed
-	p.runspeed=skins[s].runspeed
-	p.jumpfactor=skins[s].jumpfactor
-	p.mindash=skins[s].mindash
-	p.maxdash=skins[s].maxdash
+	local skin_name = p.realmo.skin
+	p.charability = skins[skin_name].ability
+	p.charability2 = skins[skin_name].ability2
+	p.actionspd = skins[skin_name].actionspd
+	p.charflags = skins[skin_name].flags
+	p.actionspd = skins[skin_name].actionspd
+	p.normalspeed = skins[skin_name].normalspeed
+	p.runspeed = skins[skin_name].runspeed
+	p.jumpfactor = skins[skin_name].jumpfactor
+	p.mindash = skins[skin_name].mindash
+	p.maxdash = skins[skin_name].maxdash
 end
