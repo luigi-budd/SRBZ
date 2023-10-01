@@ -31,7 +31,7 @@ addHook("TouchSpecial", function(special,toucher)
 		local player = toucher.player
 		
 		if not player["srbz_info"].ghostmode and not SRBZ.game_ended and SRBZ.round_active then
-			local ruby_award = SRBZ.PlayerCount()*8
+			local ruby_award = SRBZ.PlayerCount()*10
 			player["srbz_info"].ghostmode = true
 			P_GivePlayerRubies(player, ruby_award)
 			CONS_Printf(player,"\x85+"..ruby_award.." goal ring ruby bonus!")
