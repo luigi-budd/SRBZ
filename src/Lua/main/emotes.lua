@@ -74,11 +74,6 @@ SRBZ:AddEmote(SPR_ZT12, "bruh", "BRUH", sfx_bruh)
 SRBZ:AddEmote(SPR_ZT13, "The zombies will be back", "source: trust me", sfx_inf1)
 SRBZ:AddEmote(SPR_ZT13, "You have been enslaved by the zombies", "1865", sfx_inf2)
 
-
-
-
-
-
 COM_AddCommand("z_emote", function(player, emotenum)
 	if player.mo and player.mo.valid 
 	and player.playerstate ~= PST_DEAD and
