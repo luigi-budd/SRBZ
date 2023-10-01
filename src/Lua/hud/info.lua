@@ -30,8 +30,9 @@ SRBZ.infohud = function(v, player)
 			v.drawScaled(0, 176*FRACUNIT, FixedDiv(3*FRACUNIT, 4*FRACUNIT),
 			skinpatch, (V_SNAPTOBOTTOM|V_SNAPTOLEFT), colormap)
 			-- [Player Name] --
+			local display_name = player.ztype and (player.ztype + " Zombie") or skins[player.mo.skin].realname
 			customhud.CustomFontString(v, 25, 192, 
-			skins[player.mo.skin].realname, "TNYFC", 
+			display_name, "TNYFC", 
 			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
 			
 			-- [Rubies] --

@@ -179,12 +179,14 @@ addHook("PreThinkFrame", function()
 			SRBZ.SetZCinventory(player)
 		end
 		
-		if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then
-			table.remove(SRBZ:FetchInventory(player),#SRBZ:FetchInventory(player))
-		end
+		if player.playerstate ~= PST_DEAD then
+			if #SRBZ:FetchInventory(player) > SRBZ:FetchInventoryLimit(player) then
+				table.remove(SRBZ:FetchInventory(player),#SRBZ:FetchInventory(player))
+			end
 
-		if player["srbz_info"].inventory_selection > SRBZ:FetchInventoryLimit(player) then
-			player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
+			if player["srbz_info"].inventory_selection > SRBZ:FetchInventoryLimit(player) then
+				player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
+			end
 		end
 		
 		if player and not player.mo then continue end

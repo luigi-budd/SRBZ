@@ -168,7 +168,7 @@ end
 SRBZ.ZombieConfig = {
 	["normal"] = {
 		skincolor = SKINCOLOR_MOSS,
-		normalspeed = 22 * FRACUNIT,
+		normalspeed = 25 * FRACUNIT,
 		health = 90,
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
@@ -182,11 +182,11 @@ SRBZ.ZombieConfig = {
 	},
 	["alpha"] = {
 		skincolor = SKINCOLOR_ALPHAZOMBIE,
-		normalspeed = 25 * FRACUNIT,
-		health = 150,
+		normalspeed = 27 * FRACUNIT,
+		health = 120,
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
-		jumpfactor = 26 * FRACUNIT / 19,
+		jumpfactor = 28 * FRACUNIT / 19,
 		actionspd = 9*FRACUNIT,
 		scale = 13*FRACUNIT/10,
 		killaward = 45,
