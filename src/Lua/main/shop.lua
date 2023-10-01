@@ -271,13 +271,13 @@ addHook("PreThinkFrame", do
                             player.rubies = $ - player.shop_person.shop[player["srbz_info"].shop_selection][1]
                             -- copied from SRBZ:FetchInventory()
                             if player["srbz_info"].survivor_inventory and player.zteam == 1 then
-                                if SRBZ:IsInventoryFull(player) then
+                                if SRBZ:IsInventoryFull(player) or (player.cmd.buttons & BT_CUSTOM1) then
                                     player["srbz_info"].survivor_inventory[player["srbz_info"].inventory_selection] =  player.shop_person.shop[player["srbz_info"].shop_selection][2]
                                 else
                                     table.insert(player["srbz_info"].survivor_inventory, player.shop_person.shop[player["srbz_info"].shop_selection][2])
                                 end
                             elseif player["srbz_info"].zombie_inventory and player.zteam == 2 then
-                                if SRBZ:IsInventoryFull(player) then
+                                if SRBZ:IsInventoryFull(player) or (player.cmd.buttons & BT_CUSTOM1) then
                                     player["srbz_info"].zombie_inventory[player["srbz_info"].inventory_selection] = player.shop_person.shop[player["srbz_info"].shop_selection][2]
                                 else
                                     table.insert(player["srbz_info"].zombie_inventory, player.shop_person.shop[player["srbz_info"].shop_selection][2])
