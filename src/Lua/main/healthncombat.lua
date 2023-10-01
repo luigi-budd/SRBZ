@@ -219,6 +219,7 @@ addHook("PreThinkFrame", function()
 				player["srbz_info"].pressednext = false	
 			end
 			
+			-- try shoot
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
 			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD and not player.shop_open then
 				
