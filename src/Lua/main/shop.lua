@@ -109,24 +109,6 @@ SRBZ.ShopkeeperList={
     }
 }
 
-SRBZ.AddShopkeeper = function(name, skin, color, phrases)
-    if (not name) then error("Shopkeeper needs a name!") end
-    if (not skin) then error("Shopkeeper's skin is not specified") end
-    if (not color) then error("Shopkeeper's SKINCOLOR_* color is not specified") end
-    if (type(name)!="string") then error("Name should be a string") end
-    if (type(skin)!="string") then error("Skin should be a string name of a skin") end
-    if (not skins[skin]) then error("Shopkeeper's specified skin does not exist!") end
-    if (type(color)!="number") then error("Color should be a SKINCOLOR_* value") end
-    if (phrases and type(phrases)!="table") error("phrases should be a table of strings") end
-    table.insert(SRBZ.ShopkeeperList, {
-        ["name"]=name,
-        ["skin"]=skin,
-        ["color"]=color,
-        ["phrases"]=phrases
-    })
-    print("Added \""..name.."\" ("..skincolors[color].name.." "..skin..") as a Shopkeeper to the SRBZ")
-end
-
 addHook("MobjCollide", function(mo,pmo)
 	if not pmo.player or pmo.skin == "zzombie" or not L_ZCollide(mo,pmo) then
         return
