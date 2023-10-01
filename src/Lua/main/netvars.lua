@@ -21,7 +21,5 @@ addHook("NetVars", function(net)
 		v.name = net($);
 		v.map = net($);
 		v.time = net($);
-		v.active = net($);
-		v.originaltime = net($);
 	end
 end)
