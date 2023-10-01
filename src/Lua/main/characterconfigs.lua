@@ -189,9 +189,12 @@ SRBZ.ZombieConfig = {
 		jumpfactor = 26 * FRACUNIT / 19,
 		actionspd = 9*FRACUNIT,
 		scale = 13*FRACUNIT/10,
-		killaward = 10,
+		killaward = 45,
 		inventory_limit = 2,
-		inventory = {},
+		inventory = {
+			SRBZ:CopyItemFromID(ITEM_INSTA_BURST),
+			SRBZ:CopyItemFromID(ITEM_SILVER_SPRAY)
+		},
 	},
 }
 

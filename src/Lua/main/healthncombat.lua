@@ -92,6 +92,15 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		end
 	end
 	if dmg >= mo.health then
+		if mo.player and mo.player.valid then
+			local player = mo.player 
+			local ztype = player.ztype
+			
+			if ztype and SRBZ.ZombieConfig[ztype] and SRBZ.ZombieConfig[ztype].killaward then
+				local killaward = SRBZ.ZombieConfig[ztype].killaward
+				A_RubyDrop(mo, killaward)
+			end
+		end
 		P_KillMobj(mo,inf)
 		return true
 	end
