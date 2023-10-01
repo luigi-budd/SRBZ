@@ -1,7 +1,9 @@
 SRBZ.LimitMobjHealth = function(mobj)
-	if mobj.health and mobj.maxhealth then
-		if mobj.health > mobj.maxhealth then
-			mobj.health = mobj.maxhealth
+	if mobj and mobj.valid then
+		if mobj.health and mobj.maxhealth then
+			if mobj.health > mobj.maxhealth then
+				mobj.health = mobj.maxhealth
+			end
 		end
 	end
 end
