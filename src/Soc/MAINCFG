@@ -159,6 +159,8 @@ NextLevel = N3
 SkyNum = 53
 NoZone = True
 SelectHeading = SRBZ Survival Maps
+Lua.srbz_timelimit = 7
+Lua.srbz_noabilities = true
 
 Level W1
 LevelName = Concealed Woodland
