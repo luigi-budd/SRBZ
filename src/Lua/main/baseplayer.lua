@@ -131,7 +131,7 @@ SRBZ.init_player = function(player)
 			player.zteam = 2
 			player.ztype = "normal"
 			if  SRBZ.round_active and SRBZ.PlayerCount() > 1 and leveltime then
-				if P_RandomChance(FRACUNIT/8) then
+				if P_RandomChance(FRACUNIT/6) then
 					player.ztype = "alpha"
 				end
 			end
