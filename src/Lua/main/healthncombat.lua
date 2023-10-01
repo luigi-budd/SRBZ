@@ -243,9 +243,10 @@ addHook("PreThinkFrame", function()
 				end
 				
 				if SRBZ.ItemPresets[weaponinfo.item_id].shake then
-					P_StartQuake(SRBZ.ItemPresets[weaponinfo.item_id].shake*FRACUNIT, 
-					5,
-					{player.mo.x, player.mo.y, player.mo.z})
+					local shake = SRBZ.ItemPresets[weaponinfo.item_id].shake
+					if splitscreen or player == displayplayer then
+						P_StartQuake(shake * FRACUNIT, 7)
+					end
 				end
 				
 				
