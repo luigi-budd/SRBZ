@@ -108,15 +108,23 @@ addHook("PlayerThink", function(player)
     end
 end)
 
-SRBZ.ResetPlayer = function(player)
+SRBZ.ResetPlayer = function(player, choosenewztype)
 	if player.zteam == 1 then
 		SRBZ.SetCCtoplayer(player)
 		SRBZ.SetCChealth(player)
+		player.ztype = nil
 	elseif player.zteam == 2 then
 		SRBZ.SetZCtoplayer(player)
 		SRBZ.SetZChealth(player)
 		SRBZ.SetZCscale(player)
 		SRBZ.SetZCinventory(player)
+		player.ztype = "normal"
+		if choosenewztype == true and SRBZ.round_active 
+		and SRBZ.PlayerCount() > 1 and leveltime then
+			if P_RandomChance(FRACUNIT/8) then
+				player.ztype = "alpha"
+			end
+		end
 	end
 end
 
@@ -127,17 +135,12 @@ SRBZ.init_player = function(player)
 	
 	if player and pmo and pmo.valid then
 		if (SRBZ.round_active and SRBZ.PlayerCount() > 1) then
-			player.ztype = "normal"
-			if P_RandomChance(FRACUNIT/8) then
-				player.ztype = "alpha"
-			end
 			player.zteam = 2
 		else
-			player.ztype = nil
 			player.zteam = 1
 		end
 		
-		SRBZ.ResetPlayer(player)
+		SRBZ.ResetPlayer(player, true)
 
 		if player.zteam == 2 then 
 			R_SetPlayerSkin(player, "zzombie") 
