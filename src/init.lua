@@ -31,12 +31,12 @@ dofile "main/items/item_rail_ring.lua"
 
 dofile "main/netvars.lua"
 
+dofile "main/zombie/zombie_checkpoints.lua"
+dofile "main/zombie/zombie_colors.lua"
+
 dofile "main/characterselect_logic.lua"
 dofile "main/baseplayer.lua"
 dofile "main/characterconfigs.lua"
-
-dofile "main/zombie/zombie_checkpoints.lua"
-dofile "main/zombie/zombie_visuals.lua"
 
 dofile "main/healthncombat.lua" -- main stuff 
 
