@@ -33,7 +33,7 @@ SRBZ.infohud = function(v, player)
 			local display_name = player.ztype and (player.ztype + " Zombie") or skins[player.mo.skin].realname
 			customhud.CustomFontString(v, 25, 192, 
 			display_name, "TNYFC", 
-			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.skincolor)
+			(V_SNAPTOBOTTOM|V_SNAPTOLEFT), nil , nil, player.mo.color)
 			
 			-- [Rubies] --
 			if player.rubies ~= nil then
