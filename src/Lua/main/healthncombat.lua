@@ -80,7 +80,8 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
 			S_StartSound(mo,mobjinfo[mo.type].painsound)
 		end
-		P_Thrust(mo, inf.angle, mo.info.mass/100 * knockback) --you know it's better to make alt mass
+		
+		P_Thrust(mo, inf.angle, knockback)
 	
 	end
 	

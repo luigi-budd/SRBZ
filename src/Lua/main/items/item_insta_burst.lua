@@ -41,13 +41,14 @@ states[S_INSTABURST6B] = {SPR_NULL, 0, 1, A_CapeChase, 0, 0, S_NULL}
 
 SRBZ:CreateItem("Insta Burst", {
 	icon = "ZMISHIND",
-	firerate = 42,
+	firerate = 25,
 	sound = sfx_zish1,
-	damage = 25,
+	damage = 11,
 	ontrigger = function(player)
-		local brange = 256*FU
-		local range = 160*FU
+		local brange = 512*FU
+		local range = 185*FU
 		local instaburst = P_SpawnMobjFromMobj(player.mo, 0, 0, 0, MT_INSTABURST)
+		
 		instaburst.target = player.mo
 		instaburst.spritexscale = $*2
 		instaburst.spriteyscale = $*2
@@ -59,8 +60,10 @@ SRBZ:CreateItem("Insta Burst", {
 				return false
 			end
 			
-			if (foundmobj.valid and ((foundmobj.flags & (MF_SHOOTABLE)) or foundmobj.player)) and R_PointToDist2(foundmobj.x,foundmobj.y, instaburst.x, instaburst.y) < range then
-				P_DamageMobj(foundmobj, instaburst, instaburst.target)
+			if (foundmobj.valid and ((foundmobj.flags & (MF_SHOOTABLE)) or foundmobj.player)) then
+				if R_PointToDist2(foundmobj.x, foundmobj.y, instaburst.x, instaburst.y) < range then
+					P_DamageMobj(foundmobj, instaburst, instaburst.target, instaburst.forcedamage)
+				end
 			end
 		end, 
 		instaburst, 
