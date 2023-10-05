@@ -76,7 +76,7 @@ SRBZ:CreateItem("Scatter Ring",  {
 	sound = sfx_shgn,
 	knockback = 13*FRACUNIT,
 	damage = 11,
-	fuse = TICRATE>>1,
+	fuse = TICRATE/2,
 	color = SKINCOLOR_PURPLE,
 	price = 250,
 	ontrigger = function(player)

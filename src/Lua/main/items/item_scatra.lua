@@ -6,7 +6,7 @@ SRBZ:CreateItem("Scatra",  {
 	sound = sfx_shgn,
 	knockback = 30*FRACUNIT,
 	damage = 9,
-	fuse = TICRATE>>3,
+	fuse = 6,
 	color = SKINCOLOR_DUSK,
 	price = 2350,
 	ontrigger = function(player)

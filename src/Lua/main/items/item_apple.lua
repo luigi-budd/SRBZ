@@ -1,6 +1,6 @@
 SRBZ:CreateItem("Apple", {
 	icon = "APPLEIND",
-	iconscale = FU>>1,
+	iconscale = FU/2,
 	firerate = 50,
 	sound = sfx_eatapl,
 	limited = true,

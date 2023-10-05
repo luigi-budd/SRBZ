@@ -2,7 +2,7 @@ freeslot("sfx_gulpy")
 
 SRBZ:CreateItem("Milk", {
 	icon = "MILKIND",
-	iconscale = FU>>1,
+	iconscale = FU/2,
 	firerate = 32,
 	sound = sfx_gulpy,
 	limited = true,
