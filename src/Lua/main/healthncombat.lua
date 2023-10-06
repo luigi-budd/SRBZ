@@ -41,8 +41,8 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			knockback = inf.forceknockback
 		end
 		
-		if inf.weaponinfo and SRBZ.ItemPresets[inf.weaponinfo.item_id] and SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit and inf.target then
-			SRBZ.ItemPresets[inf.weaponinfo.item_id].onhit(inf.target, mo, inf)
+		if inf.iteminfo and SRBZ.ItemPresets[inf.iteminfo.item_id] and SRBZ.ItemPresets[inf.iteminfo.item_id].onhit and inf.target then
+			SRBZ.ItemPresets[inf.iteminfo.item_id].onhit(inf.target, mo, inf)
 		end
 	end
 	
@@ -85,7 +85,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 	
 	end
 	
-	if (not inf) or (not inf.weaponinfo) then
+	if (not inf) or (not inf.iteminfo) then
 		if ((mobjinfo[src.type].npc_name) and (mo.player)) 
 		or ((src.player) and mobjinfo[mo.type].npc_name) then
 			dmg = P_RandomKey(9)+3
@@ -146,6 +146,78 @@ addHook("MobjSpawn", function(mobj)
 		end
 	end
 end)
+
+function SRBZ.DoPlayerFire(player, iteminfo)
+	local ring
+	
+	if not SRBZ.ItemPresets[iteminfo.item_id] then
+		return
+	end
+	
+	if SRBZ.game_ended or player.choosing then 
+		return
+	end
+
+	if iteminfo.object
+		ring = P_SPMAngle(player.mo, iteminfo.object, player.mo.angle, 1, iteminfo.flags2)
+	end
+	
+	if SRBZ.ItemPresets[iteminfo.item_id].ontrigger and SRBZ.ItemPresets[iteminfo.item_id].ontrigger(player,iteminfo) == true then
+		return
+	end
+	
+	if SRBZ.ItemPresets[iteminfo.item_id].shake then
+		local shake = SRBZ.ItemPresets[iteminfo.item_id].shake
+		if splitscreen or player == displayplayer then
+			P_StartQuake(shake * FRACUNIT, 7)
+		end
+	end
+	
+	
+	player["srbz_info"].weapondelay = iteminfo.firerate
+	
+	if iteminfo.count ~= nil and iteminfo.count > 0 and iteminfo.limited == true then
+		iteminfo.count = $ - 1
+	elseif iteminfo.count ~= nil and iteminfo.count <= 0 and iteminfo.limited == true then
+		return
+	end
+	
+	if iteminfo.sound then
+		S_StartSound(player.mo, iteminfo.sound)
+	end
+
+	
+	if ring then
+		if iteminfo.color ~= nil then
+			ring.color = iteminfo.color
+		end 
+		
+		if iteminfo.fuse ~= nil then
+			ring.fuse = iteminfo.fuse
+		end
+		
+		if iteminfo.damage ~= nil then
+			ring.forcedamage = iteminfo.damage
+		end
+		
+		if iteminfo.knockback ~= nil then
+			ring.forceknockback = iteminfo.knockback
+		end
+
+		if SRBZ.ItemPresets[iteminfo.item_id].onspawn then
+			SRBZ.ItemPresets[iteminfo.item_id].onspawn(ring.target,ring,iteminfo)
+		end
+		
+		local temp_iteminfo = SRBZ:Copy(iteminfo)
+
+		-- destroy functions on fire just in case
+		temp_iteminfo.onspawn = nil
+		temp_iteminfo.ontrigger = nil
+		temp_iteminfo.onhit = nil
+
+		ring.iteminfo = temp_iteminfo
+	end
+end
 
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
@@ -237,78 +309,9 @@ addHook("PreThinkFrame", function()
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay 
 			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD and not player.shop_open then
 				
-				local weaponinfo = SRBZ:FetchInventorySlot(player)
-				local ring
+				local iteminfo = SRBZ:FetchInventorySlot(player)
 				
-				if not SRBZ.ItemPresets[weaponinfo.item_id] then
-					continue
-				end
-				
-				if SRBZ.game_ended or player.choosing then 
-					continue
-				end
-
-				if weaponinfo.object
-					ring = P_SPMAngle(player.mo, weaponinfo.object, player.mo.angle, 1, weaponinfo.flags2)
-				end
-				
-				if SRBZ.ItemPresets[weaponinfo.item_id].ontrigger and SRBZ.ItemPresets[weaponinfo.item_id].ontrigger(player,weaponinfo) == true then
-					continue
-				end
-				
-				if SRBZ.ItemPresets[weaponinfo.item_id].shake then
-					local shake = SRBZ.ItemPresets[weaponinfo.item_id].shake
-					if splitscreen or player == displayplayer then
-						P_StartQuake(shake * FRACUNIT, 7)
-					end
-				end
-				
-				
-				player["srbz_info"].weapondelay = weaponinfo.firerate
-				
-				if weaponinfo.count ~= nil and weaponinfo.count > 0 and weaponinfo.limited == true then
-					weaponinfo.count = $ - 1
-				elseif weaponinfo.count ~= nil and weaponinfo.count <= 0 and weaponinfo.limited == true then
-					continue
-				end
-				
-				if weaponinfo.sound then
-					S_StartSound(player.mo, weaponinfo.sound)
-				end
-
-				
-				if ring then
-					if weaponinfo.color ~= nil then
-						ring.color = weaponinfo.color
-					end 
-					
-					if weaponinfo.fuse ~= nil then
-						ring.fuse = weaponinfo.fuse
-					end
-					
-					if weaponinfo.damage ~= nil then
-						ring.forcedamage = weaponinfo.damage
-					end
-					
-					if weaponinfo.knockback ~= nil then
-						ring.forceknockback = weaponinfo.knockback
-					end
-
-					if SRBZ.ItemPresets[weaponinfo.item_id].onspawn then
-						SRBZ.ItemPresets[weaponinfo.item_id].onspawn(ring.target,ring,weaponinfo)
-					end
-					
-					local temp_weaponinfo = SRBZ:Copy(weaponinfo)
-
-					-- destroy functions on fire just in case
-					temp_weaponinfo.onspawn = nil
-					temp_weaponinfo.ontrigger = nil
-					temp_weaponinfo.onhit = nil
-
-					ring.weaponinfo = temp_weaponinfo
-				end
-
-				
+				SRBZ.DoPlayerFire(player, iteminfo)
 			end	
 			
 			-- clear items below 0 count
@@ -325,9 +328,9 @@ addHook("PreThinkFrame", function()
 end)
 
 addHook("MobjThinker", function(mobj)
-	if mobj and mobj.valid and mobj.weaponinfo and SRBZ.ItemPresets[mobj.weaponinfo.item_id] 
-	and SRBZ.ItemPresets[mobj.weaponinfo.item_id].thinker and mobj.target then
-		SRBZ.ItemPresets[mobj.weaponinfo.item_id].thinker(mobj.target,mobj)
+	if mobj and mobj.valid and mobj.iteminfo and SRBZ.ItemPresets[mobj.iteminfo.item_id] 
+	and SRBZ.ItemPresets[mobj.iteminfo.item_id].thinker and mobj.target then
+		SRBZ.ItemPresets[mobj.iteminfo.item_id].thinker(mobj.target,mobj)
 	end
 end)
 
