@@ -6,7 +6,7 @@
     Write rubies when making an account
     Auto Log in when walking
 ]]--
-local _rchars_ = "abcdefghijklmnopqrstuvwxyz1234567890"
+local _rchars_ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 local commandtoken = P_RandomKey(FRACUNIT)
 
 SRBZ.autologin = CV_RegisterVar({
@@ -35,6 +35,23 @@ local function genRNGUsername(pname)
     end
 
     return
+end
+
+local function validateStringForFile(str)
+	local tempstr 
+	tempstr = str
+	
+	tempstr:gsub("/", "")
+	tempstr:gsub("*", "")
+	tempstr:gsub("\"", "")
+	tempstr:gsub("?", "")
+	tempstr:gsub("|", "")
+	tempstr:gsub(":", "")
+	tempstr:gsub("\\", "")
+	tempstr:gsub("<", "")
+	tempstr:gsub(">", "")
+	
+	return tempstr
 end
 
 local function genRNGPassword()
@@ -78,8 +95,10 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
         if not (target_player.registered) then
 		
 			
-            local gen_username = genRNGUsername(target_player.name):gsub(" ","_")
+            local gen_username = validateStringForFile(genRNGUsername(target_player.name))
             local gen_password = genRNGPassword()
+			
+			
             if (isserver) or (isdedicatedserver) then -- Server
                 local server_passpath = "SRBZDATA/"..gen_username.."/password.sav2"
                 local server_rubypath = "SRBZDATA/"..gen_username.."/rubies.sav2"
@@ -93,7 +112,7 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
 				end
 				
 				if rubyfile then
-					rubyfile:write(player.rubies)
+					rubyfile:write(player.rubies or 0)
 					rubyfile:close()
 				end
             end
