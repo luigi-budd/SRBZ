@@ -37,21 +37,10 @@ local function genRNGUsername(pname)
     return
 end
 
-local function validateStringForFile(str)
-	local tempstr 
-	tempstr = str
-	
-	tempstr:gsub("/", "")
-	tempstr:gsub("*", "")
-	tempstr:gsub("\"", "")
-	tempstr:gsub("?", "")
-	tempstr:gsub("|", "")
-	tempstr:gsub(":", "")
-	tempstr:gsub("\\", "")
-	tempstr:gsub("<", "")
-	tempstr:gsub(">", "")
-	
-	return tempstr
+local function stringfile(str)
+	return string.gsub(str, "%W", function(d)
+		return tonumber(d) and d or "" 
+	end)
 end
 
 local function genRNGPassword()
@@ -95,7 +84,7 @@ COM_AddCommand("z_registeraccount", function(player, tplayer)
         if not (target_player.registered) then
 		
 			
-            local gen_username = validateStringForFile(genRNGUsername(target_player.name))
+            local gen_username = stringfile(genRNGUsername(target_player.name))
             local gen_password = genRNGPassword()
 			
 			
