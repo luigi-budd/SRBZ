@@ -4,13 +4,13 @@ SRBZ:CreateItem("Scatra",  {
 	icon = "SCATRAIND",
 	firerate = 25,
 	sound = sfx_shgn,
-	knockback = 30*FRACUNIT,
+	knockback = 5*FRACUNIT,
 	damage = 10,
 	fuse = 6,
 	color = SKINCOLOR_DUSK,
 	price = 2350,
-	ammo = 25,
-	reload_time = 2*TICRATE,
+	ammo = 10,
+	reload_time = 5*TICRATE,
 	ontrigger = function(player)
 		local mt = MT_SRBZ_THROWNSCATTER
 		local mo = player.mo
