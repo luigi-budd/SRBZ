@@ -114,6 +114,36 @@ SRBZ.characterselecthud = function(v, player, c)
 				
 				or "[UNREGISTERED SPRINT SPEED]"
 			)
+		},
+		[5] = {
+			textcolor = SKINCOLOR_YELLOW,
+			text = (
+				(cc[SRBZ.getSkinFromCharSelect(player).name] and cc[SRBZ.getSkinFromCharSelect(player).name].desc1) 
+				
+				and cc[SRBZ.getSkinFromCharSelect(player).name].desc1
+				
+				or ""
+			)
+		},
+		[6] = {
+			textcolor = SKINCOLOR_LIME,
+			text = (
+				(cc[SRBZ.getSkinFromCharSelect(player).name] and cc[SRBZ.getSkinFromCharSelect(player).name].desc2) 
+				
+				and cc[SRBZ.getSkinFromCharSelect(player).name].desc2
+				
+				or ""
+			)
+		},
+		[7] = {
+			textcolor = SKINCOLOR_PERIDOT,
+			text = (
+				(cc[SRBZ.getSkinFromCharSelect(player).name] and cc[SRBZ.getSkinFromCharSelect(player).name].desc3) 
+				
+				and cc[SRBZ.getSkinFromCharSelect(player).name].desc3
+				
+				or ""
+			)
 		}
 
 	}

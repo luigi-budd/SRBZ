@@ -232,6 +232,9 @@ SRBZ.AddConfig("sonic", {
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
 	actionspd = 12*FRACUNIT,
+	desc1 = "Fast hedgehog born to speed.",
+	desc2 = "Has Low HP, and High Speed",
+	desc3 = "Are you up for the challenge?"
 })
 
 SRBZ.AddConfig("tails", {
@@ -241,15 +244,19 @@ SRBZ.AddConfig("tails", {
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
 	actionspd = 35*FRACUNIT,
+	desc1 = "Has the brains. Without the plane.",
+	desc2 = "Flies slow. Slower than sonic."
 })
 
 SRBZ.AddConfig("knuckles", {
 	normalspeed = 13 * FRACUNIT,
-	health = 130,
+	health = 115,
 	charability = CA_GLIDEANDCLIMB,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
 	actionspd = 12*FRACUNIT,
+	desc1 = "Very Strong feller",
+	desc2 = "Glides slow. The slowest."
 })
 
 SRBZ.AddConfig("amy", {
@@ -258,6 +265,8 @@ SRBZ.AddConfig("amy", {
 	charability = CA_TWINSPIN,
 	charability2 = CA2_MELEE,
 	jumpfactor = 20 * FRACUNIT / 19,
+	desc1 = "Pink Pink Pink.",
+	desc2 = "WIP ABILITIES"
 })
 
 SRBZ.AddConfig("fang", {
@@ -266,15 +275,19 @@ SRBZ.AddConfig("fang", {
 	charability = CA_BOUNCE,
 	charability2 = CA2_GUNSLINGER,
 	jumpfactor = 20 * FRACUNIT / 19,
+	desc1 = "He shoots the shooty shoot.",
+	desc2 = "Have less momentum to shoot."
 })
 
 SRBZ.AddConfig("metalsonic", {
 	normalspeed = 14 * FRACUNIT,
-	health = 105,
+	health = 75,
 	charability = CA_JUMPBOOST,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
-	charflags = SF_MACHINE
+	charflags = SF_MACHINE,
+	desc1 = "He might the the real sonic.",
+	desc2 = "Jump Height depends on speed.",
 })
 
 SRBZ.RevertChars = function(p)
