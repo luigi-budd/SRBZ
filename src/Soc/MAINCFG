@@ -111,32 +111,6 @@ SkyNum = 1
 SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 9
 
-Level N0
-Levelname = Ancient Catacombs
-Subtitle = Lost in the creepy catacombs
-Act = 0
-Music = ACZEM
-TypeOfLevel = SRBZ
-NextLevel = N0
-SkyNum = 11
-Weather = 1
-NoZone = True
-SelectHeading = SRBZ Survival Maps
-Lua.srbz_timelimit = 6
-
-Level N1
-Levelname = Nomad Frosts
-Subtitle = Snow cave and chemical base
-Act = 0
-Music = NFCAV
-TypeOfLevel = SRBZ
-NextLevel = N1
-SkyNum = 11
-NoZone = True
-SelectHeading = SRBZ Survival Maps
-Weather = 2
-Lua.srbz_timelimit = 7
-
 Level N2
 Levelname = The Database Z
 Subtitle = The Digital dimension
@@ -148,19 +122,6 @@ SkyNum = 1
 NoZone = True
 SelectHeading = SRBZ Survival Maps
 Lua.srbz_timelimit = 7
-
-Level N3
-Levelname = Roblox Obby 2
-Subtitle = Medium parkour
-Act = 0
-Music = RBXO
-TypeOfLevel = SRBZ
-NextLevel = N3
-SkyNum = 53
-NoZone = True
-SelectHeading = SRBZ Survival Maps
-Lua.srbz_timelimit = 7
-Lua.srbz_noabilities = true
 
 Level W1
 LevelName = Concealed Woodland
