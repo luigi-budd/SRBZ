@@ -90,6 +90,8 @@ SRBZ:CreateItem("Flash Ring", {
 	knockback = flashkb,
 	damage = flashdmg,
 	price = 1250,
+	ammo = 5,
+	reload_time = 5*TICRATE,
 	ontrigger = function(player)
 		local mo = player.mo
 		mo.momx = $ / 3

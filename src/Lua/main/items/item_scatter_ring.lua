@@ -75,10 +75,12 @@ SRBZ:CreateItem("Scatter Ring",  {
 	firerate = TICRATE,
 	sound = sfx_shgn,
 	knockback = 13*FRACUNIT,
-	damage = 11,
+	damage = 12,
 	fuse = TICRATE/2,
 	color = SKINCOLOR_PURPLE,
 	price = 250,
+	ammo = 15,
+	reload_time = 3*TICRATE,
 	ontrigger = function(player)
 		local mt = MT_SRBZ_THROWNSCATTER
 		local mo = player.mo

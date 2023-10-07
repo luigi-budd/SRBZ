@@ -36,10 +36,12 @@ end
 SRBZ:CreateItem("Rail Ring", {
 	shake = 20,
 	icon = "RAILIND",
-	firerate = 50,
+	firerate = 30,
 	knockback = railkb,
 	damage = raildmg,
 	price = 1460,
+	ammo = 2,
+	reload_time = 5*TICRATE,
 	ontrigger = function(player, wpinfo)
 		local mo = player.mo
 		mo.momx = $ / 3
