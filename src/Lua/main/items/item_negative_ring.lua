@@ -1,10 +1,10 @@
 SRBZ:CreateItem("Negative Ring",  {
 	object = MT_REDRING,
 	icon = "NEGATIVERINGIND",
-	firerate = 25,
+	firerate = 23,
 	color = SKINCOLOR_WHITE,
-	knockback = 80*FRACUNIT,
-	damage = 27,
+	knockback = 60*FRACUNIT,
+	damage = 23,
 	onhit = function(mo, hit)
 		P_SetObjectMomZ(hit, 15*FU)
 		if hit.player then
