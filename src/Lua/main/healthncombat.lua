@@ -211,9 +211,11 @@ end
 
 function SRBZ.DoPlayerReload(player)
 	local iteminfo = SRBZ:FetchInventorySlot(player)
-	if iteminfo and not player["srbz_info"].reload then
-		player["srbz_info"].reload = iteminfo.reload_time or 2*TICRATE
-		S_StartSound(player.mo, sfx_z_rel1)
+	if iteminfo and iteminfo.reload_time and not player["srbz_info"].reload then
+		if iteminfo.ammo ~= iteminfo.max_ammo then
+			player["srbz_info"].reload = iteminfo.reload_time or 2*TICRATE
+			S_StartSound(player.mo, sfx_z_rel1)
+		end
 	end
 end
 

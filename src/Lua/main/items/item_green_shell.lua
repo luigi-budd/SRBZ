@@ -1,7 +1,7 @@
 SRBZ:CreateItem("Green Shell",  {
 	object = MT_SHELL,
 	icon = "SHELLIND",
-	firerate = 20,
+	firerate = 2,
 	fuse = 5*TICRATE,
 	color = SKINCOLOR_GREEN,
 	knockback = 15*FU,
@@ -9,10 +9,11 @@ SRBZ:CreateItem("Green Shell",  {
 	onspawn = function(pmo, mo)
 		mo.scale = $*2
 	end,
+	reload_time = 3*TICRATE,
 	onhit = function(pmo, hit, shell)
 		shell.fuse = 1
 	end,
-	price = 340,
+	price = 290,
 })
 
 addHook("MobjCollide", function(thing, tmthing)
