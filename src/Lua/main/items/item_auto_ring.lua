@@ -1,12 +1,12 @@
 SRBZ:CreateItem("Automatic Ring",  {
 	object = MT_THROWNAUTOMATIC,
 	icon = "AUTOIND",
-	firerate = 4,
+	firerate = 3,
 	color = SKINCOLOR_GREEN,
-	damage = 9,
-	knockback = 30*FRACUNIT,
+	damage = 7,
+	knockback = 15*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
-	ammo = 30,
-	reload_time = 2*TICRATE + 14,
-	price = 150,
+	ammo = 20,
+	reload_time = 2*TICRATE,
+	price = 130,
 })

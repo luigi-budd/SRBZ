@@ -3,13 +3,12 @@ freeslot("sfx_thoklw")
 SRBZ:CreateItem("Silver Spray",  {
 	object = MT_THROWNAUTOMATIC,
 	icon = "SILVERSPRAYIND",
-	firerate = 20,
+	firerate = 2,
 	color = SKINCOLOR_SILVER,
-	damage = 13,
-	knockback = 5*FRACUNIT,
+	damage = 2,
+	knockback = 2*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
+	ammo = 10,
+	reload_time = TICRATE,
 	sound = sfx_thoklw,
-	onspawn = function(pmo, mo)
-		mo.scale = ($/3)*4
-	end,
 })
