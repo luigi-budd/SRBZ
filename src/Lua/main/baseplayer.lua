@@ -130,11 +130,12 @@ SRBZ.init_player = function(player)
 		if (SRBZ.round_active and SRBZ.PlayerCount() > 1) then
 			player.zteam = 2
 			player.ztype = "normal"
-			if  SRBZ.round_active and SRBZ.PlayerCount() > 1 and leveltime then
-				if P_RandomChance(FRACUNIT/5) then
+			if SRBZ.round_active and SRBZ.PlayerCount() > 1 and leveltime then
+				if P_RandomChance(FRACUNIT/5) and not player.z_was_spectating then
 					player.ztype = "alpha"
 				end
 			end
+			player.z_was_spectating = false
 		else
 			player.zteam = 1
 		end
@@ -174,6 +175,13 @@ addHook("ViewpointSwitch", function(player, nextplayer)
 	end
 	if nextplayer.zteam ~= player.zteam then
 		return false
+	end
+end)
+
+-- Disable special zombie types when unspectating
+addHook("TeamSwitch", function(player, team, fromspectators)
+	if fromspectators then
+		player.z_was_spectating = true
 	end
 end)
 
