@@ -3,6 +3,7 @@ SRBZ:CreateItem("Automatic Ring",  {
 	icon = "AUTOIND",
 	firerate = 3,
 	color = SKINCOLOR_GREEN,
+	autouse = true,
 	damage = 7,
 	knockback = 15*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,

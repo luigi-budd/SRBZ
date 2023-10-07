@@ -9,6 +9,7 @@ SRBZ:CreateItem("Silver Spray",  {
 	knockback = 2*FRACUNIT,
 	flags2 = MF2_AUTOMATIC,
 	ammo = 10,
+	autouse = true,
 	reload_time = TICRATE,
 	sound = sfx_thoklw,
 })

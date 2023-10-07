@@ -209,6 +209,14 @@ function SRBZ.DoPlayerFire(player, iteminfo)
 	end
 end
 
+function SRBZ.DoPlayerReload(player)
+	local iteminfo = SRBZ:FetchInventorySlot(player)
+	if iteminfo and not player["srbz_info"].reload then
+		player["srbz_info"].reload = iteminfo.reload_time or 2*TICRATE
+		S_StartSound(player.mo, sfx_z_rel1)
+	end
+end
+
 addHook("PreThinkFrame", function()
 	if gametype ~= GT_SRBZ then return end
 	for player in players.iterate do
@@ -224,6 +232,8 @@ addHook("PreThinkFrame", function()
 
 			weapondelay = 0,
 			ghostmode = false,
+			
+			await_fire = false,
 			
 			reload = 0,
 			
@@ -275,46 +285,68 @@ addHook("PreThinkFrame", function()
 		end
 		
 		if not SRBZ.game_ended and not player["srbz_info"].ghostmode then 
-			if (cmd.buttons & BT_WEAPONPREV) and not player.choosing then
-				if not player["srbz_info"].pressedprev then
-					if player["srbz_info"].inventory_selection - 1 <= 0 then
-						player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
-					else
-						player["srbz_info"].inventory_selection = $ - 1
+			if not player.choosing then
+				if (cmd.buttons & BT_WEAPONPREV) then
+					if not player["srbz_info"].pressedprev then
+						if player["srbz_info"].inventory_selection - 1 <= 0 then
+							player["srbz_info"].inventory_selection = SRBZ:FetchInventoryLimit(player)
+						else
+							player["srbz_info"].inventory_selection = $ - 1
+						end
+						
+						S_StartSound(nil,sfx_mnu1a,player)
+						
+						player["srbz_info"].reload = 0
 					end
-					
-					S_StartSound(nil,sfx_mnu1a,player)
-					
-					player["srbz_info"].reload = 0
+				
+					player["srbz_info"].pressedprev = true
+				else
+					player["srbz_info"].pressedprev = false
 				end
 			
-				player["srbz_info"].pressedprev = true
-			else
-				player["srbz_info"].pressedprev = false
-			end
-		
-			if (cmd.buttons & BT_WEAPONNEXT) and not player.choosing then
-				if not player["srbz_info"].pressednext then
-				
-					if player["srbz_info"].inventory_selection + 1 > SRBZ:FetchInventoryLimit(player) then
-						player["srbz_info"].inventory_selection = 1
-					else
-						player["srbz_info"].inventory_selection = $ + 1
-					end
-
-					S_StartSound(nil,sfx_mnu1a,player)
+				if (cmd.buttons & BT_WEAPONNEXT) then
+					if not player["srbz_info"].pressednext then
 					
-					player["srbz_info"].reload = 0
+						if player["srbz_info"].inventory_selection + 1 > SRBZ:FetchInventoryLimit(player) then
+							player["srbz_info"].inventory_selection = 1
+						else
+							player["srbz_info"].inventory_selection = $ + 1
+						end
+
+						S_StartSound(nil,sfx_mnu1a,player)
+						
+						player["srbz_info"].reload = 0
+					end
+					
+					player["srbz_info"].pressednext = true
+				else
+					player["srbz_info"].pressednext = false	
 				end
 				
-				player["srbz_info"].pressednext = true
-			else
-				player["srbz_info"].pressednext = false	
+				if (cmd.buttons & BT_FIRENORMAL) then
+					if not player["srbz_info"].pressed_reload then
+						SRBZ.DoPlayerReload(player)
+					end
+					
+					player["srbz_info"].pressed_reload = true
+				else
+					player["srbz_info"].pressed_reload = false	
+				end
+				
+				if (cmd.buttons & BT_ATTACK) then
+					if not player["srbz_info"].pressed_fire then
+						player["srbz_info"].await_fire = true
+					end
+					player["srbz_info"].pressed_fire = true
+				else
+					player["srbz_info"].pressed_fire = false	
+				end
 			end
 			
 			-- try shoot
 			if (cmd.buttons & BT_ATTACK) and not player["srbz_info"].weapondelay and not player["srbz_info"].reload
-			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD and not player.shop_open then	
+			and SRBZ:FetchInventorySlot(player) and player.playerstate ~= PST_DEAD and not player.shop_open 
+			and (player["srbz_info"].await_fire or SRBZ:FetchInventorySlot(player).autouse) then	
 				local iteminfo = SRBZ:FetchInventorySlot(player)
 				
 				-- If theres no ammo, dont fire. 
@@ -323,6 +355,8 @@ addHook("PreThinkFrame", function()
 					SRBZ.DoPlayerFire(player, iteminfo)
 
 					player["srbz_info"].weapondelay = iteminfo.firerate
+					
+					player["srbz_info"].await_fire = false
 					
 					if iteminfo.count ~= nil and iteminfo.limited == true then
 						if iteminfo.count > 0  then
@@ -337,8 +371,7 @@ addHook("PreThinkFrame", function()
 					end
 					
 					if iteminfo.ammo <= 0 and not player["srbz_info"].reload then
-						player["srbz_info"].reload = iteminfo.reload_time or 2*TICRATE
-						S_StartSound(player.mo, sfx_z_rel1)
+						SRBZ.DoPlayerReload(player)
 					end
 				end
 			end	
