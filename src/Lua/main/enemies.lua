@@ -33,7 +33,7 @@ mobjinfo[MT_GOLDCRAWLA] = {
 	spawnhealth = 1,
 	reactiontime = 32,
 	painchance = 170,
-	speed = 20,
+	speed = 10,
 	radius = 24*FRACUNIT,
 	height = 32*FRACUNIT,
 	mass = 100,
@@ -41,9 +41,9 @@ mobjinfo[MT_GOLDCRAWLA] = {
 }
 
 mobjinfo[MT_GOLDCRAWLA].npc_name = "Gold Crawla"
-mobjinfo[MT_GOLDCRAWLA].npc_spawnhealth = {180,245}
+mobjinfo[MT_GOLDCRAWLA].npc_spawnhealth = {150,185}
 mobjinfo[MT_GOLDCRAWLA].npc_name_color = SKINCOLOR_GOLD
-mobjinfo[MT_GOLDCRAWLA].rubydrop = {50,60}
+mobjinfo[MT_GOLDCRAWLA].rubydrop = {70,90}
 mobjinfo[MT_GOLDCRAWLA].painsound = sfx_dmpain
 
 states[S_GOSS_STND] = {SPR_GOSS, A, 5, A_Look, 0, 0, S_GOSS_STND}
