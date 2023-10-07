@@ -12,9 +12,9 @@ SRBZ:CreateItem("Negative Ring",  {
 		end
 	end,
 	onspawn = function(pmo, mo)
-		mo.momx = $>>2
-		mo.momy = $>>2
-		mo.momz = $>>2
+		mo.momx = $/4
+		mo.momy = $/4
+		mo.momz = $/4
 		mo.scale = $*2
 	end,
 	price = 650,
