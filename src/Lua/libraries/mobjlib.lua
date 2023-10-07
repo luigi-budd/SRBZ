@@ -43,9 +43,9 @@ rawset(_G,'L_SpeedCap', function(mo,limit,factor)
 	end
 end)
 
-rawset(_G, 'L_FixedDecimal', function(str,maxdecimal)
+rawset(_G, "L_FixedDecimal", function(str,maxdecimal)
 	if str == nil or tostring(str) == nil
-		return '<invalid FixedDecimal>'
+		return "<invalid FixedDecimal>"
 	end
 	local number = tonumber(str)
 	maxdecimal = ($ != nil) and $ or 3

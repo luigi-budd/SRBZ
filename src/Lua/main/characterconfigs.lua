@@ -211,6 +211,8 @@ SRBZ.CharacterConfig = {
 
 SRBZ.AddConfig = function(charname, table)
 	SRBZ.CharacterConfig[charname] = table
+	SRBZ.CharacterConfig[charname].sprintboost = $ or SRBZ.CharacterConfig["default"].sprintboost
+
 	print("Added chararacter config: ".. charname)
 end
 
