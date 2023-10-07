@@ -23,6 +23,11 @@ function SRBZ:CreateItem(name,table)
 	if temp_table.count then
 		temp_table.maxcount = temp_table.count
 	end
+	
+	if temp_table.ammo then
+		temp_table.max_ammo = temp_table.ammo
+	end
+	
 	local idname = ("ITEM_"..name:upper()):gsub(" ","_"):gsub("'","")
 	local idglobal = rawset(_G, idname, #self.ItemPresets + 1)
 	self.ItemPresets[#self.ItemPresets + 1] = temp_table
