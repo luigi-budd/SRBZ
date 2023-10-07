@@ -5,9 +5,10 @@ SRBZ:CreateItem("Green Shell",  {
 	fuse = 5*TICRATE,
 	color = SKINCOLOR_GREEN,
 	knockback = 15*FU,
-	damage = 12,
+	damage = 10,
+	ammo = 15,
 	onspawn = function(pmo, mo)
-		mo.scale = $*2
+		mo.scale = ($*3)/2
 	end,
 	reload_time = 3*TICRATE,
 	onhit = function(pmo, hit, shell)
