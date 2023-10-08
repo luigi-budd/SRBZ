@@ -146,7 +146,7 @@ addHook("MobjSpawn", function(mobj)
 			table.insert(itemlist, i)
 		end
 	end
-    for i=1,P_RandomRange(3,4) do
+    for i=1,P_RandomRange(3,6) do
         local rng = P_RandomRange(1,#itemlist) 
         local choseitem = itemlist[rng]
         local item = SRBZ:CopyItemFromID(choseitem)
