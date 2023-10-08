@@ -62,7 +62,7 @@ SRBZ.sprint_thinker = function(player)
 	local cc = SRBZ.CharacterConfig
 	
 	local increment = FRACUNIT/4
-	local decrement = FRACUNIT/2
+	local decrement = FRACUNIT/3
 	
 	if player.zteam == 1 then
 		if (player.speed > 5*FRACUNIT) and (cmd.buttons & BT_CUSTOM1) then
