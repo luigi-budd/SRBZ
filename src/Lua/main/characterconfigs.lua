@@ -237,7 +237,7 @@ end
 
 SRBZ.AddConfig("sonic", {
 	normalspeed = 12 * FRACUNIT,
-	health = 80,
+	health = 55,
 	charability = CA_JUMPTHOK,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
@@ -249,11 +249,11 @@ SRBZ.AddConfig("sonic", {
 
 SRBZ.AddConfig("tails", {
 	normalspeed = 10 * FRACUNIT,
-	health = 55,
+	health = 80,
 	charability = CA_FLY,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
-	actionspd = 35*FRACUNIT,
+	actionspd = 30*FRACUNIT,
 	desc1 = "Has the brains. Without the plane.",
 	desc2 = "Flies slow. Slower than sonic."
 })
