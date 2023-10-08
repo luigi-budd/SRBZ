@@ -108,6 +108,18 @@ SRBZ.SetZCtoplayer = function(player)
 			if (zc[ztype].actionspd) then 
 				player.actionspd = zc[ztype].actionspd 
 			end
+			
+			if (zc[ztype].accelstart) then 
+				player.accelstart = zc[ztype].accelstart 
+			else
+				player.accelstart = 110
+			end
+			
+			if (zc[ztype].acceleration) then 
+				player.acceleration = zc[ztype].acceleration 
+			else
+				player.acceleration = 70
+			end
 
 			if (zc[ztype].charflags) then 
 				player.charflags = $|zc[ztype].charflags 
@@ -126,11 +138,12 @@ SRBZ.SetZChealth = function(player)
 	
 	if pmo and pmo.valid then
 		if zc[ztype] then
+			local healthpersurvivor = zc[ztype].healthpersurvivor or 5
 			if (zc[ztype].health) then
-				pmo.health = zc[ztype].health
+				pmo.health = zc[ztype].health + (SRBZ.SurvivorCount()*healthpersurvivor)
 				pmo.maxhealth = pmo.health
 			else
-				pmo.health = cc["default"].health -- cc still isnt a typo
+				pmo.health = cc["default"].health + (SRBZ.SurvivorCount()*healthpersurvivor) -- cc still isnt a typo
 				pmo.maxhealth = pmo.health
 			end
 		else
@@ -168,12 +181,15 @@ end
 SRBZ.ZombieConfig = {
 	["normal"] = {
 		skincolor = SKINCOLOR_MOSS,
-		normalspeed = 25 * FRACUNIT,
-		health = 90,
+		normalspeed = 16 * FRACUNIT,
+		health = 150,
+		healthpersurvivor = 5,
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
-		jumpfactor = 25 * FRACUNIT / 19,
+		jumpfactor = 17 * FRACUNIT / 19,
 		actionspd = 9*FRACUNIT,
+		accelstart = 116,
+		acceleration = 70,
 		inventory_limit = 1,
 		inventory = {
 			SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
@@ -182,14 +198,17 @@ SRBZ.ZombieConfig = {
 	},
 	["alpha"] = {
 		skincolor = SKINCOLOR_ALPHAZOMBIE,
-		normalspeed = 27 * FRACUNIT,
-		health = 120,
+		normalspeed = 15 * FRACUNIT,
+		health = 240,
+		healthpersurvivor = 10,
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
-		jumpfactor = 28 * FRACUNIT / 19,
+		jumpfactor = 21 * FRACUNIT / 19,
 		actionspd = 9*FRACUNIT,
 		scale = 13*FRACUNIT/10,
-		killaward = 45,
+		killaward = 55,
+		accelstart = 116,
+		acceleration = 70,
 		inventory_limit = 2,
 		inventory = {
 			SRBZ:CopyItemFromID(ITEM_INSTA_BURST),
@@ -200,12 +219,12 @@ SRBZ.ZombieConfig = {
 
 SRBZ.CharacterConfig = {
 	["default"] = {
-		normalspeed = 19 * FRACUNIT,
-		health = 80,
+		normalspeed = 10 * FRACUNIT,
+		health = 40,
 		charability = CA_NONE,
 		charability2 = CA2_NONE,
 		jumpfactor = 17 * FRACUNIT / 19,
-		sprintboost = 13 * FRACUNIT,
+		sprintboost = 10 * FRACUNIT,
 	},
 }
 
@@ -216,30 +235,21 @@ SRBZ.AddConfig = function(charname, table)
 	print("Added chararacter config: ".. charname)
 end
 
-SRBZ.AddConfig("zzombie", {
-	normalspeed = 20 * FRACUNIT,
-	health = 90,
-	charability = CA_NONE,
-	charability2 = CA2_NONE,
-	jumpfactor = 24 * FRACUNIT / 19,
-	actionspd = 9*FRACUNIT,
-})
-
 SRBZ.AddConfig("sonic", {
-	normalspeed = 19 * FRACUNIT,
-	health = 50,
+	normalspeed = 12 * FRACUNIT,
+	health = 80,
 	charability = CA_JUMPTHOK,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
-	actionspd = 12*FRACUNIT,
+	actionspd = 19*FRACUNIT,
 	desc1 = "Fast hedgehog born to speed.",
 	desc2 = "Has Low HP, and High Speed",
 	desc3 = "Are you up for the challenge?"
 })
 
 SRBZ.AddConfig("tails", {
-	normalspeed = 15 * FRACUNIT,
-	health = 95,
+	normalspeed = 10 * FRACUNIT,
+	health = 55,
 	charability = CA_FLY,
 	charability2 = CA2_NONE,
 	jumpfactor = 17 * FRACUNIT / 19,
@@ -249,7 +259,7 @@ SRBZ.AddConfig("tails", {
 })
 
 SRBZ.AddConfig("knuckles", {
-	normalspeed = 13 * FRACUNIT,
+	normalspeed = 8 * FRACUNIT,
 	health = 115,
 	charability = CA_GLIDEANDCLIMB,
 	charability2 = CA2_NONE,
@@ -260,7 +270,7 @@ SRBZ.AddConfig("knuckles", {
 })
 
 SRBZ.AddConfig("amy", {
-	normalspeed = 17 * FRACUNIT,
+	normalspeed = 9 * FRACUNIT,
 	health = 75,
 	charability = CA_TWINSPIN,
 	charability2 = CA2_MELEE,
@@ -270,7 +280,7 @@ SRBZ.AddConfig("amy", {
 })
 
 SRBZ.AddConfig("fang", {
-	normalspeed = 16 * FRACUNIT,
+	normalspeed = 10 * FRACUNIT,
 	health = 85,
 	charability = CA_BOUNCE,
 	charability2 = CA2_GUNSLINGER,
@@ -280,7 +290,7 @@ SRBZ.AddConfig("fang", {
 })
 
 SRBZ.AddConfig("metalsonic", {
-	normalspeed = 14 * FRACUNIT,
+	normalspeed = 11 * FRACUNIT,
 	health = 75,
 	charability = CA_JUMPBOOST,
 	charability2 = CA2_NONE,

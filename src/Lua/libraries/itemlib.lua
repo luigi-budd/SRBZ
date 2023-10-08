@@ -59,6 +59,7 @@ function SRBZ:FetchInventoryLimit(player)
 			end
 		end
 	end
+	return 1
 end
 
 function SRBZ:FetchInventorySlot(player)

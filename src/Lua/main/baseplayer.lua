@@ -1,5 +1,6 @@
 freeslot("sfx_zjump")
 sfxinfo[sfx_zjump].caption = "Jump"
+SRBZ.JumpSprintFatigue = 5*FRACUNIT
 
 -- some stuff that player needs
 SRBZ.giveplayerflags = function(player)
@@ -32,6 +33,22 @@ SRBZ.giveplayerflags = function(player)
 		if leveltime < 2 then
 			SRBZ.RevertChars(player) 
 		end
+	end
+end
+
+function SRBZ:DecrementSprint(player, value)
+	if player.sprintmeter - abs(value) <= 0 then
+		player.sprintmeter = 0
+	else
+		player.sprintmeter = $ - abs(value)
+	end
+end
+
+function SRBZ:IncrementSprint(player, value)
+	if player.sprintmeter + abs(value) >= 100*FRACUNIT then
+		player.sprintmeter = 100*FRACUNIT
+	else
+		player.sprintmeter = $ + abs(value)
 	end
 end
 
@@ -78,6 +95,17 @@ SRBZ.sprint_thinker = function(player)
 		player.isSprinting = false
 	end
 end
+
+addHook("JumpSpecial", function(player)
+	if player.mo and player.mo.valid and player.isSprinting and P_IsObjectOnGround(player.mo) then
+		if player.sprintmeter - SRBZ.JumpSprintFatigue <= 0 then
+			player.sprintmeter = 0
+			return true
+		else
+			player.sprintmeter = $ - SRBZ.JumpSprintFatigue
+		end
+	end
+end)
 
 -- we hate griefers
 addHook("LinedefExecute", function(line, mobj, sector)
