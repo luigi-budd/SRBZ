@@ -29,8 +29,6 @@ dofile "main/items/item_rail_ring.lua"
 dofile "main/items/item_silver_spray.lua"
 // ITEMS END
 
-dofile "main/netvars.lua"
-
 dofile "main/zombie/zombie_checkpoints.lua"
 dofile "main/zombie/zombie_colors.lua"
 
@@ -69,3 +67,5 @@ dofile "levelscripts/thefarland.lua"
 dofile "levelscripts/minecraft.lua"
 dofile "levelscripts/specialstage.lua"
 dofile "levelscripts/undertale.lua"
+
+dofile "main/netvars.lua"
