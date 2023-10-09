@@ -1,5 +1,54 @@
 -- health and maxhealth are identical values, I see no sense in declaring two of them
 -- (perhaps players starting with lower hp?)
+SRBZ.ZombieConfig = {
+	["normal"] = {
+		skincolor = SKINCOLOR_MOSS,
+		normalspeed = 15 * FRACUNIT,
+		health = 120,
+		healthpersurvivor = 5,
+		charability = CA_NONE,
+		charability2 = CA2_NONE,
+		jumpfactor = 17 * FRACUNIT / 19,
+		actionspd = 9*FRACUNIT,
+		accelstart = 116,
+		acceleration = 70,
+		inventory_limit = 1,
+		inventory = {
+			SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
+		},
+		
+	},
+	["alpha"] = {
+		skincolor = SKINCOLOR_ALPHAZOMBIE,
+		normalspeed = 14 * FRACUNIT,
+		health = 140,
+		healthpersurvivor = 10,
+		charability = CA_NONE,
+		charability2 = CA2_NONE,
+		jumpfactor = 21 * FRACUNIT / 19,
+		actionspd = 9*FRACUNIT,
+		scale = 13*FRACUNIT/10,
+		killaward = 55,
+		accelstart = 116,
+		acceleration = 70,
+		inventory_limit = 2,
+		inventory = {
+			SRBZ:CopyItemFromID(ITEM_INSTA_BURST),
+			SRBZ:CopyItemFromID(ITEM_SILVER_SPRAY)
+		},
+	},
+}
+
+SRBZ.CharacterConfig = {
+	["default"] = {
+		normalspeed = 10 * FRACUNIT,
+		health = 40,
+		charability = CA_NONE,
+		charability2 = CA2_NONE,
+		jumpfactor = 17 * FRACUNIT / 19,
+		sprintboost = 10 * FRACUNIT,
+	},
+}
 
 SRBZ.MobjTouchingPolyObj = function(mobj)
 	for polyobj in polyobjects.iterate do
@@ -177,56 +226,6 @@ SRBZ.SetZCinventory = function(player)
 		end
 	end
 end
-
-SRBZ.ZombieConfig = {
-	["normal"] = {
-		skincolor = SKINCOLOR_MOSS,
-		normalspeed = 15 * FRACUNIT,
-		health = 120,
-		healthpersurvivor = 5,
-		charability = CA_NONE,
-		charability2 = CA2_NONE,
-		jumpfactor = 17 * FRACUNIT / 19,
-		actionspd = 9*FRACUNIT,
-		accelstart = 116,
-		acceleration = 70,
-		inventory_limit = 1,
-		inventory = {
-			SRBZ:CopyItemFromID(ITEM_INSTA_BURST)
-		},
-		
-	},
-	["alpha"] = {
-		skincolor = SKINCOLOR_ALPHAZOMBIE,
-		normalspeed = 14 * FRACUNIT,
-		health = 140,
-		healthpersurvivor = 10,
-		charability = CA_NONE,
-		charability2 = CA2_NONE,
-		jumpfactor = 21 * FRACUNIT / 19,
-		actionspd = 9*FRACUNIT,
-		scale = 13*FRACUNIT/10,
-		killaward = 55,
-		accelstart = 116,
-		acceleration = 70,
-		inventory_limit = 2,
-		inventory = {
-			SRBZ:CopyItemFromID(ITEM_INSTA_BURST),
-			SRBZ:CopyItemFromID(ITEM_SILVER_SPRAY)
-		},
-	},
-}
-
-SRBZ.CharacterConfig = {
-	["default"] = {
-		normalspeed = 10 * FRACUNIT,
-		health = 40,
-		charability = CA_NONE,
-		charability2 = CA2_NONE,
-		jumpfactor = 17 * FRACUNIT / 19,
-		sprintboost = 10 * FRACUNIT,
-	},
-}
 
 SRBZ.AddConfig = function(charname, table)
 	SRBZ.CharacterConfig[charname] = table
