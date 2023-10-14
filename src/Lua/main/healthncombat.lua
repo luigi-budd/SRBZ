@@ -1,3 +1,11 @@
+freeslot("MT_SRBZ_IFRAMES")
+mobjinfo[MT_SRBZ_IFRAMES] = {
+	doomednum = -1,
+	spawnhealth = 1,
+	spawnstate = S_RING,
+	flags = MF_NOCLIP|MF_NOCLIPHEIGHT|MF_NOGRAVITY
+}
+
 SRBZ.LimitMobjHealth = function(mobj)
 	if mobj and mobj.valid then
 		if mobj.health and mobj.maxhealth then
@@ -53,6 +61,10 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 		knockback = inf.info.forceknockback
 	end
 	
+	if (mo.iframehelper and mo.iframehelper.valid) then
+		return true
+	end
+	
 	if mo.player then
 		if mo.player.zteam == 1 then
 			mo.player.powers[pw_flashing] = 35
@@ -72,17 +84,18 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			S_StartSound(mo, chosen_hurtsound)
 		end
 	elseif mobjinfo[mo.type].npc_name
+		
 		if (not mo.target) and (inf or src.player) then --enemies wake up if you hit them from behind
 			mo.target = src
-			mo.state = mo.info.seestate
+			mo.state = mo.info.painstate
 		end
 
-		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_None then
+		if mobjinfo[mo.type].painsound and mobjinfo[mo.type].painsound ~= sfx_none then
 			S_StartSound(mo,mobjinfo[mo.type].painsound)
 		end
 		
 		P_Thrust(mo, inf.angle, knockback)
-	
+		
 	end
 	
 	if (not inf) or (not inf.iteminfo) then
@@ -94,6 +107,7 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 			end
 		end
 	end
+	
 	if dmg >= mo.health then
 		if mo.player and mo.player.valid then
 			local player = mo.player 
@@ -110,9 +124,17 @@ addHook("MobjDamage", function(mo, inf, src, dmg)
 
 
 	if mo.rubiesholding and (mo.rubiesholding - (mo.rubiesholding/3)) > 0 then
-		 A_RubyDrop(mo, mo.rubiesholding/3)
-		 mo.rubiesholding = $ - mo.rubiesholding/3
+		A_RubyDrop(mo, mo.rubiesholding/3)
+		mo.rubiesholding = $ - mo.rubiesholding/3
 	end
+	
+	//why? only tihnk for these helpers so we dont have to think 
+	//for every mobj! -luigii budd
+	mo.iframehelper = P_SpawnMobjFromMobj(mo,0,0,0,MT_SRBZ_IFRAMES)
+	mo.iframehelper.flags2 = $|MF2_DONTDRAW
+	mo.iframehelper.target = mo
+	mo.iframehelper.fuse = TICRATE/2
+	
 	mo.health = $ - dmg -- fake damage i guess
 	
 	return true
@@ -499,3 +521,26 @@ addHook("MobjSpawn", function(mobj)
 		mobj.dontshowhealth = true
 	end
 end)
+
+addHook("MobjThinker",function(iframe)
+	if not (iframe and iframe.valid) then
+		return
+	end
+	
+	if not (iframe.target and iframe.target.valid) then
+		P_RemoveMobj(iframe)
+		return
+	end
+	
+	local mo = iframe.target
+	
+	if (iframe.fuse > 1) then
+		if (iframe.fuse % 2) then
+			mo.flags2 = $|MF2_DONTDRAW
+		else
+			mo.flags2 = $ &~MF2_DONTDRAW
+		end
+	else
+		mo.flags2 = $ &~MF2_DONTDRAW
+	end
+end,MT_SRBZ_IFRAMES)
